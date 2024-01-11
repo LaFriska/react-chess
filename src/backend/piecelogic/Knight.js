@@ -9,8 +9,8 @@ export const getPossibleKnightMoves = (x, y, chessPos, color) => {
         if(chessPos.getColor(transformedRow, tranformedCol) === color) return; //Breaks if the target square contains a friendly piece
 
         res.push({
-            x: transformedRow,
-            y: tranformedCol
+            row: transformedRow,
+            col: tranformedCol
         })
     }
     const p = [1, -1, 1, -1]

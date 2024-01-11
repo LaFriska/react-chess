@@ -58,14 +58,14 @@ const Board = (props) => {
     const highlightPossibleMoves = (newStates, x, y) => {
         const possibleMoves = game.getPossibleMoves(x, y)
         for(let i = 0; i < possibleMoves.length; i++){
-            newStates[possibleMoves[i].x][possibleMoves[i].y] = {...newStates[possibleMoves[i].x][possibleMoves[i].y], highlightPossibleMoves: true}
+            newStates[possibleMoves[i].row][possibleMoves[i].col] = {...newStates[possibleMoves[i].row][possibleMoves[i].col], highlightPossibleMoves: true}
         }
         setHighlightedPossibleMoves(possibleMoves)
     }
 
     const unhighlightPossibleMoves = (newStates) => {
         for(let i = 0; i < highlightedPossibleMoves.length; i++){
-            newStates[highlightedPossibleMoves[i].x][highlightedPossibleMoves[i].y] = {...newStates[highlightedPossibleMoves[i].x][highlightedPossibleMoves[i].y], highlightPossibleMoves: false}
+            newStates[highlightedPossibleMoves[i].row][highlightedPossibleMoves[i].col] = {...newStates[highlightedPossibleMoves[i].row][highlightedPossibleMoves[i].col], highlightPossibleMoves: false}
         }
     }
 

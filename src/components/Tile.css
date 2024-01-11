@@ -16,9 +16,10 @@
 }
 
 .highlight-possible-moves{
-    width: var(--highlighted-tile-size);
-    height: var(--highlighted-tile-size);
-    border: var(--highlighted-tile-border-width) solid var(--highlighted-possible-moves-tile-color)
+    background-color: #75f664 !important;
+    /*width: var(--highlighted-tile-size);*/
+    /*height: var(--highlighted-tile-size);*/
+    /*border: var(--highlighted-tile-border-width) solid var(--highlighted-possible-moves-tile-color)*/
 }
 
 .piece{
