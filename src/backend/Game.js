@@ -17,36 +17,36 @@ class Game{
     constructor(){
     }
 
-    play(x, y, x2, y2){
-        if(!this.checkPlay(x, y, x2, y2)) return null;
-        this.chessPos.move(x, y, x2, y2)
+    play(row, col, row2, col2){
+        if(!this.checkPlay(row, col, row2, col2)) return null;
+        this.chessPos.move(row, col, row2, col2)
         this.turn = !this.turn
         return this.chessPos;
     }
 
-    checkPlay(x, y, x2, y2){
-        if(!(Math.max(x2, y2) < 8)) return false; //Makes sure the values stay in bound
-        if(this.chessPos.getColor(x, y) !== this.turn) return false; //Checks for the right turn
-        const piece = this.chessPos.get(x, y);
-        return this.isPossibleMove(x, y, x2, y2)
+    checkPlay(row, col, row2, col2){
+        if(!(Math.max(row2, col2) < 8)) return false; //Makes sure the values stay in bound
+        if(this.chessPos.getColor(row, col) !== this.turn) return false; //Checks for the right turn
+        const piece = this.chessPos.get(row, col);
+        return this.isPossibleMove(row, col, row2, col2)
     }
 
-    getPossibleMoves(x, y){
-        const piece = this.chessPos.get(x, y);
+    getPossibleMoves(row, col){
+        const piece = this.chessPos.get(row, col);
         switch(piece){
             case 'N':
-            case 'n': return getPossibleKnightMoves(x, y, this.chessPos, checkPieceColor(piece))
+            case 'n': return getPossibleKnightMoves(row, col, this.chessPos, checkPieceColor(piece))
             case 'p':
-            case 'P': return getPossiblePawnMoves(x, y, this.chessPos, checkPieceColor(piece))
+            case 'P': return getPossiblePawnMoves(row, col, this.chessPos, checkPieceColor(piece))
             default: return [];
         }
     }
 
-    isPossibleMove(x, y, x2, y2){
-        const possibleMoves = this.getPossibleMoves(x, y)
+    isPossibleMove(row, col, row2, col2){
+        const possibleMoves = this.getPossibleMoves(row, col)
 
         for(let i = 0; i < possibleMoves.length; i++){
-            if(possibleMoves[i].x === x2 && possibleMoves[i].y === y2) return true;
+            if(possibleMoves[i].x === row2 && possibleMoves[i].y === col2) return true;
         }
         return false;
     }
