@@ -1,0 +1,22 @@
+@import '../constants.css';
+
+.tile{
+    width: var(--tile-size);
+    height: var(--tile-size);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center
+}
+
+.highlight{
+    width: var(--highlighted-tile-size);
+    height: var(--highlighted-tile-size);
+    border: var(--highlighted-tile-border-width) solid var(--highlighted-tile-color)
+}
+
+.piece{
+    user-select: none;
+    width: var(--piece-size);
+    height: var(--piece-size);
+}
