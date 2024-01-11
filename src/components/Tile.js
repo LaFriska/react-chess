@@ -17,7 +17,7 @@ const Tile = (props) => {
 
     let classname = 'tile';
 
-    if(props.highlight === 'true') classname = classname + ' highlight'
+    if(props.highlight === true) classname = classname + ' highlight'
 
     return (
         isPieceDefined()

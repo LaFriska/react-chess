@@ -12,7 +12,7 @@ const Board = (props) => {
         files.map((file, j) => ({
                     id: `${rank}${file}`,
                     color: isEven(i + j) ? 'white' : 'color',
-                    highlight: 'false'
+                    highlight: false
                 }
             )
         )
@@ -33,29 +33,28 @@ const Board = (props) => {
         const hasPiece = chesspos.get(x2, y2) !== 'x';
 
         if(hasPiece && hasHighlight){ //Tries to take a piece
-            if(chesspos.getColor(x, y) !== chesspos.getColor(x2, y2)){ //Takes an enemy piece
-                const newPos = game.play(x, y, x2, y2)
-                if(newPos !== null) setChessPos(newPos)
-                setHighlightedCoord(null)
-            }else { //Moves from piece to select another same colour piece
-                newStates[x2][y2] = {...newStates[x2][y2], highlight: 'true'}
+            //Takes an enemy piece
+            if(chesspos.getColor(x, y) !== chesspos.getColor(x2, y2)) tryPlay(newStates, x, y, x2, y2)
+            else { //Moves from piece to select another same colour piece
+                newStates[x2][y2] = {...newStates[x2][y2], highlight: true}
                 setHighlightedCoord(x2 === x && y2 === y ? null : coords)
             }
-            newStates[x][y] =  {...newStates[x][y], highlight: 'false'}
+            newStates[x][y] =  {...newStates[x][y], highlight: false}
         }else if (hasPiece && !hasHighlight){ //Selects a piece.
-            newStates[x2][y2] = {...newStates[x2][y2], highlight: 'true'}
+            newStates[x2][y2] = {...newStates[x2][y2], highlight: true}
             setHighlightedCoord(coords)
         }else if (!hasPiece && hasHighlight){ //Moves a piece
-            newStates[x][y] =  {...newStates[x][y], highlight: 'false'}
-            const newPos = game.play(x, y, x2, y2) //Plays if highlighted square has a piece and newly clicked square is empty
-            if(newPos !== null) setChessPos(newPos)
-            setHighlightedCoord(null)
-        }else{ //Attempt to select an empty square
-            setHighlightedCoord(null)
-        }
+            tryPlay(newStates, x, y, x2, y2)
+        }else setHighlightedCoord(null) //Attempt to select an empty square
         setTileStates(newStates)
     }
 
+    const tryPlay = (newStates, x, y, x2, y2) => {
+        newStates[x][y] = {...newStates[x][y], highlight: false}
+        const newPos = game.play(x, y, x2, y2)
+        if(newPos !== null) setChessPos(newPos)
+        setHighlightedCoord(null)
+    }
 
     return(
         <div className='board'>
