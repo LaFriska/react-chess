@@ -1,15 +1,16 @@
+import {isInBound} from "../BackendUtils";
+
 export const getPossibleKnightMoves = (x, y, chessPos, color) => {
     const res = [];
-    const add = (xAdd, yAdd) => {
-        const transformedX = x + xAdd
-        const transformedY = y + yAdd
-        if(Math.max(transformedX, transformedY) > 7) return; //Breaks if x and y are out of upper bounds of board
-        if(Math.min(transformedX, transformedY) < 0) return; //Breaks if x and y are out of lower bounds of board
-        if(chessPos.getColor(transformedX, transformedY) === color) return; //Breaks if the target square contains a friendly piece
+    const add = (rowAdd, colAdd) => {
+        const transformedRow = x + rowAdd
+        const tranformedCol = y + colAdd
+        if(!isInBound(transformedRow, tranformedCol)) return //Breaks if out of bound
+        if(chessPos.getColor(transformedRow, tranformedCol) === color) return; //Breaks if the target square contains a friendly piece
 
         res.push({
-            x: transformedX,
-            y: transformedY
+            x: transformedRow,
+            y: tranformedCol
         })
     }
     const p = [1, -1, 1, -1]

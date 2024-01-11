@@ -22,4 +22,9 @@ function checkPieceColor(piece){
     if(piece === piece.toLowerCase()) return false;
 }
 
-module.exports = {convertToPieceName, checkPieceColor}
+function isInBound(row, col){
+    if(Math.max(row, col) > 7 || Math.min(row, col) < 0) return false;
+    return true
+}
+
+module.exports = {convertToPieceName, checkPieceColor, isInBound}
