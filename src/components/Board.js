@@ -40,8 +40,9 @@ const Board = (props) => {
             if(chesspos.getColor(x, y) !== chesspos.getColor(x2, y2)) tryPlay(newStates, x, y, x2, y2)
             else { //Moves from piece to select another same colour piece
                 newStates[x2][y2] = {...newStates[x2][y2], highlight: true}
-                highlightPossibleMoves(newStates, x2, y2)
-                setHighlightedCoord(x2 === x && y2 === y ? null : coords)
+                const isSamePiece = x2 === x && y2 === y;
+                if(!isSamePiece) highlightPossibleMoves(newStates, x2, y2)
+                setHighlightedCoord(isSamePiece ? null : coords)
             }
             newStates[x][y] =  {...newStates[x][y], highlight: false}
         }else if (hasPiece && !hasHighlight){ //Selects a piece.

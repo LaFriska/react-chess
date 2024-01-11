@@ -16,4 +16,10 @@ function convertToPieceName(char){
     }
 }
 
-module.exports = {convertToPieceName}
+function checkPieceColor(piece){
+    if(piece === 'x') return null;
+    if(piece === piece.toUpperCase()) return true;
+    if(piece === piece.toLowerCase()) return false;
+}
+
+module.exports = {convertToPieceName, checkPieceColor}

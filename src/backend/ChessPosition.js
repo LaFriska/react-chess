@@ -1,4 +1,4 @@
-const {convertToPieceName} = require("./BackendUtils");
+const {convertToPieceName, checkPieceColor} = require("./BackendUtils");
 
 class ChessPosition{
 
@@ -22,9 +22,7 @@ class ChessPosition{
 
     getColor(row, col){
         const get = this.get(row, col)
-        if(get === 'x') return null;
-        if(get === get.toUpperCase()) return true;
-        else return false;
+        return checkPieceColor(get)
     }
     clone(){
         return new ChessPosition([...this.matrix])

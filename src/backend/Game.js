@@ -1,5 +1,7 @@
 import {ChessPosition} from "./ChessPosition";
 import board from "../components/Board";
+import {getPossibleKnightMoves} from "./Knight";
+import {checkPieceColor} from "./BackendUtils";
 
 class Game{
 
@@ -24,48 +26,26 @@ class Game{
     checkPlay(x, y, x2, y2){
         if(!(Math.max(x2, y2) < 8)) return false; //Makes sure the values stay in bound
         if(this.chessPos.getColor(x, y) !== this.turn) return false; //Checks for the right turn
-
         const piece = this.chessPos.get(x, y);
-        if(piece.toLowerCase() === 'n' && !this.checkKnight(x, y, x2, y2)) return false;
-        return true;
+        return this.isPossibleMove(x, y, x2, y2)
     }
 
     getPossibleMoves(x, y){
         const piece = this.chessPos.get(x, y);
         switch(piece){
-            case 'N': return this.getPossibleKnightMoves(x, y)
-            case 'n': return this.getPossibleKnightMoves(x, y)
+            case 'N':
+            case 'n': return getPossibleKnightMoves(x, y, this.chessPos, checkPieceColor(piece))
             default: return [];
         }
     }
 
-    getPossibleKnightMoves(x, y){
-        const res = [];
-        const add = (xAdd, yAdd) => {
-            const transformedX = x + xAdd
-            const transformedY = y + yAdd
-            if(Math.max(transformedX, transformedY) < 8 && Math.min(transformedX, transformedY) >= 0) res.push({
-                x: transformedX,
-                y: transformedY
-            })
+    isPossibleMove(x, y, x2, y2){
+        const possibleMoves = this.getPossibleMoves(x, y)
+
+        for(let i = 0; i < possibleMoves.length; i++){
+            if(possibleMoves[i].x === x2 && possibleMoves[i].y === y2) return true;
         }
-        add(-2, -1)
-        add(-1, -2)
-        add(2, -1)
-        add(1, -2)
-        add(-2, 1)
-        add(-1, 2)
-        add(2, 1)
-        add(1, 2)
-        return res;
-    }
-
-    checkKnight(x, y, x2, y2){
-        const dx = Math.abs(x2 - x)
-        const dy = Math.abs(y2 - y)
-
-        if(Math.abs(dx - dy) === 1) return true;
-        else return false;
+        return false;
     }
 }
 
