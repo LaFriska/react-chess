@@ -15,6 +15,12 @@
     border: var(--highlighted-tile-border-width) solid var(--highlighted-tile-color)
 }
 
+.highlight-possible-moves{
+    width: var(--highlighted-tile-size);
+    height: var(--highlighted-tile-size);
+    border: var(--highlighted-tile-border-width) solid var(--highlighted-possible-moves-tile-color)
+}
+
 .piece{
     user-select: none;
     width: var(--piece-size);

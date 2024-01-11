@@ -8,6 +8,7 @@
     --highlighted-tile-border-width: 3px;
     --highlighted-tile-size: 74px;
     --highlighted-tile-color : #03A9F4;
+    --highlighted-possible-moves-tile-color : #7cff7e;
     --piece-size: 70px
 }
 

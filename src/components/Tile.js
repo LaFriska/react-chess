@@ -17,16 +17,23 @@ const Tile = (props) => {
 
     let classname = 'tile';
 
+    const getClassName = () => {
+        let classname = 'tile';
+        if(props.highlight === true) classname = classname + ' highlight'
+        else if(props.highlightPossibleMoves === true) classname = classname + ' highlight-possible-moves'
+        return classname
+    }
+
     if(props.highlight === true) classname = classname + ' highlight'
 
     return (
         isPieceDefined()
             ?
-            <div onClick={clicked} className={classname} style={styles}>
+            <div onClick={clicked} className={getClassName()} style={styles}>
                 <img className='piece' src={'./imgs/' + BackendUtils.convertToPieceName(props.piece) + '.svg'} draggable='false'/>
             </div>
             :
-            <div onClick={clicked} className={classname} style={styles}>
+            <div onClick={clicked} className={getClassName()} style={styles}>
             </div>
     )
 }

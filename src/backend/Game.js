@@ -30,6 +30,36 @@ class Game{
         return true;
     }
 
+    getPossibleMoves(x, y){
+        const piece = this.chessPos.get(x, y);
+        switch(piece){
+            case 'N': return this.getPossibleKnightMoves(x, y)
+            case 'n': return this.getPossibleKnightMoves(x, y)
+            default: return [];
+        }
+    }
+
+    getPossibleKnightMoves(x, y){
+        const res = [];
+        const add = (xAdd, yAdd) => {
+            const transformedX = x + xAdd
+            const transformedY = y + yAdd
+            if(Math.max(transformedX, transformedY) < 8 && Math.min(transformedX, transformedY) >= 0) res.push({
+                x: transformedX,
+                y: transformedY
+            })
+        }
+        add(-2, -1)
+        add(-1, -2)
+        add(2, -1)
+        add(1, -2)
+        add(-2, 1)
+        add(-1, 2)
+        add(2, 1)
+        add(1, 2)
+        return res;
+    }
+
     checkKnight(x, y, x2, y2){
         const dx = Math.abs(x2 - x)
         const dy = Math.abs(y2 - y)
