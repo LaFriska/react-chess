@@ -10,7 +10,7 @@ export const getPossibleKnightMoves = (x, y, chessPos, color) => {
 
         res.push({
             row: transformedRow,
-            col: tranformedCol
+            col: tranformedCol,
         })
     }
     const p = [1, -1, 1, -1]

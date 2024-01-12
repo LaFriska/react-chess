@@ -19,38 +19,47 @@ class Game{
 
     play(row, col, row2, col2){
         const checkPlay = this.checkPlay(row, col, row2, col2)
-        if(checkPlay === false) return null;
-        this.futureEnPassent = [];
-        if(checkPlay === true) this.chessPos.move(row, col, row2, col2)
-        else { //ADDITIONAL DATA
-            this.chessPos.move(row, col, row2, col2)
-            if(checkPlay.futureEnPassent !== undefined) {
-                this.futureEnPassent = checkPlay.futureEnPassent;
-            }
-            if(checkPlay.specialInstruction !== undefined) {
-                this.executeSpecialInstruction(checkPlay.specialInstruction)
-            }
+        if(checkPlay === null) return null;
+        //Make moves
+        this.futureEnPassent = []; //Reset en passent possibility
+        if(checkPlay !== undefined && checkPlay.futureEnPassent !== undefined) {
+            this.futureEnPassent = checkPlay.futureEnPassent;
         }
-        this.turn = !this.turn
+
+        if(checkPlay === undefined) {
+            this.chessPos.move(row, col, row2, col2)
+        }else if (checkPlay.type === 'normal'){
+            this.chessPos.move(row, col, row2, col2)
+        }else if (checkPlay.type === 'enpassent'){
+            this.chessPos.move(row, col, row2, col2)
+            this.chessPos.set(row, col2, 'x')
+        }
+        this.switchTurn()
         return this.chessPos;
     }
 
-    executeSpecialInstruction(specialInstruction){
-        const split = specialInstruction.split(' ');
-        if(split[0] === 'delete'){
-            this.chessPos.set(parseInt(split[1]), parseInt(split[2]), 'x')
-        }
+    switchTurn(){
+        this.turn = !this.turn;
     }
 
     checkPlay(row, col, row2, col2){
-        if(!(Math.max(row2, col2) < 8)) return false; //Makes sure the values stay in bound
-        if(this.chessPos.getColor(row, col) !== this.turn) return false; //Checks for the right turn
-        const piece = this.chessPos.get(row, col);
+        if(!(Math.max(row2, col2) < 8)) return null; //Makes sure the values stay in bound
+        if(this.chessPos.getColor(row, col) !== this.turn) return null; //Checks for the right turn
         return this.isPossibleMove(row, col, row2, col2)
     }
 
     enPassentCallBack = () => {
 
+    }
+
+    isPossibleMove(row, col, row2, col2){
+        const possibleMoves = this.getPossibleMoves(row, col)
+        for(let i = 0; i < possibleMoves.length; i++){
+            if(possibleMoves[i].row === row2 && possibleMoves[i].col === col2){
+                return possibleMoves[i].move;
+            }
+        }
+        return null;
     }
 
     getPossibleMoves(row, col){
@@ -62,16 +71,6 @@ class Game{
             case 'P': return getPossiblePawnMoves(row, col, this.chessPos, checkPieceColor(piece), this.futureEnPassent)
             default: return [];
         }
-    }
-
-    isPossibleMove(row, col, row2, col2){
-        const possibleMoves = this.getPossibleMoves(row, col)
-        for(let i = 0; i < possibleMoves.length; i++){
-            if(possibleMoves[i].row === row2 && possibleMoves[i].col === col2){
-                return possibleMoves[i].additionalData === undefined ? true : possibleMoves[i].additionalData;
-            }
-        }
-        return false;
     }
 }
 

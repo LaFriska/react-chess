@@ -6,13 +6,17 @@ export const getPossiblePawnMoves = (row, col, chessPos, color, futureEnPassent)
     const initialRank = color ? 6 : 1
 
     if (chessPos.get(row + d, col) === 'x') { //Avails square directly in front of pawn
-        res.push({row: row + d, col: col})
+        res.push({
+            row: row + d,
+            col: col
+        })
         if (row === initialRank && chessPos.get(row + 2 * d, col) === 'x') {//Avails 2nd square directly in front of pawn
             let temp = createFutureEnPassent(row, col, chessPos, color)
             res.push(temp.length !== 0 ? {
                         row: row + 2 * d,
                         col: col,
-                        additionalData: {
+                        move: {
+                            type: 'normal',
                             futureEnPassent: temp
                         }
                     }
@@ -47,8 +51,8 @@ export const getPossiblePawnMoves = (row, col, chessPos, color, futureEnPassent)
                 res.push({
                     row: row + d,
                     col: col + lr,
-                    additionalData: {
-                        specialInstruction: 'delete ' + row + ' ' + (col + lr)
+                    move: {
+                        type: 'enpassent'
                     }
                 })
             }
