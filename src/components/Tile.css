@@ -15,11 +15,15 @@
     border: var(--highlighted-tile-border-width) solid var(--highlighted-tile-color)
 }
 
-.highlight-possible-moves{
-    background-color: #75f664 !important;
+.highlight-possible-moves-black{
+    background-color: black !important;
     /*width: var(--highlighted-tile-size);*/
     /*height: var(--highlighted-tile-size);*/
     /*border: var(--highlighted-tile-border-width) solid var(--highlighted-possible-moves-tile-color)*/
+}
+
+.highlight-possible-moves-white{
+    background-color: aliceblue !important;
 }
 
 .piece{

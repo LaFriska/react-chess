@@ -13,7 +13,7 @@ const Board = (props) => {
                     id: `${rank}${file}`,
                     color: isEven(i + j) ? 'white' : 'color',
                     highlight: false,
-                    highlightPossibleMoves: false
+                    highlightPossibleMoves: null
                 }
             )
         )
@@ -55,17 +55,17 @@ const Board = (props) => {
         setTileStates(newStates)
     }
 
-    const highlightPossibleMoves = (newStates, x, y) => {
-        const possibleMoves = game.getPossibleMoves(x, y)
+    const highlightPossibleMoves = (newStates, row, col) => {
+        const possibleMoves = game.getPossibleMoves(row, col)
         for(let i = 0; i < possibleMoves.length; i++){
-            newStates[possibleMoves[i].row][possibleMoves[i].col] = {...newStates[possibleMoves[i].row][possibleMoves[i].col], highlightPossibleMoves: true}
+            newStates[possibleMoves[i].row][possibleMoves[i].col] = {...newStates[possibleMoves[i].row][possibleMoves[i].col], highlightPossibleMoves: chesspos.getColor(row, col)}
         }
         setHighlightedPossibleMoves(possibleMoves)
     }
 
     const unhighlightPossibleMoves = (newStates) => {
         for(let i = 0; i < highlightedPossibleMoves.length; i++){
-            newStates[highlightedPossibleMoves[i].row][highlightedPossibleMoves[i].col] = {...newStates[highlightedPossibleMoves[i].row][highlightedPossibleMoves[i].col], highlightPossibleMoves: false}
+            newStates[highlightedPossibleMoves[i].row][highlightedPossibleMoves[i].col] = {...newStates[highlightedPossibleMoves[i].row][highlightedPossibleMoves[i].col], highlightPossibleMoves: null}
         }
     }
 

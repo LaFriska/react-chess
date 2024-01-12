@@ -20,7 +20,9 @@ const Tile = (props) => {
     const getClassName = () => {
         let classname = 'tile';
         if(props.highlight === true) classname = classname + ' highlight'
-        else if(props.highlightPossibleMoves === true) classname = classname + ' highlight-possible-moves'
+        else if(props.highlightPossibleMoves !== null) {
+            classname = classname + (props.highlightPossibleMoves ? ' highlight-possible-moves-white' : ' highlight-possible-moves-black')
+        }
         return classname
     }
 
