@@ -9,7 +9,7 @@
     --highlighted-tile-size: calc(var(--tile-size) - 2 * var(--highlighted-tile-border-width));
     --highlighted-tile-color : #07b4b4;
     --highlighted-possible-moves-tile-color-black : #281800;
-    --highlighted-possible-moves-tile-color-white: #ffce99;
+    --highlighted-possible-moves-tile-color-white: #b0c9ff;
     --piece-size: 70px
 }
 
