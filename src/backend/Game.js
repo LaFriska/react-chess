@@ -3,6 +3,7 @@ import board from "../components/Board";
 import {getPossibleKnightMoves} from "./piecelogic/Knight";
 import {checkPieceColor} from "./BackendUtils";
 import {getPossiblePawnMoves} from "./piecelogic/Pawn";
+import {getPossibleRookMoves} from "./piecelogic/Rook";
 
 class Game{
 
@@ -69,6 +70,8 @@ class Game{
             case 'n': return getPossibleKnightMoves(row, col, this.chessPos, checkPieceColor(piece))
             case 'p':
             case 'P': return getPossiblePawnMoves(row, col, this.chessPos, checkPieceColor(piece), this.futureEnPassent)
+            case 'r':
+            case 'R': return getPossibleRookMoves(row, col, this.chessPos, checkPieceColor(piece))
             default: return [];
         }
     }

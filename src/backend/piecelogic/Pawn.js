@@ -3,6 +3,7 @@ import {isInBound} from "../BackendUtils";
 export const getPossiblePawnMoves = (row, col, chessPos, color, futureEnPassent) => {
     const res = [];
     const d = color ? -1 : 1
+    if(!isInBound(row + d, col)) return res;
     const initialRank = color ? 6 : 1
 
     if (chessPos.get(row + d, col) === 'x') { //Avails square directly in front of pawn

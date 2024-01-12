@@ -16,14 +16,14 @@
 }
 
 .highlight-possible-moves-black{
-    background-color: black !important;
-    /*width: var(--highlighted-tile-size);*/
-    /*height: var(--highlighted-tile-size);*/
-    /*border: var(--highlighted-tile-border-width) solid var(--highlighted-possible-moves-tile-color)*/
+    background-color: var(--highlighted-possible-moves-tile-color-black) !important;
 }
 
 .highlight-possible-moves-white{
-    background-color: aliceblue !important;
+    background-color: var(--highlighted-possible-moves-tile-color-white) !important;
+    /*width: var(--highlighted-tile-size);*/
+    /*height: var(--highlighted-tile-size);*/
+    /*border: var(--highlighted-tile-border-width) solid var(--highlighted-possible-moves-tile-border-color-white)*/
 }
 
 .piece{

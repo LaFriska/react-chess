@@ -1,14 +1,15 @@
 :root {
     --tile-size : 80px;
-    --light-tile : #F0D8B6;
-    --dark-tile : #B48764;
+    /*--light-tile : #F0D8B6;*/
+    /*--dark-tile : #B48764;*/
     --bg-color : #202020;
     --highlight : rgba(0,0,0,.1);
     --check : #FEEC48;
     --highlighted-tile-border-width: 3px;
-    --highlighted-tile-size: 74px;
-    --highlighted-tile-color : #03A9F4;
-    --highlighted-possible-moves-tile-color : #7cff7e;
+    --highlighted-tile-size: calc(var(--tile-size) - 2 * var(--highlighted-tile-border-width));
+    --highlighted-tile-color : #07b4b4;
+    --highlighted-possible-moves-tile-color-black : #281800;
+    --highlighted-possible-moves-tile-color-white: #ffce99;
     --piece-size: 70px
 }
 
