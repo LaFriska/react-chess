@@ -1,4 +1,4 @@
-import {iteratePiecePath} from "./PieceUtils";
+import {directionalVector, iteratePiecePath} from "./PieceUtils";
 
 export const getPossibleQueenMoves = (row, col, chessPos, color) => {
     const res = [];
@@ -7,14 +7,9 @@ export const getPossibleQueenMoves = (row, col, chessPos, color) => {
         return iteratePiecePath(row, col, color, chessPos, dRow, dCol, res)
     }
 
-    iterate(1, 1)
-    iterate(1, -1)
-    iterate(-1, 1)
-    iterate(-1, -1)
-    iterate(1, 0);
-    iterate(-1, 0);
-    iterate(0, 1);
-    iterate(0, -1);
+    for(let i = 0; i < 8; i++){
+        iterate(directionalVector[i][0], directionalVector[i][1])
+    }
 
     return res;
 }

@@ -6,6 +6,7 @@ import {getPossiblePawnMoves} from "./piecelogic/Pawn";
 import {getPossibleRookMoves} from "./piecelogic/Rook";
 import {getPossibleBishopMoves} from "./piecelogic/Bishop";
 import {getPossibleQueenMoves} from "./piecelogic/Queen";
+import {getPossibleKingMove} from "./piecelogic/King";
 
 class Game{
 
@@ -78,6 +79,8 @@ class Game{
             case 'B': return getPossibleBishopMoves(row, col, this.chessPos, checkPieceColor(piece))
             case 'q':
             case 'Q': return getPossibleQueenMoves(row, col, this.chessPos, checkPieceColor(piece))
+            case 'K':
+            case 'k': return getPossibleKingMove(row, col, this.chessPos, checkPieceColor(piece))
             default: return [];
         }
     }

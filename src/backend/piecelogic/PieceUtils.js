@@ -17,3 +17,14 @@ export const iteratePiecePath = (row, col, color, chessPos, dRow, dCol, res) => 
         }
     }
 }
+
+export const directionalVector = [
+    [1, 1],
+    [1, -1],
+    [-1, 1],
+    [-1, -1],
+    [1, 0],
+    [-1, 0],
+    [0, 1],
+    [0, -1],
+]
