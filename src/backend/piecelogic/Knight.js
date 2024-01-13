@@ -1,16 +1,19 @@
 import {isInBound} from "../BackendUtils";
 
-export const getPossibleKnightMoves = (x, y, chessPos, color) => {
+export const getPossibleKnightMoves = (row, col, chessPos, color) => {
     const res = [];
     const add = (rowAdd, colAdd) => {
-        const transformedRow = x + rowAdd
-        const tranformedCol = y + colAdd
-        if(!isInBound(transformedRow, tranformedCol)) return //Breaks if out of bound
-        if(chessPos.getColor(transformedRow, tranformedCol) === color) return; //Breaks if the target square contains a friendly piece
+        const transformedRow = row + rowAdd
+        const transformedCol = col + colAdd
+        if(!isInBound(transformedRow, transformedCol)) return //Breaks if out of bound
+        if(chessPos.getColor(transformedRow, transformedCol) === color) return; //Breaks if the target square contains a friendly piece
 
         res.push({
             row: transformedRow,
-            col: tranformedCol,
+            col: transformedCol,
+            move: {
+                chessPos: chessPos.clone().move(row, col, transformedRow, transformedCol)
+            }
         })
     }
     const p = [1, -1, 1, -1]

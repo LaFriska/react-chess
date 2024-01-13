@@ -10,14 +10,25 @@ class ChessPosition{
     move(i, j, i2, j2){
         this.set(i2, j2, this.get(i, j))
         this.set(i, j, 'x')
+        return this;
     }
 
     set(i, j, val){
         this.matrix[i][j] = val
+        return this;
+    }
+
+    setToNew(chessPos){
+        this.matrix = chessPos.getMatrix();
+    }
+
+    getMatrix(){
+        return this.matrix;
     }
 
     get(row, col){
         return this.matrix[row][col];
+        return this;
     }
 
     getColor(row, col){
@@ -25,7 +36,10 @@ class ChessPosition{
         return checkPieceColor(get)
     }
     clone(){
-        return new ChessPosition([...this.matrix])
+        const matrix = Array.from({ length: 8 }, (_, row) =>
+            Array.from({ length: 8 }, (_, col) => this.get(row, col))
+        );
+        return new ChessPosition(matrix);
     }
 
     checkMatrix(){

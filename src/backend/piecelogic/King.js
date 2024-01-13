@@ -9,10 +9,22 @@ export const getPossibleKingMove = (row, col, chessPos, color) => {
         newCol = col + directionalVector[i][1]
         if(isInBound(newRow, newCol)) {
             if (chessPos.getColor(newRow, newCol) === null) {
-                res.push({row: newRow, col: newCol});
+                res.push({
+                    row: newRow,
+                    col: newCol,
+                    move: {
+                        chessPos: chessPos.clone().move(row, col, newRow, newCol)
+                    }
+                });
             } else {
                 if (chessPos.getColor(newRow, newCol) !== color) {
-                    res.push({row: newRow, col: newCol});
+                    res.push({
+                        row: newRow,
+                        col: newCol,
+                        move: {
+                            chessPos: chessPos.clone().move(row, col, newRow, newCol)
+                        }
+                    });
                 }
             }
         }

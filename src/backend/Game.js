@@ -30,14 +30,17 @@ class Game{
             this.futureEnPassent = checkPlay.futureEnPassent;
         }
 
-        if(checkPlay === undefined) {
-            this.chessPos.move(row, col, row2, col2)
-        }else if (checkPlay.type === 'normal'){
-            this.chessPos.move(row, col, row2, col2)
-        }else if (checkPlay.type === 'enpassent'){
-            this.chessPos.move(row, col, row2, col2)
-            this.chessPos.set(row, col2, 'x')
-        }
+
+        this.chessPos = checkPlay.chessPos;
+
+        // if(checkPlay === undefined) {
+        //     this.chessPos.move(row, col, row2, col2)
+        // }else if (checkPlay.type === 'normal'){
+        //     this.chessPos.move(row, col, row2, col2)
+        // }else if (checkPlay.type === 'enpassent'){
+        //     this.chessPos.move(row, col, row2, col2)
+        //     this.chessPos.set(row, col2, 'x')
+        // }
         this.switchTurn()
         return this.chessPos;
     }
@@ -68,18 +71,12 @@ class Game{
 
     getPossibleMoves(row, col){
         const piece = this.chessPos.get(row, col);
-        switch(piece){
-            case 'N':
+        switch(piece.toLowerCase()){
             case 'n': return getPossibleKnightMoves(row, col, this.chessPos, checkPieceColor(piece))
-            case 'p':
-            case 'P': return getPossiblePawnMoves(row, col, this.chessPos, checkPieceColor(piece), this.futureEnPassent)
-            case 'r':
-            case 'R': return getPossibleRookMoves(row, col, this.chessPos, checkPieceColor(piece))
-            case 'b':
-            case 'B': return getPossibleBishopMoves(row, col, this.chessPos, checkPieceColor(piece))
-            case 'q':
-            case 'Q': return getPossibleQueenMoves(row, col, this.chessPos, checkPieceColor(piece))
-            case 'K':
+            case 'p': return getPossiblePawnMoves(row, col, this.chessPos, checkPieceColor(piece), this.futureEnPassent)
+            case 'r': return getPossibleRookMoves(row, col, this.chessPos, checkPieceColor(piece))
+            case 'b': return getPossibleBishopMoves(row, col, this.chessPos, checkPieceColor(piece))
+            case 'q': return getPossibleQueenMoves(row, col, this.chessPos, checkPieceColor(piece))
             case 'k': return getPossibleKingMove(row, col, this.chessPos, checkPieceColor(piece))
             default: return [];
         }

@@ -6,12 +6,24 @@ export const iteratePiecePath = (row, col, color, chessPos, dRow, dCol, res) => 
 
     while (isInBound(newRow, newCol)) {
         if (chessPos.getColor(newRow, newCol) === null) {
-            res.push({ row: newRow, col: newCol });
+            res.push({
+                row: newRow,
+                col: newCol,
+                move: {
+                    chessPos: chessPos.clone().move(row, col, newRow, newCol)
+                }
+            });
             newRow += dRow;
             newCol += dCol;
         } else {
             if (chessPos.getColor(newRow, newCol) !== color) {
-                res.push({ row: newRow, col: newCol });
+                res.push({
+                    row: newRow,
+                    col: newCol,
+                    move: {
+                        chessPos: chessPos.clone().move(row, col, newRow, newCol)
+                    }
+                });
             }
             return;
         }
