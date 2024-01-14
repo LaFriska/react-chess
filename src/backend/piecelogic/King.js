@@ -1,4 +1,4 @@
-import {directionalVector, processDefaultMove} from "./PieceUtils";
+import {directionalVector, processCustomMove, processDefaultMove} from "./PieceUtils";
 import {isInBound} from "../BackendUtils";
 
 export const getPossibleKingMove = (row, col, chessPos, color) => {
@@ -9,7 +9,8 @@ export const getPossibleKingMove = (row, col, chessPos, color) => {
         newCol = col + directionalVector[i][1]
         if(isInBound(newRow, newCol)) {
             if (chessPos.getColor(newRow, newCol) === null) {
-                processDefaultMove(res, chessPos, row, col, newRow, newCol)
+                processCustomMove(res, chessPos.clone().move(row, col, newRow, newCol).updateKingPosition(color, newRow, newCol), newRow, newCol, color)
+                // processDefaultMove(res, chessPos, row, col, newRow, newCol)
                 // res.push({
                 //     row: newRow,
                 //     col: newCol,
@@ -19,7 +20,8 @@ export const getPossibleKingMove = (row, col, chessPos, color) => {
                 // });
             } else {
                 if (chessPos.getColor(newRow, newCol) !== color) {
-                    processDefaultMove(res, chessPos, row, col, newRow, newCol)
+                    // processDefaultMove(res, chessPos, row, col, newRow, newCol)
+                    processCustomMove(res, chessPos.clone().move(row, col, newRow, newCol).updateKingPosition(color, newRow, newCol), newRow, newCol, color)
                     // res.push({
                     //     row: newRow,
                     //     col: newCol,

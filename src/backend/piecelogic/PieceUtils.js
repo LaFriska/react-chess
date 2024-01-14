@@ -45,7 +45,6 @@ export const directionalVector = [
 ]
 
 export const processCustomMove = (res, chessPos, newRow, newCol, color, futureEnPassent) => {
-
     res.push(new Move(newRow, newCol, chessPos, futureEnPassent))
 }
 

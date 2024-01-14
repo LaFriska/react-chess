@@ -29,7 +29,6 @@ class Game{
         if(checkPlay !== undefined && checkPlay.futureEnPassent !== undefined) {
             this.futureEnPassent = checkPlay.futureEnPassent;
         }
-
         this.chessPos = checkPlay.chessPos;
         this.switchTurn()
         return this.chessPos;

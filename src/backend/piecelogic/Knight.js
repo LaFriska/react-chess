@@ -17,7 +17,6 @@ export const getPossibleKnightMoves = (row, col, chessPos, color) => {
         add(p[i], 2 * q[i])
         add(2* p[i], q[i])
     }
-    console.log(res)
     return res;
 }
 

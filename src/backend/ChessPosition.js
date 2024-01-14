@@ -3,9 +3,38 @@ const {isThreatenedByKnight} = require("./piecelogic/Knight");
 
 class ChessPosition{
 
+    kingTracker
+
     constructor(matrix){
         this.matrix = matrix
         this.checkMatrix()
+        this.initiateKingTracker();
+    }
+
+    initiateKingTracker(){
+        const search = (char) => {
+            for(let r = 0; r < 8; r++){
+                for(let c = 0; c < 8; c++){
+                    if(this.get(r, c) === char) return {row: r, col: c}
+                }
+            }
+        }
+        this.kingTracker = {
+            black: this.get(0, 4) !== 'k' ? search('k') : {row: 0, col: 4},
+            white: this.get(7, 4) !== 'K' ? search('K') : {row: 7, col: 4}
+        }
+    }
+
+    getKingPosition(color){
+        if(color === null || color === undefined) return null;
+        if(color) return this.kingTracker.white;
+        else return this.kingTracker.black;
+    }
+
+    updateKingPosition(color, newRow, newCol){
+        if(color) this.kingTracker.white = {row: newRow, col: newCol}
+        if(!color) this.kingTracker.black = {row: newRow, col: newCol}
+        return this;
     }
 
     move(i, j, i2, j2){
