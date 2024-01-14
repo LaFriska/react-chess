@@ -66,3 +66,19 @@ function createFutureEnPassent(row, col, chessPos, color) {
     }
     return res;
 }
+
+export const isThreatenedByPawn = (chessPos, color) => {
+
+    const row = chessPos.getKingPosition(color).row;
+    const col = chessPos.getKingPosition(color).col;
+
+    const dRow = color ? -1 : 1; //Difference in row
+    const check = (dCol /*Difference in col*/) => {
+        const newRow = row + dRow;
+        const newCol = col + dCol;
+        return isInBound(newRow, newCol) && chessPos.get(newRow, newCol) === (color ? 'p' : 'P');
+    }
+
+    if(check(-1)) return true;
+    if(check(1)) return true;
+}

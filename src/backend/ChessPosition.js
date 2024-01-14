@@ -1,9 +1,12 @@
 const {convertToPieceName, checkPieceColor} = require("./BackendUtils");
 const {isThreatenedByKnight} = require("./piecelogic/Knight");
+const {isThreatenedByPawn} = require("./piecelogic/Pawn");
+const {isThreatenedByKing} = require("./piecelogic/King");
+const {isThreatenedByQueenBishopOrRook} = require("./piecelogic/PieceUtils");
 
 class ChessPosition{
 
-    kingTracker
+    kingTracker //TODO cover the case that the king is somehow taken
 
     constructor(matrix){
         this.matrix = matrix
@@ -114,11 +117,14 @@ class ChessPosition{
         ])
     }
 
-    isKingInDanger(row, col, color){
-        const d = color ? -1 : 1
-        if(isThreatenedByKnight(row, col, this, color)) return true;
+    isKingInDanger(color){
+        if(isThreatenedByKnight(this, color)) return true;
+        if(isThreatenedByPawn(this, color)) return true;
+        if(isThreatenedByKing(this)) return true;
+        if(isThreatenedByQueenBishopOrRook(this, color)) return true;
         return false;
     }
+
 
 }
 

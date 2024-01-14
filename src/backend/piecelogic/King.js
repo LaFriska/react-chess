@@ -35,3 +35,9 @@ export const getPossibleKingMove = (row, col, chessPos, color) => {
     }
     return res;
 }
+
+export const isThreatenedByKing = (chessPos) => {
+    const dRow = Math.abs(chessPos.getKingPosition(true).row - chessPos.getKingPosition(false).row);
+    const dCol = Math.abs(chessPos.getKingPosition(true).col - chessPos.getKingPosition(false).col)
+    return dRow <= 1 && dCol <= 1;
+}
