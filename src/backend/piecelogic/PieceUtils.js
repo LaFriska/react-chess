@@ -44,10 +44,11 @@ export const directionalVector = [
     [0, -1],
 ]
 
-export const processCustomMove = (res, chessPos, newRow, newCol, futureEnPassent) => {
+export const processCustomMove = (res, chessPos, newRow, newCol, color, futureEnPassent) => {
+
     res.push(new Move(newRow, newCol, chessPos, futureEnPassent))
 }
 
 export const processDefaultMove = (res, chessPos, row, col, newRow, newCol, futureEnPassent) => {
-    processCustomMove(res, chessPos.clone().move(row, col, newRow, newCol), newRow, newCol, futureEnPassent)
+    processCustomMove(res, chessPos.clone().move(row, col, newRow, newCol), newRow, newCol, chessPos.getColor(row, col), futureEnPassent)
 }

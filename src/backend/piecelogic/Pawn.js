@@ -37,7 +37,7 @@ export const getPossiblePawnMoves = (row, col, chessPos, color, futureEnPassent)
             if (canEnPassent) {
                 const newRow = row + d;
                 const newCol = col + lr;
-                processCustomMove(res, chessPos.clone().move(row, col, newRow, newCol).set(row, newCol, 'x'), row + d, col + lr)
+                processCustomMove(res, chessPos.clone().move(row, col, newRow, newCol).set(row, newCol, 'x'), row + d, col + lr, color)
             }
         }
 
