@@ -6,7 +6,7 @@ const {isThreatenedByQueenBishopOrRook} = require("./piecelogic/PieceUtils");
 
 class ChessPosition{
 
-    kingTracker //TODO cover the case that the king is somehow taken
+    kingTracker
 
     constructor(matrix){
         this.matrix = matrix

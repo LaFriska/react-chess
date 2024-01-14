@@ -1,7 +1,7 @@
 import {directionalVector, processCustomMove, processDefaultMove} from "./PieceUtils";
 import {isInBound} from "../BackendUtils";
 
-export const getPossibleKingMove = (row, col, chessPos, color) => {
+export const getPossibleKingMoves = (row, col, chessPos, color, game) => {
     const res = [];
     let newRow, newCol = undefined
     for(let i = 0; i < 8; i++){
