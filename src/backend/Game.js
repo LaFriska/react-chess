@@ -32,15 +32,6 @@ class Game{
 
 
         this.chessPos = checkPlay.chessPos;
-
-        // if(checkPlay === undefined) {
-        //     this.chessPos.move(row, col, row2, col2)
-        // }else if (checkPlay.type === 'normal'){
-        //     this.chessPos.move(row, col, row2, col2)
-        // }else if (checkPlay.type === 'enpassent'){
-        //     this.chessPos.move(row, col, row2, col2)
-        //     this.chessPos.set(row, col2, 'x')
-        // }
         this.switchTurn()
         return this.chessPos;
     }
