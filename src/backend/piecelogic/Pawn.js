@@ -1,4 +1,5 @@
 import {isInBound} from "../BackendUtils";
+import {processCustomMove, processDefaultMove} from "./PieceUtils";
 
 export const getPossiblePawnMoves = (row, col, chessPos, color, futureEnPassent) => {
     const res = [];
@@ -7,39 +8,18 @@ export const getPossiblePawnMoves = (row, col, chessPos, color, futureEnPassent)
     const initialRank = color ? 6 : 1
 
     if (chessPos.get(row + d, col) === 'x') { //Avails square directly in front of pawn
-        res.push({
-            row: row + d,
-            col: col,
-            move: {
-                chessPos: chessPos.clone().move(row, col, row + d, col)
-            }
-        })
+        processDefaultMove(res, chessPos, row, col, row + d, col)
         if (row === initialRank && chessPos.get(row + 2 * d, col) === 'x') {//Avails 2nd square directly in front of pawn
             let temp = createFutureEnPassent(row, col, chessPos, color)
             const newRow = row + 2 * d;
-            res.push({
-                    row: newRow,
-                    col: col,
-                    move: {
-                        chessPos: chessPos.clone().move(row, col, newRow, col),
-                        futureEnPassent: temp.length !== 0 ? temp : undefined
-                    }
-                }
-            )
+            processDefaultMove(res, chessPos, row, col, newRow, col, (temp.length !== 0 ? temp : undefined))
         }
     }
 
     const checkForTake = (newRow, newCol) => {
         if (!isInBound(newRow, newCol)) return;
         if (chessPos.getColor(newRow, newCol) === !color) {
-            res.push({
-                    row: newRow,
-                    col: newCol,
-                    move: {
-                        chessPos: chessPos.clone().move(row, col, newRow, newCol)
-                    }
-                }
-            )
+            processDefaultMove(res, chessPos, row, col, newRow, newCol)
         }
     }
     checkForTake(row + d, col + 1)
@@ -57,20 +37,13 @@ export const getPossiblePawnMoves = (row, col, chessPos, color, futureEnPassent)
             if (canEnPassent) {
                 const newRow = row + d;
                 const newCol = col + lr;
-                res.push({
-                    row: row + d,
-                    col: col + lr,
-                    move: {
-                        chessPos: chessPos.clone().move(row, col, newRow, newCol).set(row, newCol, 'x')
-                    }
-                })
+                processCustomMove(res, chessPos.clone().move(row, col, newRow, newCol).set(row, newCol, 'x'), row + d, col + lr)
             }
         }
 
         checkEnPassent(-1)
         checkEnPassent(1)
     }
-
     return res;
 }
 

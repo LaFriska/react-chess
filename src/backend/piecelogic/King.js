@@ -1,4 +1,4 @@
-import {directionalVector} from "./PieceUtils";
+import {directionalVector, processDefaultMove} from "./PieceUtils";
 import {isInBound} from "../BackendUtils";
 
 export const getPossibleKingMove = (row, col, chessPos, color) => {
@@ -9,22 +9,24 @@ export const getPossibleKingMove = (row, col, chessPos, color) => {
         newCol = col + directionalVector[i][1]
         if(isInBound(newRow, newCol)) {
             if (chessPos.getColor(newRow, newCol) === null) {
-                res.push({
-                    row: newRow,
-                    col: newCol,
-                    move: {
-                        chessPos: chessPos.clone().move(row, col, newRow, newCol)
-                    }
-                });
+                processDefaultMove(res, chessPos, row, col, newRow, newCol)
+                // res.push({
+                //     row: newRow,
+                //     col: newCol,
+                //     move: {
+                //         chessPos: chessPos.clone().move(row, col, newRow, newCol)
+                //     }
+                // });
             } else {
                 if (chessPos.getColor(newRow, newCol) !== color) {
-                    res.push({
-                        row: newRow,
-                        col: newCol,
-                        move: {
-                            chessPos: chessPos.clone().move(row, col, newRow, newCol)
-                        }
-                    });
+                    processDefaultMove(res, chessPos, row, col, newRow, newCol)
+                    // res.push({
+                    //     row: newRow,
+                    //     col: newCol,
+                    //     move: {
+                    //         chessPos: chessPos.clone().move(row, col, newRow, newCol)
+                    //     }
+                    // });
                 }
             }
         }

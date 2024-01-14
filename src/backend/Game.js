@@ -30,7 +30,6 @@ class Game{
             this.futureEnPassent = checkPlay.futureEnPassent;
         }
 
-
         this.chessPos = checkPlay.chessPos;
         this.switchTurn()
         return this.chessPos;
@@ -53,9 +52,7 @@ class Game{
     isPossibleMove(row, col, row2, col2){
         const possibleMoves = this.getPossibleMoves(row, col)
         for(let i = 0; i < possibleMoves.length; i++){
-            if(possibleMoves[i].row === row2 && possibleMoves[i].col === col2){
-                return possibleMoves[i].move;
-            }
+            if(possibleMoves[i].row === row2 && possibleMoves[i].col === col2) return possibleMoves[i];
         }
         return null;
     }

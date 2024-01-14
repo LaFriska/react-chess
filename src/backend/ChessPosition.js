@@ -1,4 +1,5 @@
 const {convertToPieceName, checkPieceColor} = require("./BackendUtils");
+const {isThreatenedByKnight} = require("./piecelogic/Knight");
 
 class ChessPosition{
 
@@ -83,6 +84,13 @@ class ChessPosition{
             ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'],
         ])
     }
+
+    isKingInDanger(row, col, color){
+        const d = color ? -1 : 1
+        if(isThreatenedByKnight(row, col, this, color)) return true;
+        return false;
+    }
+
 }
 
 module.exports = {ChessPosition}
