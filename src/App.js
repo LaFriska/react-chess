@@ -5,7 +5,7 @@ import {ChessPosition} from "./backend/ChessPosition";
 function App() {
   return (
     <div className="App">
-      <Board chesspos={ChessPosition.getDefaultPosition(false)}/>
+      <Board chesspos={ChessPosition.getDefaultPosition()}/>
     </div>
   );
 }

@@ -22,7 +22,7 @@ class ChessPosition{
                 }
             }
         }
-        this.kingTracker = {
+        this.kingTracker = { //TODO optimise king tracker init when cloning chessPosition
             black: this.get(0, 4) !== 'k' ? search('k') : {row: 0, col: 4},
             white: this.get(7, 4) !== 'K' ? search('K') : {row: 7, col: 4}
         }
@@ -61,7 +61,6 @@ class ChessPosition{
 
     get(row, col){
         return this.matrix[row][col];
-        return this;
     }
 
     getColor(row, col){
@@ -95,17 +94,7 @@ class ChessPosition{
     }
 
     static getDefaultPosition(isBlackPOV){
-        if(isBlackPOV) return new ChessPosition([
-            ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'],
-            ['P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'],
-            ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-            ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-            ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-            ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-            ['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'],
-            ['r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'],
-        ])
-        else return new ChessPosition([
+        return new ChessPosition([
             ['r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'],
             ['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'],
             ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],

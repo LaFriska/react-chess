@@ -10,7 +10,7 @@ import {getPossibleKingMoves} from "./piecelogic/King";
 
 class Game{
 
-    chessPos = ChessPosition.getDefaultPosition(false)
+    chessPos = ChessPosition.getDefaultPosition()
     turn = true;
     futureEnPassent = [];
 
@@ -90,6 +90,10 @@ class Game{
             default: return [];
         }
     }
+
+    // canCastleKingSide(color){
+    //     if(color) return this.hasMoved.
+    // }
 }
 
 export default Game

@@ -17,6 +17,8 @@ export const getPossibleKingMoves = (row, col, chessPos, color, game) => {
             }
         }
     }
+    checkCastling(res, color, chessPos, game, true)
+    checkCastling(res, color, chessPos, game, false)
     return res;
 }
 
@@ -24,4 +26,20 @@ export const isThreatenedByKing = (chessPos) => {
     const dRow = Math.abs(chessPos.getKingPosition(true).row - chessPos.getKingPosition(false).row);
     const dCol = Math.abs(chessPos.getKingPosition(true).col - chessPos.getKingPosition(false).col)
     return dRow <= 1 && dCol <= 1;
+}
+
+function checkCastling(res, color, chessPos, game, kingSide){
+    if(game.hasMoved[color ? 'K' : 'k']) return;
+    const rook = (kingSide ? (color ? 'Rr' : 'rr') : (color ? 'Rl' : 'rl'));
+    if(game.hasMoved[rook]) return;
+    const d = kingSide ? 1 : -1;
+    const row = color ? 7 : 0;
+
+    for(let col = 4; col > 0 && col < 7; col = col + d){
+        if(col !== 4 && chessPos.get(row, col) !== 'x') return;
+        if(col !== 1 && chessPos.clone().move(row, 4, row, col).updateKingPosition(color, row, col).isKingInDanger(color)) return;
+    }
+
+    const castledChessPos = chessPos.clone().move(row, 4, row, kingSide ? 6 : 2).move(row, kingSide ? 7 : 0, row, kingSide ? 5 : 3)
+    return processCustomMove(res, castledChessPos, row, kingSide ? 6 : 2, color)
 }
