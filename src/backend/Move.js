@@ -4,7 +4,7 @@ class Move{
     col
     chessPos
     futureEnPassent
-    hasMoved
+    // hasMoved
 
     constructor(row, col, chessPos, futureEnPassent){
         this.row = row;
@@ -14,9 +14,9 @@ class Move{
         this.hasMoved = null;
     }
 
-    setHasMove(id){
-        this.hasMoved = id;
-    }
+    // setHasMove(id){
+    //     this.hasMoved = id;
+    // }
 }
 
 export default Move;

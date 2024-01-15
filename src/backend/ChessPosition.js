@@ -4,7 +4,7 @@ const {isThreatenedByPawn} = require("./piecelogic/Pawn");
 const {isThreatenedByKing} = require("./piecelogic/King");
 const {isThreatenedByQueenBishopOrRook} = require("./piecelogic/PieceUtils");
 
-class ChessPosition{
+class ChessPosition {
 
     kingTracker
 
@@ -109,6 +109,7 @@ class ChessPosition{
         //     ['x', 'x', 'x', 'x', 'k', 'x', 'x', 'x'],
         //     ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
         // ])
+        return t1;
         return new ChessPosition([
             ['r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'],
             ['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'],
@@ -129,7 +130,21 @@ class ChessPosition{
         return false;
     }
 
-
+    construct(matrix, whiteKingRow, whiteKingCol, blackKingRow, blackKingCol){
+        return new ChessPosition(matrix, whiteKingRow, whiteKingCol, blackKingRow, blackKingCol)
+    }
 }
+
+const t1 = new ChessPosition([
+        ['r', 'x', 'x', 'x', 'k', 'x', 'x', 'r'],
+        ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+        ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+        ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+        ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+        ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+        ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+        ['R', 'x', 'x', 'x', 'K', 'x', 'x', 'R'],
+    ]
+)
 
 module.exports = {ChessPosition}
