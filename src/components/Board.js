@@ -3,6 +3,7 @@ import './Board.css'
 import {getCharacter, isEven} from "../Util";
 import Tile from "./Tile";
 import Game from '../backend/Game'
+import {isInConditionToPromote} from "../backend/piecelogic/Pawn";
 
 const Board = (props) => {
     const ranks = Array(8).fill().map((x,i) => 8-i)
@@ -69,11 +70,34 @@ const Board = (props) => {
         }
     }
 
-    const tryPlay = (newStates, row, col, row2, col2) => {
+    const tryPlay = (newStates, row, col, newRow, newCol) => {
         newStates[row][col] = {...newStates[row][col], highlight: false}
-        const newPos = game.play(row, col, row2, col2)
-        if(newPos !== null) setChessPos(newPos)
+        const promotion = askPawnPromotion(row, col, newRow, newCol)
+        if(promotion === null) return
+        let newPos = game.play(row, col, newRow, newCol)
         setHighlightedCoord(null)
+        if(newPos === null) return;
+        setChessPos(newPos)
+    }
+
+    const askPawnPromotion = (row, col, newRow, newCol, msg) => {
+        if(!isInConditionToPromote(row, col, newRow, newCol, chesspos)) return
+        if(msg === undefined) msg = ''
+        const color = chesspos.getColor(row, col)
+        const checkChoice = (choice) => {
+            choice = choice.toLowerCase();
+            if(choice === 'queen' || choice === 'q') return color ? 'Q' : 'q';
+            if(choice === 'knight' || choice === 'n' || choice === 'k') return color ? 'N' : 'n';
+            if(choice === 'bishop' || choice === 'b') return color ? 'B' : 'b';
+            if(choice === 'rook' || choice === 'r') return color ? 'R' : 'r';
+            return null;
+        }
+
+        const choice = prompt((msg + ' As ' + (color ? 'white' : 'black') + ', choose a piece your pawn promotes to.'))
+        if(choice === null) return null
+        const check = checkChoice(choice);
+        if(check === null) return askPawnPromotion(row, col, newRow, newCol, 'Invalid choice! ')
+        else return check;
     }
 
     return(

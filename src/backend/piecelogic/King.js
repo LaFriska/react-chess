@@ -34,6 +34,7 @@ function checkCastling(res, color, chessPos, game, kingSide){
     if(game.hasMoved[rook]) return;
     const d = kingSide ? 1 : -1;
     const row = color ? 7 : 0;
+    if(chessPos.get(row, (kingSide ? 7 : 0)) !== (color ? 'R' : 'r')) return;
 
     for(let col = 4; col > 0 && col < 7; col = col + d){
         if(col !== 4 && chessPos.get(row, col) !== 'x') return;

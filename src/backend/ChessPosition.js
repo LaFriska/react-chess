@@ -8,13 +8,22 @@ class ChessPosition{
 
     kingTracker
 
-    constructor(matrix){
+    constructor(matrix, whiteKingRow, whiteKingCol, blackKingRow, blackKingCol){
         this.matrix = matrix
         this.checkMatrix()
-        this.initiateKingTracker();
+        this.initiateKingTracker(whiteKingRow, whiteKingCol, blackKingRow, blackKingCol);
     }
 
-    initiateKingTracker(){
+    initiateKingTracker(whiteKingRow, whiteKingCol, blackKingRow, blackKingCol){
+
+        if(whiteKingRow !== undefined && whiteKingCol !== undefined && blackKingRow !== undefined && blackKingCol !== undefined){
+            this.kingTracker = {
+                black: {row: blackKingRow, col: blackKingCol},
+                white: {row: whiteKingRow, col: whiteKingCol}
+            }
+            return;
+        }
+
         const search = (char) => {
             for(let r = 0; r < 8; r++){
                 for(let c = 0; c < 8; c++){
@@ -51,10 +60,6 @@ class ChessPosition{
         return this;
     }
 
-    setToNew(chessPos){
-        this.matrix = chessPos.getMatrix();
-    }
-
     getMatrix(){
         return this.matrix;
     }
@@ -71,7 +76,7 @@ class ChessPosition{
         const matrix = Array.from({ length: 8 }, (_, row) =>
             Array.from({ length: 8 }, (_, col) => this.get(row, col))
         );
-        return new ChessPosition(matrix);
+        return new ChessPosition(matrix, this.getKingPosition(true).row, this.getKingPosition(true).col, this.getKingPosition(false).row, this.getKingPosition(false).col);
     }
 
     checkMatrix(){
@@ -93,7 +98,17 @@ class ChessPosition{
         return vector;
     }
 
-    static getDefaultPosition(isBlackPOV){
+    static getDefaultPosition(){
+        // return new ChessPosition([
+        //     ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+        //     ['r', 'P', 'K', 'x', 'x', 'x', 'x', 'x'],
+        //     ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+        //     ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+        //     ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+        //     ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+        //     ['x', 'x', 'x', 'x', 'k', 'x', 'x', 'x'],
+        //     ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+        // ])
         return new ChessPosition([
             ['r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'],
             ['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'],

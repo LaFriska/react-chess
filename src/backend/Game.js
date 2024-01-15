@@ -41,7 +41,6 @@ class Game{
 
     updateHasMoved(move){
         if(move.hasMoved !== null) this.hasMoved[move.hasMoved] = true;
-        console.log(this.hasMoved)
     }
 
     switchTurn(){
@@ -69,7 +68,7 @@ class Game{
             case 'p': return getPossiblePawnMoves(row, col, this.chessPos, checkPieceColor(piece), this.futureEnPassent)
             case 'r': {
                 const possibleMoves = getPossibleRookMoves(row, col, this.chessPos, checkPieceColor(piece));
-
+                //TODO cover case: rook not in corner square in the first place, or rook taken.
                 if(this.hasMoved.Rl === false && row === 7 && col === 0) possibleMoves.forEach((move) => {move.setHasMove('Rl')})
                 if(this.hasMoved.Rr === false && row === 7 && col === 7) possibleMoves.forEach((move) => {move.setHasMove('Rr')})
                 if(this.hasMoved.rl === false && row === 0 && col === 0) possibleMoves.forEach((move) => {move.setHasMove('rl')})
@@ -82,8 +81,8 @@ class Game{
             case 'k': {
                 const possibleMoves = getPossibleKingMoves(row, col, this.chessPos, checkPieceColor(piece), this);
 
-                if(this.hasMoved.K === false && row === 7 && col === 4) possibleMoves.forEach((move) => {move.setHasMove('K')})
-                if(this.hasMoved.k === false && row === 0 && col === 4) possibleMoves.forEach((move) => {move.setHasMove('k')})
+                if(this.hasMoved.K === false && piece === 'K') possibleMoves.forEach((move) => {move.setHasMove('K')})
+                if(this.hasMoved.k === false && piece === 'k') possibleMoves.forEach((move) => {move.setHasMove('k')})
 
                 return possibleMoves
             }

@@ -82,3 +82,17 @@ export const isThreatenedByPawn = (chessPos, color) => {
     if(check(-1)) return true;
     if(check(1)) return true;
 }
+
+export const isInConditionToPromote = (row, col, newRow, newCol, chessPos) => {
+    if(chessPos.get(row, col).toLowerCase() !== 'p') return false;
+    const color = chessPos.getColor(row, col)
+    if(row !== (color ? 1 : 6)) return false;
+    if(newRow !== (color ? 0 : 7)) return false;
+
+    const dCol = Math.abs(newCol - col);
+    if(dCol > 1) return false;
+    else if(dCol === 1 && chessPos.getColor(newRow, newCol) !== !color) return false;
+    else if(dCol === 0 && chessPos.get(newRow, newCol) !== 'x') return false;
+    if(chessPos.clone().move(row, col, newRow, newCol).isKingInDanger(color)) return false;
+    return true;
+}
