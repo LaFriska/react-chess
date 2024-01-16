@@ -109,7 +109,7 @@ class ChessPosition {
         //     ['x', 'x', 'x', 'x', 'k', 'x', 'x', 'x'],
         //     ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
         // ])
-        return t1;
+        // return t2;
         return new ChessPosition([
             ['r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'],
             ['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'],
@@ -146,5 +146,16 @@ const t1 = new ChessPosition([
         ['R', 'x', 'x', 'x', 'K', 'x', 'x', 'R'],
     ]
 )
+
+const t2 = new ChessPosition([ //TODO cover proof of custom chess game with no kings
+    ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+    ['x', 'P', 'x', 'x', 'x', 'x', 'x', 'x'],
+    ['x', 'x', 'x', 'K', 'x', 'x', 'x', 'x'],
+    ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+    ['x', 'x', 'x', 'x', 'x', 'k', 'x', 'x'],
+    ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+    ['x', 'x', 'x', 'x', 'x', 'p', 'x', 'x'],
+    ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+])
 
 module.exports = {ChessPosition}

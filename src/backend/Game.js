@@ -25,12 +25,13 @@ class Game{
     // eslint-disable-next-line no-useless-constructor
     constructor(){
     }
-    play(row, col, row2, col2){
+    play(row, col, row2, col2, promotion){
         const move = this.getMove(row, col, row2, col2)
         if(move === null) return null;
         //Make moves
         this.futureEnPassent = []; //Reset en passent possibility
         if(move.futureEnPassent !== undefined) this.futureEnPassent = move.futureEnPassent
+        if(promotion !== undefined && promotion !== null) move.promote(promotion)
         this.chessPos = move.chessPos;
         this.updateHasMoved(move)
         this.switchTurn()

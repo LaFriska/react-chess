@@ -14,7 +14,7 @@ const Board = (props) => {
                     id: `${rank}${file}`,
                     color: isEven(i + j) ? 'white' : 'color',
                     highlight: false,
-                    highlightPossibleMoves: null
+                    highlightPossibleMoves: null,
                 }
             )
         )
@@ -73,9 +73,9 @@ const Board = (props) => {
     const tryPlay = (newStates, row, col, newRow, newCol) => {
         newStates[row][col] = {...newStates[row][col], highlight: false}
         const promotion = askPawnPromotion(row, col, newRow, newCol)
-        if(promotion === null) return
-        let newPos = game.play(row, col, newRow, newCol)
         setHighlightedCoord(null)
+        if(promotion === null) return
+        let newPos = game.play(row, col, newRow, newCol, promotion)
         if(newPos === null) return;
         setChessPos(newPos)
     }
