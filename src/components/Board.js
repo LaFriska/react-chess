@@ -26,13 +26,12 @@ const Board = (props) => {
     const [game, setGame] = useState(new Game())
     const [highlightedPossibleMoves, setHighlightedPossibleMoves] = useState([])
 
-    const processCheck = (chessPos) => {
-        let newCheckSquare = {row: null, col: null};
-        if(chessPos.isKingInDanger(game.turn)) newCheckSquare = chessPos.getKingPosition(game.turn)
-        return newCheckSquare
+    const getCheckSquare = () => {
+        if(!game.isInCheck) return {row: null, col: null};
+        return chessPos.getKingPosition(game.turn)
     }
 
-    const [checkSquare, setCheckSquare] = useState(processCheck(chessPos))
+    const [checkSquare, setCheckSquare] = useState(getCheckSquare())
 
     const controlTile = (coords) => {
         const newStates = [...tileStates]
@@ -86,7 +85,7 @@ const Board = (props) => {
         let newPos = game.play(row, col, newRow, newCol, promotion)
         if(newPos === null) return;
         setChessPos(newPos)
-        setCheckSquare(processCheck(newPos))
+        setCheckSquare(getCheckSquare())
     }
 
     const askPawnPromotion = (row, col, newRow, newCol, msg) => {

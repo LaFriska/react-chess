@@ -33,6 +33,7 @@ export const isThreatenedByQueenBishopOrRook = (chessPos, color) => {
     const iterate = (dRow, dCol, pieces) => {return iterateCheckForKingSafety(row, col, dRow, dCol, chessPos, pieces)}
     for(let i = 0; i < 4; i++) if(iterate(directionalVector[i][0], directionalVector[i][1], color ? ['b', 'q'] : ['B', 'Q'])) return true;
     for(let i = 4; i < 8; i++) if(iterate(directionalVector[i][0], directionalVector[i][1], color ? ['r', 'q'] : ['R', 'Q'])) return true;
+    return false;
 }
 
 export const directionalVector = [

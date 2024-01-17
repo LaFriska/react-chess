@@ -81,6 +81,7 @@ export const isThreatenedByPawn = (chessPos, color) => {
 
     if(check(-1)) return true;
     if(check(1)) return true;
+    return false;
 }
 
 export const isInConditionToPromote = (row, col, newRow, newCol, chessPos) => {

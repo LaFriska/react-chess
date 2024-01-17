@@ -12,6 +12,7 @@ class Game{
     chessPos = ChessPosition.getDefaultPosition()
     turn = true;
     futureEnPassent = [];
+    isInCheck;
 
     hasMoved = {
         K: false,
@@ -21,6 +22,9 @@ class Game{
         rr: false,
         Rr: false
     }
+
+    checkMate = null;
+    staleMate = null;
 
     // eslint-disable-next-line no-useless-constructor
     constructor(){
@@ -35,10 +39,24 @@ class Game{
         this.chessPos = move.chessPos;
         this.updateHasMoved(move)
         this.switchTurn()
+        this.updateIsInCheck()
+        this.scanCheckmateAndStalemate();
         return this.chessPos;
     }
 
-    updateHasMoved(move){
+    scanCheckmateAndStalemate(){
+        for(let row = 0; row < 8; row++){
+            for(let col = 0; col < 8; col++){
+                if(this.chessPos.getColor (row, col) === this.turn && this.getPossibleMoves(row, col).length > 0) return;
+            }
+        }
+    }
+
+    updateIsInCheck(){
+        this.isInCheck = this.chessPos.isKingInDanger(this.turn);
+    }
+
+    updateHasMoved(){
         // if(move.hasMoved !== null) this.hasMoved[move.hasMoved] = true;
         if(this.chessPos.get(0, 0) !== 'r') this.hasMoved.rl = true;
         if(this.chessPos.get(0, 7) !== 'r') this.hasMoved.rr = true;
