@@ -1,0 +1,41 @@
+.coords{
+}
+
+.alph-coords{
+    display: flex;
+    justify-content: center;
+    margin-left: 80px;
+    padding: 0;
+}
+
+.alph-square{
+    width: var(--tile-size);
+    height: var(--tile-size);
+    display: flex;
+    justify-content: center;
+}
+
+.alph{
+    font-size: 20px;
+    color: var(--coords-color);
+    font-family: "Courier New", serif;
+    margin-top: 15px;
+    user-select: none;
+}
+
+.num-square{
+    width: var(--tile-size);
+    height: var(--tile-size);
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+
+.num{
+    padding: 0;
+    margin-right: 15px;
+    font-size: 20px;
+    color: var(--coords-color);
+    font-family: "Courier New", serif;
+    user-select: none;
+}

@@ -2,7 +2,7 @@
     --tile-size : 80px;
     /*--light-tile : #F0D8B6;*/
     /*--dark-tile : #B48764;*/
-    --bg-color : #202020;
+    --bg-color : #ffc17f;
     --highlight : rgba(0,0,0,.1);
     --check : #FEEC48;
     --highlighted-tile-border-width: 3px;
@@ -10,7 +10,9 @@
     --highlighted-tile-color : #07b4b4;
     --highlighted-possible-moves-tile-color-black : #281800;
     --highlighted-possible-moves-tile-color-white: #b0c9ff;
-    --piece-size: 70px
+    --check-color: red;
+    --piece-size: 70px;
+    --coords-color: #654109
 }
 
 @media all and (max-width: 450px) {

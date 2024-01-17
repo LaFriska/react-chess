@@ -12,21 +12,19 @@
 .highlight{
     width: var(--highlighted-tile-size);
     height: var(--highlighted-tile-size);
-    border: var(--highlighted-tile-border-width) solid var(--highlighted-possible-moves-tile-color-white)
+    border: var(--highlighted-tile-border-width) solid var(--highlighted-possible-moves-tile-color-white);
 }
 
 .highlight-possible-moves-black{
     background-color: var(--highlighted-possible-moves-tile-color-white) !important;
-    /*width: var(--highlighted-tile-size);*/
-    /*height: var(--highlighted-tile-size);*/
-    /*border: var(--highlighted-tile-border-width) solid var(--highlighted-possible-moves-tile-color-white)*/
 }
 
 .highlight-possible-moves-white{
     background-color: var(--highlighted-possible-moves-tile-color-white) !important;
-    /*width: var(--highlighted-tile-size);*/
-    /*height: var(--highlighted-tile-size);*/
-    /*border: var(--highlighted-tile-border-width) solid var(--highlighted-possible-moves-tile-color-white)*/
+}
+
+.check{
+    background-color: var(--check-color) !important;
 }
 
 .piece{

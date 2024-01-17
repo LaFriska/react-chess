@@ -99,16 +99,6 @@ class ChessPosition {
     }
 
     static getDefaultPosition(){
-        // return new ChessPosition([
-        //     ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-        //     ['r', 'P', 'K', 'x', 'x', 'x', 'x', 'x'],
-        //     ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-        //     ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-        //     ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-        //     ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-        //     ['x', 'x', 'x', 'x', 'k', 'x', 'x', 'x'],
-        //     ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-        // ])
         // return t2;
         return new ChessPosition([
             ['r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'],
@@ -126,8 +116,7 @@ class ChessPosition {
         if(isThreatenedByKnight(this, color)) return true;
         if(isThreatenedByPawn(this, color)) return true;
         if(isThreatenedByKing(this)) return true;
-        if(isThreatenedByQueenBishopOrRook(this, color)) return true;
-        return false;
+        return isThreatenedByQueenBishopOrRook(this, color);
     }
 
     construct(matrix, whiteKingRow, whiteKingCol, blackKingRow, blackKingCol){
@@ -149,12 +138,12 @@ const t1 = new ChessPosition([
 
 const t2 = new ChessPosition([ //TODO cover proof of custom chess game with no kings
     ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-    ['x', 'P', 'x', 'x', 'x', 'x', 'x', 'x'],
+    ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
     ['x', 'x', 'x', 'K', 'x', 'x', 'x', 'x'],
     ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-    ['x', 'x', 'x', 'x', 'x', 'k', 'x', 'x'],
+    ['x', 'x', 'x', 'r', 'x', 'k', 'x', 'x'],
     ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-    ['x', 'x', 'x', 'x', 'x', 'p', 'x', 'x'],
+    ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
     ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
 ])
 

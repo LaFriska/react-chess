@@ -20,13 +20,12 @@ const Tile = (props) => {
     const getClassName = () => {
         let classname = 'tile';
         if(props.highlight === true) classname = classname + ' highlight'
+        if(props.check === true) classname = classname + ' check'
         else if(props.highlightPossibleMoves !== null) {
             classname = classname + (props.highlightPossibleMoves ? ' highlight-possible-moves-white' : ' highlight-possible-moves-black')
         }
         return classname
     }
-
-    if(props.highlight === true) classname = classname + ' highlight'
 
     return (
         isPieceDefined()

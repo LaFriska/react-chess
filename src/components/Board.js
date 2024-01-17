@@ -22,9 +22,17 @@ const Board = (props) => {
 
     const [tileStates, setTileStates] = useState(initialTiles)
     const [highlightedCoord, setHighlightedCoord] = useState(null)
-    const [chesspos, setChessPos] = useState(props.chesspos)
+    const [chessPos, setChessPos] = useState(props.chesspos)
     const [game, setGame] = useState(new Game())
     const [highlightedPossibleMoves, setHighlightedPossibleMoves] = useState([])
+
+    const processCheck = (chessPos) => {
+        let newCheckSquare = {row: null, col: null};
+        if(chessPos.isKingInDanger(game.turn)) newCheckSquare = chessPos.getKingPosition(game.turn)
+        return newCheckSquare
+    }
+
+    const [checkSquare, setCheckSquare] = useState(processCheck(chessPos))
 
     const controlTile = (coords) => {
         const newStates = [...tileStates]
@@ -33,12 +41,12 @@ const Board = (props) => {
         const col = hasHighlight ?  highlightedCoord.col : null
         const row2 = coords.row
         const col2 = coords.col
-        const hasPiece = chesspos.get(row2, col2) !== 'x';
+        const hasPiece = chessPos.get(row2, col2) !== 'x';
 
         unhighlightPossibleMoves(newStates)
         if(hasPiece && hasHighlight){ //Tries to take a piece
             //Takes an enemy piece
-            if(chesspos.getColor(row, col) !== chesspos.getColor(row2, col2)) tryPlay(newStates, row, col, row2, col2)
+            if(chessPos.getColor(row, col) !== chessPos.getColor(row2, col2)) tryPlay(newStates, row, col, row2, col2)
             else { //Moves from piece to select another same colour piece
                 newStates[row2][col2] = {...newStates[row2][col2], highlight: true}
                 const isSamePiece = row2 === row && col2 === col;
@@ -59,7 +67,7 @@ const Board = (props) => {
     const highlightPossibleMoves = (newStates, row, col) => {
         const possibleMoves = game.getPossibleMoves(row, col)
         for(let i = 0; i < possibleMoves.length; i++){
-            newStates[possibleMoves[i].row][possibleMoves[i].col] = {...newStates[possibleMoves[i].row][possibleMoves[i].col], highlightPossibleMoves: chesspos.getColor(row, col)}
+            newStates[possibleMoves[i].row][possibleMoves[i].col] = {...newStates[possibleMoves[i].row][possibleMoves[i].col], highlightPossibleMoves: chessPos.getColor(row, col)}
         }
         setHighlightedPossibleMoves(possibleMoves)
     }
@@ -78,12 +86,13 @@ const Board = (props) => {
         let newPos = game.play(row, col, newRow, newCol, promotion)
         if(newPos === null) return;
         setChessPos(newPos)
+        setCheckSquare(processCheck(newPos))
     }
 
     const askPawnPromotion = (row, col, newRow, newCol, msg) => {
-        if(!isInConditionToPromote(row, col, newRow, newCol, chesspos)) return
+        if(!isInConditionToPromote(row, col, newRow, newCol, chessPos)) return
         if(msg === undefined) msg = ''
-        const color = chesspos.getColor(row, col)
+        const color = chessPos.getColor(row, col)
         const checkChoice = (choice) => {
             choice = choice.toLowerCase();
             if(choice === 'queen' || choice === 'q') return color ? 'Q' : 'q';
@@ -98,6 +107,11 @@ const Board = (props) => {
         const check = checkChoice(choice);
         if(check === null) return askPawnPromotion(row, col, newRow, newCol, 'Invalid choice! ')
         else return check;
+    }
+
+    const isInCheck = (row, col) => {
+        if (checkSquare.row === null || checkSquare.col === null) return false;
+        else return checkSquare.row === row && checkSquare.col === col
     }
 
     return(
@@ -116,10 +130,12 @@ const Board = (props) => {
                                   highlight={tileStates[row][col].highlight}
                                   highlightPossibleMoves={tileStates[row][col].highlightPossibleMoves}
                                   highlightTile={controlTile}
-                                  piece={chesspos.get(row, col)}
+                                  check={isInCheck(row, col)}
+                                  piece={chessPos.get(row, col)}
                             />
                         )
                     )
+
                 }
             </div>
         </div>

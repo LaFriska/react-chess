@@ -6,8 +6,14 @@ html, body{
     background: var(--bg-color);
 }
 
-.App {
-    display: grid;
-    place-content: center;
-    height: 100vh;
+/*.app {*/
+
+/*    place-content: center;*/
+/*    height: 100vh;*/
+/*}*/
+
+.num-coord-board-container{
+    display: flex;
+    justify-content: center;
+    padding-top: 70px;
 }
