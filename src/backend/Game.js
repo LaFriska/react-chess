@@ -28,6 +28,7 @@ class Game{
 
     // eslint-disable-next-line no-useless-constructor
     constructor(){
+        this.updateIsInCheck()
     }
     play(row, col, row2, col2, promotion){
         const move = this.getMove(row, col, row2, col2)
@@ -50,6 +51,8 @@ class Game{
                 if(this.chessPos.getColor (row, col) === this.turn && this.getPossibleMoves(row, col).length > 0) return;
             }
         }
+        if(this.isInCheck) this.checkMate = true;
+        else this.staleMate = true;
     }
 
     updateIsInCheck(){

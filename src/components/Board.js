@@ -84,8 +84,14 @@ const Board = (props) => {
         if(promotion === null) return
         let newPos = game.play(row, col, newRow, newCol, promotion)
         if(newPos === null) return;
-        setChessPos(newPos)
         setCheckSquare(getCheckSquare())
+        setChessPos(newPos)
+        scanForCheckmateAndStalemate()
+    }
+
+    const scanForCheckmateAndStalemate = () => {
+        if(game.checkMate) setTimeout(() => {alert("Checkmate! " + (game.turn ? 'black' : 'white') + " has won the game.")}, 200) //TODO add custom notifs as opposed to alert calls
+        if(game.staleMate) setTimeout(() => {alert("Stalemate! " + (game.turn ? 'white' : 'black') + " has no moves left. The game ends in a draw!")}, 200)
     }
 
     const askPawnPromotion = (row, col, newRow, newCol, msg) => {
@@ -134,7 +140,6 @@ const Board = (props) => {
                             />
                         )
                     )
-
                 }
             </div>
         </div>
