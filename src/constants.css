@@ -2,14 +2,15 @@
     --tile-size : 80px;
     /*--light-tile : #F0D8B6;*/
     /*--dark-tile : #B48764;*/
-    --bg-color : #ffc17f;
+    --bg-color : #ffe9c2;
+    --control-panel-bg-color: #ffd793;
     --highlight : rgba(0,0,0,.1);
     --check : #FEEC48;
     --highlighted-tile-border-width: 3px;
     --highlighted-tile-size: calc(var(--tile-size) - 2 * var(--highlighted-tile-border-width));
     --highlighted-tile-color : #07b4b4;
     --highlighted-possible-moves-tile-color-black : #281800;
-    --highlighted-possible-moves-tile-color-white: #b0c9ff;
+    --highlighted-possible-moves-tile-color-white: #ffdeb4;
     --check-color: red;
     --piece-size: 70px;
     --coords-color: #654109

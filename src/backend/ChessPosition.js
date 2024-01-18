@@ -99,7 +99,6 @@ class ChessPosition {
     }
 
     static getDefaultPosition(){
-        return t3;
         return new ChessPosition([
             ['r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'],
             ['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'],

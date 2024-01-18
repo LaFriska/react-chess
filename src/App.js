@@ -3,17 +3,20 @@ import Board from "./components/Board";
 import {ChessPosition} from "./backend/ChessPosition";
 import VerticalCoords from "./components/VerticalCoords";
 import HorizontalCoords from "./components/HorizontalCoords";
+import ControlPanel from "./components/ControlPanel";
 
 function App() {
 
   return (
     <div className="app">
-        <div className="num-coord-board-container">
+        <div className="vertical-container">
+            <ControlPanel/>
             <VerticalCoords/>
-            <Board chesspos={ChessPosition.getDefaultPosition()}/>
+            <div className="horizontal-board-container">
+                <Board chesspos={ChessPosition.getDefaultPosition()}/>
+                <HorizontalCoords/>
+            </div>
         </div>
-        <HorizontalCoords/>
-
     </div>
   );
 }

@@ -6,13 +6,7 @@ html, body{
     background: var(--bg-color);
 }
 
-/*.app {*/
-
-/*    place-content: center;*/
-/*    height: 100vh;*/
-/*}*/
-
-.num-coord-board-container{
+.vertical-container{
     display: flex;
     justify-content: center;
     padding-top: 70px;
