@@ -6,10 +6,13 @@ import HorizontalCoords from "./components/HorizontalCoords";
 import ControlPanel from "./components/ControlPanel";
 
 function App() {
+  // const notify = () => toast("Wow so easy!");
 
   return (
     <div className="app">
         <div className="vertical-container">
+            {/*<button onClick={notify}></button>*/}
+            {/*<ToastContainer />*/}
             <ControlPanel/>
             <VerticalCoords/>
             <div className="horizontal-board-container">

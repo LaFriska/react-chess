@@ -5,6 +5,9 @@ import Tile from "./Tile";
 import Game from '../backend/Game'
 import {isInConditionToPromote} from "../backend/piecelogic/Pawn";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const Board = (props) => {
     const ranks = Array(8).fill().map((x,i) => 8-i)
     const files = Array(8).fill().map((x,i) => getCharacter(i))
@@ -91,8 +94,8 @@ const Board = (props) => {
     }
 
     const scanForCheckmateAndStalemate = () => {
-        if(game.checkMate) setTimeout(() => {alert("Checkmate! " + (game.turn ? 'black' : 'white') + " has won the game.")}, 200) //TODO add custom notifs as opposed to alert calls
-        if(game.staleMate) setTimeout(() => {alert("Stalemate! " + (game.turn ? 'white' : 'black') + " has no moves left. The game ends in a draw!")}, 200)
+        if(game.checkMate) toast.info("Checkmate! " + (game.turn ? 'black' : 'white') + " has won the game.", {position: "top-center", theme: 'dark'});
+        if(game.staleMate) toast.info("Stalemate! " + (game.turn ? 'white' : 'black') + " has no moves left. The game ends in a draw!", {position: "top-center", theme: 'dark'});
     }
 
     const askPawnPromotion = (row, col, newRow, newCol, msg) => {
@@ -143,6 +146,7 @@ const Board = (props) => {
                     )
                 }
             </div>
+            <ToastContainer/>
         </div>
     )
 }
