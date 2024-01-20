@@ -64,6 +64,7 @@ const Board = (props) => {
     }
 
     const highlightPossibleMoves = (newStates, row, col) => {
+        if(game.chessPos.getColor(row, col) !== game.turn) return;
         const possibleMoves = game.getPossibleMoves(row, col)
         for(let i = 0; i < possibleMoves.length; i++){
             newStates[possibleMoves[i].row][possibleMoves[i].col] = {...newStates[possibleMoves[i].row][possibleMoves[i].col], highlightPossibleMoves: chessPos.getColor(row, col)}
