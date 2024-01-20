@@ -1,4 +1,4 @@
-import './App.css';
+import './css/App.css';
 import Board from "./components/Board";
 import {ChessPosition} from "./backend/ChessPosition";
 import VerticalCoords from "./components/VerticalCoords";

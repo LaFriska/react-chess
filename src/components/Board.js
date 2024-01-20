@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import './Board.css'
+import '../css/Board.css'
 import {getCharacter, isEven} from "../Util";
 import Tile from "./Tile";
 import Game from '../backend/Game'

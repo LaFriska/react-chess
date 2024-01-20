@@ -1,6 +1,6 @@
 import {useState} from 'react'
-import '../constants.css'
-import './Tile.css'
+import '../css/constants.css'
+import '../css/Tile.css'
 import BackendUtils from "../backend/BackendUtils";
 const Tile = (props) => {
     const [backgroundColor, setBackgroundColor] = useState(props.color === 'white' ? '#be7e3b' : '#593b19')

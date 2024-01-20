@@ -1,4 +1,4 @@
-import './Coordinates.css'
+import '../css/Coordinates.css'
 
 const VerticalCoords = () => {
 

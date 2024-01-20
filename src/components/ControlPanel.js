@@ -1,4 +1,4 @@
-import './ControlPanel.css'
+import '../css/ControlPanel.css'
 import ControlButton from "./ControlButton";
 
 const ControlPanel = () => {
