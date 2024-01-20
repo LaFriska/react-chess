@@ -23,8 +23,8 @@ class Game{
         Rr: false
     }
 
-    checkMate = null;
-    staleMate = null;
+    gameResult = null;
+
     hasGameEnded = false;
 
     // eslint-disable-next-line no-useless-constructor
@@ -49,11 +49,22 @@ class Game{
     scanCheckmateAndStalemate(){
         for(let row = 0; row < 8; row++){
             for(let col = 0; col < 8; col++){
-                if(this.chessPos.getColor (row, col) === this.turn && this.getPossibleMoves(row, col).length > 0) return;
+                if(this.chessPos.getColor(row, col) === this.turn && this.getPossibleMoves(row, col).length > 0) return;
             }
         }
-        if(this.isInCheck) this.checkMate = true;
-        else this.staleMate = true;
+        // if(this.isInCheck) this.checkMate = true;
+        // else this.staleMate = true;
+        if(this.isInCheck) {
+            this.gameResult = {
+                winner: !this.turn,
+                scenario: 'checkmate'
+            }
+        }else{
+            this.gameResult = {
+                winner: !this.turn,
+                scenario: 'stalemate'
+            }
+        }
         this.hasGameEnded = true;
     }
 
@@ -103,9 +114,19 @@ class Game{
         }
     }
 
-    // canCastleKingSide(color){
-    //     if(color) return this.hasMoved.
-    // }
+    resign(losingSide){
+        console.log('test')
+        this.gameResult = {
+            winner: !losingSide,
+            scenario: 'resignation'
+        }
+        this.hasGameEnded = true;
+    }
+
+    getGameResultScenario(){
+        if(this.gameResult === null) return null;
+        return this.gameResult.scenario;
+    }
 }
 
 export default Game

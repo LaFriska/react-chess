@@ -4,19 +4,19 @@ import {ChessPosition} from "./backend/ChessPosition";
 import VerticalCoords from "./components/VerticalCoords";
 import HorizontalCoords from "./components/HorizontalCoords";
 import ControlPanel from "./components/ControlPanel";
+import Game from "./backend/Game";
 
 function App() {
-  // const notify = () => toast("Wow so easy!");
+
+  const game = new Game();
 
   return (
     <div className="app">
         <div className="vertical-container">
-            {/*<button onClick={notify}></button>*/}
-            {/*<ToastContainer />*/}
-            <ControlPanel/>
+            <ControlPanel game={game}/>
             <VerticalCoords/>
             <div className="horizontal-board-container">
-                <Board chesspos={ChessPosition.getDefaultPosition()}/>
+                <Board chesspos={ChessPosition.getDefaultPosition()} game={game}/>
                 <HorizontalCoords/>
             </div>
         </div>

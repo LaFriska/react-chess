@@ -7,6 +7,7 @@ import {isInConditionToPromote} from "../backend/piecelogic/Pawn";
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {def} from "./ToastOptions";
 
 const Board = (props) => {
     const ranks = Array(8).fill().map((x,i) => 8-i)
@@ -26,7 +27,7 @@ const Board = (props) => {
     const [tileStates, setTileStates] = useState(initialTiles)
     const [highlightedCoord, setHighlightedCoord] = useState(null)
     const [chessPos, setChessPos] = useState(props.chesspos)
-    const [game, setGame] = useState(new Game())
+    const [game, setGame] = useState(props.game)
     const [highlightedPossibleMoves, setHighlightedPossibleMoves] = useState([])
 
     const getCheckSquare = () => {
@@ -94,8 +95,9 @@ const Board = (props) => {
     }
 
     const scanForCheckmateAndStalemate = () => {
-        if(game.checkMate) toast.info("Checkmate! " + (game.turn ? 'black' : 'white') + " has won the game.", {position: "top-center", theme: 'dark'});
-        if(game.staleMate) toast.info("Stalemate! " + (game.turn ? 'white' : 'black') + " has no moves left. The game ends in a draw!", {position: "top-center", theme: 'dark'});
+        const r = game.getGameResultScenario();
+        if(r === 'checkmate') toast.info("Checkmate! " + (game.turn ? 'black' : 'white') + " has won the game.", def);
+        if(r === 'stalemate') toast.info("Stalemate! " + (game.turn ? 'white' : 'black') + " has no moves left. The game ends in a draw!", def);
     }
 
     const askPawnPromotion = (row, col, newRow, newCol, msg) => {
@@ -146,7 +148,7 @@ const Board = (props) => {
                     )
                 }
             </div>
-            <ToastContainer/>
+            <ToastContainer pauseOnHover={false}/>
         </div>
     )
 }

@@ -1,7 +1,3 @@
-.board {
-
-}
-
 .tiles{
     display: grid;
     grid-template-columns: repeat(8, var(--tile-size));

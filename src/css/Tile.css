@@ -1,4 +1,4 @@
-@import 'constants.css';
+@import 'Consts.css';
 
 .tile{
     width: var(--tile-size);

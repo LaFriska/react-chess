@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import '../css/constants.css'
+import '../css/Consts.css'
 import '../css/Tile.css'
 import BackendUtils from "../backend/BackendUtils";
 const Tile = (props) => {
