@@ -9,15 +9,14 @@
     --highlighted-tile-border-width: 3px;
     --highlighted-tile-size: calc(var(--tile-size) - 2 * var(--highlighted-tile-border-width));
     --highlighted-tile-color : #07b4b4;
-    --highlighted-possible-moves-tile-color-black : #281800;
-    --highlighted-possible-moves-tile-color-white: #ffdeb4;
+    --highlight-possible-moves: #ffe9c2;
     --check-color: red;
     --piece-size: 70px;
     --coords-color: #654109
 }
 
-@media all and (max-width: 450px) {
-    :root {
-        --tile-size : 50px;
-    }
-}
+/*@media all and (max-width: 450px) {*/
+/*    :root {*/
+/*        --tile-size : 50px;*/
+/*    }*/
+/*}*/

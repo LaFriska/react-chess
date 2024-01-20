@@ -1,7 +1,8 @@
 const ControlButton = (props) => {
 
     const style = {
-        backgroundColor: props.color === undefined ? 'gray' : props.color
+        backgroundColor: props.color === undefined ? 'gray' : props.color,
+        color: props.textColor === undefined ? 'white' : props.textColor
     }
 
     return(

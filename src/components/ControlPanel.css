@@ -1,14 +1,12 @@
 @import '../constants.css';
 
 .control-button{
-    color: #ffffff;
     font-family: Arial, sans-serif;
     font-size: 12px;
     letter-spacing: 5px;
     text-transform: uppercase;
     display: flex;
     justify-content: center;
-    /*background-color: #4edc4e;*/
     margin-top: 15px;
     margin-bottom: 15px;
     padding-left: 20px;
@@ -19,7 +17,6 @@
 
 .control-button:hover{
     cursor: pointer;
-    color: #000000;
 }
 
 .control-panel{

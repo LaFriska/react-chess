@@ -99,6 +99,7 @@ class ChessPosition {
     }
 
     static getDefaultPosition(){
+        return t1;
         return new ChessPosition([
             ['r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'],
             ['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'],
@@ -124,14 +125,14 @@ class ChessPosition {
 }
 
 const t1 = new ChessPosition([
-        ['r', 'x', 'x', 'x', 'k', 'x', 'x', 'r'],
+        ['k', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+        ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+        ['x', 'Q', 'x', 'x', 'x', 'x', 'x', 'x'],
+        ['x', 'R', 'x', 'x', 'x', 'x', 'x', 'x'],
+        ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+        ['x', 'x', 'x', 'x', 'x', 'x', 'K', 'x'],
         ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
         ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-        ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-        ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-        ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-        ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-        ['R', 'x', 'x', 'x', 'K', 'x', 'x', 'R'],
     ]
 )
 

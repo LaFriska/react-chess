@@ -25,6 +25,7 @@ class Game{
 
     checkMate = null;
     staleMate = null;
+    hasGameEnded = false;
 
     // eslint-disable-next-line no-useless-constructor
     constructor(){
@@ -53,6 +54,7 @@ class Game{
         }
         if(this.isInCheck) this.checkMate = true;
         else this.staleMate = true;
+        this.hasGameEnded = true;
     }
 
     updateIsInCheck(){
