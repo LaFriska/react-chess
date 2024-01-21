@@ -33,12 +33,26 @@ const ControlPanel = (props) => {
     return (
         <div>
             <div className='control-panel'>
-                <ControlButton onClick={() => checkResign(false)} game={props.game} text='Resign' color='#000000'/>
-                <ControlButton text='Draw' color='#000000'/>
-                <ControlButton onClick={() => makeDecision(true)} text='Yes' color='#4edc4e'/>
-                <ControlButton onClick={() => clearDecision(null)} text='No' color='#eb3f3f'/>
-                <ControlButton onClick={() => checkResign(true)} text='Resign' color='#FFFFFF' textColor='#000000'/>
-                <ControlButton text='Draw' color='#FFFFFF' textColor='#000000'/>
+
+                <ControlButton onClick={() => checkResign(false)} game={props.game}
+                               text='Resign'
+                               type='black'/>
+
+                <ControlButton onClick={() => makeDecision(true)}
+                               text='Yes'
+                               type='success'/>
+
+                <ControlButton text='Draw'
+                               color='#FFFFFF'/>
+
+                <ControlButton onClick={() => clearDecision(null)}
+                               text='No'
+                               type='warning'/>
+
+                <ControlButton onClick={() => checkResign(true)}
+                               text='Resign'
+                               color='#FFFFFF'
+                               type='white'/>
             </div>
         </div>
     );
