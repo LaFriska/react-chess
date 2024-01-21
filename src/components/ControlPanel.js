@@ -15,6 +15,7 @@ const ControlPanel = (props) => {
     }
 
     const resign = (side) => {
+        setDecision(null)
         toast.info((side ? "black" : "white") + " has won! " + (side ? "white" : "black") + " loses by resignation.")
         props.game.resign(side)
     }
