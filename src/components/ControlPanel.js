@@ -14,19 +14,33 @@ const ControlPanel = (props) => {
         setDecision("resign-" + (side ? 'white' : 'black'))
     }
 
+    const checkDraw = () => {
+        if(props.game.hasGameEnded) return;
+        toast.warn("A draw has been offered. Would you like to accept?", def)
+        setDecision("draw")
+    }
+
     const resign = (side) => {
-        setDecision(null)
         toast.info((side ? "black" : "white") + " has won! " + (side ? "white" : "black") + " loses by resignation.")
         props.game.resign(side)
     }
 
-    const makeDecision = (yesno) => {
-        if(yesno && decision === "resign-white") resign(true);
-        if(yesno && decision === "resign-black") resign(false);
+    const draw = () => {
+        toast.success("The offer for a draw has been accepted. The game ends in a draw.", def)
+        props.game.draw();
+    }
+    const makeDecision = () => {
+        switch (decision){
+            case "resign-white": resign(true); break;
+            case "resign-black": resign(false); break;
+            case "draw": draw(); break;
+        }
+        setDecision(null)
     }
 
     const clearDecision = () => {
         if(decision === "resign-white" || decision === "resign-black") toast.success("The game will continue!", def)
+        if(decision === "draw") toast.success("Draw offer declined! The game will continue.", def)
         setDecision(null)
     }
 
@@ -42,7 +56,8 @@ const ControlPanel = (props) => {
                                text='Yes'
                                type='success'/>
 
-                <ControlButton text='Draw'
+                <ControlButton onClick={() => checkDraw()}
+                               text='Draw'
                                color='#FFFFFF'/>
 
                 <ControlButton onClick={() => clearDecision(null)}

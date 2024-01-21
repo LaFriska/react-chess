@@ -115,10 +115,17 @@ class Game{
     }
 
     resign(losingSide){
-        console.log('test')
         this.gameResult = {
             winner: !losingSide,
             scenario: 'resignation'
+        }
+        this.hasGameEnded = true;
+    }
+
+    draw(){
+        this.gameResult = {
+            winner: null,
+            scenario: 'offeredDraw'
         }
         this.hasGameEnded = true;
     }
