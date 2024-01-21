@@ -36,13 +36,12 @@ const ControlButton = (props) => {
                 backgroundColor: hover ? "#0054c5" : "#0066ff"
             }
             default: return{
-                color: "white",
-                backgroundColor: hover ? "#5d5d5d" : "#6e6e6e"
+                color: "black",
+                backgroundColor: hover ? "#818181" : "#989898"
             }
         }
     }
 
-    console.log(style)
     return(
         <div className='control-button' style={style()}
              onClick={props.onClick}

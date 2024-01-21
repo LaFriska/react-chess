@@ -16,6 +16,12 @@ const ControlPanel = (props) => {
 
     const checkDraw = () => {
         if(props.game.hasGameEnded) return;
+        if(props.game.movesWithoutProgress >= 50){
+            toast.info("A player has claimed a draw after 50 moves without progress!")
+            props.game.draw("50Moves")
+            setDecision(null)
+            return;
+        }
         toast.warn("A draw has been offered. Would you like to accept?", def)
         setDecision("draw")
     }
@@ -27,7 +33,7 @@ const ControlPanel = (props) => {
 
     const draw = () => {
         toast.success("The offer for a draw has been accepted. The game ends in a draw.", def)
-        props.game.draw();
+        props.game.draw("offeredDraw");
     }
     const makeDecision = () => {
         switch (decision){

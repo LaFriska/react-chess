@@ -92,6 +92,16 @@ const Board = (props) => {
         setCheckSquare(getCheckSquare())
         setChessPos(newPos)
         scanForCheckmateAndStalemate()
+        scanForDraw()
+
+    }
+
+    const scanForDraw = () => {
+        if(game.movesWithoutProgress === 50 && game.turn === true) toast.info("50 moves have been made without progress. Any player may now click \"draw\" to instantly claim a draw.", def)
+        if(game.movesWithoutProgress >= 75){
+            toast.info("75 moves have been made without progress. The game automatically ends in a draw!")
+            game.draw("75moves")
+        }
     }
 
     const scanForCheckmateAndStalemate = () => {

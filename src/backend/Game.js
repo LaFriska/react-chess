@@ -24,8 +24,9 @@ class Game{
     }
 
     gameResult = null;
-
     hasGameEnded = false;
+    movesWithoutProgress = 73;
+    currentMoveHasProgress = false;
 
     // eslint-disable-next-line no-useless-constructor
     constructor(){
@@ -38,12 +39,29 @@ class Game{
         this.futureEnPassent = []; //Reset en passent possibility
         if(move.futureEnPassent !== undefined) this.futureEnPassent = move.futureEnPassent
         if(promotion !== undefined && promotion !== null) move.promote(promotion)
+        this.currentMoveHasProgress = this.getCurrentMoveProgress(row, col, row2, col2)
         this.chessPos = move.chessPos;
         this.updateHasMoved(move)
         this.switchTurn()
         this.updateIsInCheck()
         this.scanCheckmateAndStalemate();
+        if(this.turn === true && !this.hasGameEnded) {
+            this.handleFiftyMovesRule()
+            this.currentMoveHasProgress = false;
+        }
+        console.log(this.movesWithoutProgress)
         return this.chessPos;
+    }
+
+    handleFiftyMovesRule(){
+        if(this.currentMoveHasProgress) this.movesWithoutProgress = 0;
+        else this.movesWithoutProgress++;
+    }
+
+    getCurrentMoveProgress(row, col, row2, col2){
+        if(this.chessPos.get(row, col).toLowerCase() === 'p') return true;
+        if(this.chessPos.get(row2, col2) !== 'x') return true;
+        return this.currentMoveHasProgress;
     }
 
     scanCheckmateAndStalemate(){
@@ -122,10 +140,10 @@ class Game{
         this.hasGameEnded = true;
     }
 
-    draw(){
+    draw(reason){
         this.gameResult = {
             winner: null,
-            scenario: 'offeredDraw'
+            scenario: reason
         }
         this.hasGameEnded = true;
     }
