@@ -9,7 +9,7 @@ const HorizontalCoords = () => {
         <div className="alph-coords">
             {
                 files.map((file, col) =>
-                    <div className="alph-square"><p className="alph">{file}</p></div>
+                    <div className="alph-square" key={col}><p className="alph">{file}</p></div>
                 )
             }
         </div>

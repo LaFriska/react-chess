@@ -3,7 +3,7 @@ class Move{
     row
     col
     chessPos
-    futureEnPassent
+    futureEnPassent //{row, col}
 
     constructor(row, col, chessPos, futureEnPassent){
         this.row = row;

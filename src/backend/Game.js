@@ -6,6 +6,7 @@ import {getPossibleRookMoves} from "./piecelogic/Rook";
 import {getPossibleBishopMoves} from "./piecelogic/Bishop";
 import {getPossibleQueenMoves} from "./piecelogic/Queen";
 import {getPossibleKingMoves} from "./piecelogic/King";
+import TFRPositionLog from "./TFRPositionLog";
 
 class Game{
 
@@ -25,31 +26,33 @@ class Game{
 
     gameResult = null;
     hasGameEnded = false;
-    movesWithoutProgress = 73;
+    movesWithoutProgress = 0;
     currentMoveHasProgress = false;
+    positionLog
 
-    // eslint-disable-next-line no-useless-constructor
     constructor(){
         this.updateIsInCheck()
+        this.positionLog = new TFRPositionLog(this)
     }
-    play(row, col, row2, col2, promotion){
-        const move = this.getMove(row, col, row2, col2)
+    play(row, col, newRow, newCol, promotion){
+        const move = this.getMove(row, col, newRow, newCol)
         if(move === null) return null;
         //Make moves
         this.futureEnPassent = []; //Reset en passent possibility
         if(move.futureEnPassent !== undefined) this.futureEnPassent = move.futureEnPassent
         if(promotion !== undefined && promotion !== null) move.promote(promotion)
-        this.currentMoveHasProgress = this.getCurrentMoveProgress(row, col, row2, col2)
+        this.currentMoveHasProgress = this.getCurrentMoveProgress(row, col, newRow, newCol)
+        const hasTakenPiece = this.chessPos.get(newRow, newCol) !== 'x'
         this.chessPos = move.chessPos;
         this.updateHasMoved(move)
         this.switchTurn()
         this.updateIsInCheck()
         this.scanCheckmateAndStalemate();
+        this.positionLog.log(row, col, newRow, newCol, hasTakenPiece)
         if(this.turn === true && !this.hasGameEnded) {
             this.handleFiftyMovesRule()
             this.currentMoveHasProgress = false;
         }
-        console.log(this.movesWithoutProgress)
         return this.chessPos;
     }
 

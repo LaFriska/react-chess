@@ -127,8 +127,8 @@ class ChessPosition {
 const t1 = new ChessPosition([
         ['k', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
         ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-        ['x', 'Q', 'x', 'x', 'x', 'x', 'x', 'x'],
-        ['x', 'R', 'x', 'x', 'x', 'x', 'x', 'x'],
+        ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+        ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
         ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
         ['x', 'x', 'x', 'x', 'x', 'x', 'K', 'x'],
         ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],

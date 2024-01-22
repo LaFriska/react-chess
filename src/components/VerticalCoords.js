@@ -8,7 +8,7 @@ const VerticalCoords = () => {
         <div className="coords">
             {
                 ranks.map((rank, row) =>
-                    <div className="num-square"><p className="num">{rank.toString()}</p></div>
+                    <div className="num-square" key={row}><p className="num">{rank.toString()}</p></div>
                 )
             }
         </div>
