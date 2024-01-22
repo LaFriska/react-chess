@@ -29,6 +29,7 @@ class Game{
     movesWithoutProgress = 0;
     currentMoveHasProgress = false;
     positionLog
+    insufficientMatingMaterial = false;
 
     constructor(){
         this.updateIsInCheck()
@@ -48,12 +49,60 @@ class Game{
         this.switchTurn()
         this.updateIsInCheck()
         this.scanCheckmateAndStalemate();
+        this.insufficientMatingMaterial = this.hasInsufficientMatingMaterial();
         this.positionLog.log(row, col, newRow, newCol, hasTakenPiece)
         if(this.turn === true && !this.hasGameEnded) {
             this.handleFiftyMovesRule()
             this.currentMoveHasProgress = false;
         }
         return this.chessPos;
+    }
+
+    hasInsufficientMatingMaterial(){
+        let blackNum = 0;
+        let whiteNum = 0;
+        let whiteBishopFlags = [false, false] //black square, white square
+        let blackBishopFlags = [false, false]
+        for(let row = 0; row < 8; row++){
+            for(let col = 0; col < 8; col++){
+                switch (this.chessPos.get(row, col).toLowerCase()){ //Immediately returns false if rook/queen/pawn spotted
+                    case "r": return false;
+                    case "q": return false;
+                    case "p": return false;
+                    default: break;
+                }
+                if(this.chessPos.get(row, col).toLowerCase() !== 'k') {
+                    if (this.chessPos.getColor(row, col) === true) {
+                        if (this.chessPos.get(row, col) !== 'B') whiteNum++;
+                        else {
+                            if (this.chessPos.getSquareColor(row, col) && !whiteBishopFlags[1]) {
+                                whiteNum++;
+                                whiteBishopFlags[1] = true;
+                            }
+                            if (!this.chessPos.getSquareColor(row, col) && !whiteBishopFlags[0]) {
+                                whiteNum++;
+                                whiteBishopFlags[0] = true;
+                            }
+                        }
+                    }
+                    if (this.chessPos.getColor(row, col) === false) {
+                        if (this.chessPos.get(row, col) !== 'b') whiteNum++;
+                        else {
+                            if (this.chessPos.getSquareColor(row, col) && !blackBishopFlags[1]) {
+                                blackNum++;
+                                blackBishopFlags[1] = true;
+                            }
+                            if (!this.chessPos.getSquareColor(row, col) && !blackBishopFlags[0]) {
+                                blackNum++;
+                                blackBishopFlags[0] = true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        console.log(whiteNum + " " + blackNum)
+        return whiteNum + blackNum < 2;
     }
 
     handleFiftyMovesRule(){

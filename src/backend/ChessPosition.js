@@ -90,12 +90,9 @@ class ChessPosition {
         return convertToPieceName(this.get(row, col))
     }
 
-    getConvertedColumnArray(col){
-        const vector = [];
-        for(let i = 0; i < 8; i++){
-            vector.push(this.getConverted(i, col))
-        }
-        return vector;
+    getSquareColor(row, col){
+        if(Math.pow(-1, row + col) === 1) return true;
+        else return false;
     }
 
     static getDefaultPosition(){
@@ -126,7 +123,7 @@ class ChessPosition {
 
 const t1 = new ChessPosition([
         ['k', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-        ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+        ['x', 'x', 'x', 'P', 'x', 'x', 'x', 'x'],
         ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
         ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
         ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],

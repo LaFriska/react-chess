@@ -22,7 +22,6 @@ class TFRPositionLog {
             if(hasTakenPiece) this.reset();
         }
         this.iterativelyCompare(this.game.chessPos, this.game.futureEnPassent, this.game.turn);
-        console.log(this.positions)
     }
 
     iterativelyCompare(chessPos, futureEnPassent, turn){

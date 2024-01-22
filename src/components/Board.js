@@ -93,7 +93,6 @@ const Board = (props) => {
         setChessPos(newPos)
         scanForCheckmateAndStalemate()
         scanForDraw()
-
     }
 
     const scanForDraw = () => {
@@ -107,6 +106,10 @@ const Board = (props) => {
         if(game.positionLog.claimThreefoldRepetition){
             toast.info("Threefold repetition triggered! The game ends in a draw!")
             game.draw("threefold")
+        }
+        if(game.insufficientMatingMaterial){
+            toast.info("There is insufficient mating material! The game ends in a draw!")
+            game.draw("insufficient")
         }
     }
 
