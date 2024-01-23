@@ -1,4 +1,7 @@
+// Please use a more descriptive name than TFRPositionLog, I have no idea what that means
+// or add a comment explaining what it is
 class TFRPositionLog {
+    // Typescript? 🥺👉👈
     claimThreefoldRepetition
     hasMoved
     castlingRights
@@ -43,6 +46,7 @@ class TFRPositionLog {
     }
 }
 
+// Why is this class in this file? Feels like it should be in a separate file
 class Pos {
     chessPos
     futureEnPassent
@@ -76,6 +80,7 @@ class Pos {
     }
 }
 
+// Why is this class in this file? Feels like it should be in a separate file
 class CastlingRight{
 
     whiteRight = true;

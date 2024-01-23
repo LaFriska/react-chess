@@ -47,6 +47,7 @@ class Game{
         this.currentMoveHasProgress = this.getCurrentMoveProgress(row, col, newRow, newCol)
         const hasTakenPiece = this.chessPos.get(newRow, newCol) !== 'x'
         this.chessPos = move.chessPos;
+        // this is great, love these clearly named high-level methods
         this.updateHasMoved(move)
         this.switchTurn()
         this.updateIsInCheck()
@@ -146,6 +147,7 @@ class Game{
 
     updateHasMoved(){
         // if(move.hasMoved !== null) this.hasMoved[move.hasMoved] = true;
+        // hasMoved is not a very clear name
         if(this.chessPos.get(0, 0) !== 'r') this.hasMoved.rl = true;
         if(this.chessPos.get(0, 7) !== 'r') this.hasMoved.rr = true;
         if(this.chessPos.get(7, 0) !== 'R') this.hasMoved.Rl = true;

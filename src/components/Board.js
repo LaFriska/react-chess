@@ -2,14 +2,22 @@ import React, {useState} from "react";
 import '../css/Board.css'
 import {getCharacter, isEven} from "../Util";
 import Tile from "./Tile";
-import Game from '../backend/Game'
+import Game from '../backend/Game' // Unused import
 import {isInConditionToPromote} from "../backend/piecelogic/Pawn";
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {def} from "./ToastOptions";
 import EngineCzechka from "../backend/engine/EngineCzechka";
-import tile from "./Tile";
+import tile from "./Tile"; // Unused import
+
+/* Overall thoughts for this file:
+- You have a lot of useState hooks that probably don't need to be a useState.
+- I'd strongly advocate for pulling the logic out of the Board component and into a hook or store, for things like highlighting tiles, or calculating check squares.
+-- https://react.dev/learn/reusing-logic-with-custom-hooks
+-- Really, a lot of this should be separated out into a hook that contains all of the code for this in a more structured format, and then just exposes the bits needed to render the UI, and some functions to control the game.
+-- Stores are often useful for this kind of thing, but I think a hook would be better here since you don't really need to share the state with other components, and just want to encapsulate the logic.
+ */
 
 const Board = (props) => {
     const ranks = Array(8).fill().map((x,i) => 8-i)
@@ -29,19 +37,21 @@ const Board = (props) => {
     const [tileStates, setTileStates] = useState(initialTiles)
     const [highlightedCoord, setHighlightedCoord] = useState(null)
     const [chessPos, setChessPos] = useState(props.chesspos)
-    const [game, setGame] = useState(props.game)
+    const [game, setGame] = useState(props.game) // Why is this a state variable? You never update it, just use the prop value directly, use useRef, or useMemo
     const [highlightedPossibleMoves, setHighlightedPossibleMoves] = useState([])
-    const [engineBlack, setEngineBlack] = useState(new EngineCzechka(game, false))
-    const [engineWhite, setEngineWhite] = useState(new EngineCzechka(game, true))
+    const [engineBlack, setEngineBlack] = useState(new EngineCzechka(game, false)) // Same thing here, if you just want a value that doesn't recreate itself, use useMemo or useRef
+    const [engineWhite, setEngineWhite] = useState(new EngineCzechka(game, true)) // Same thing here, if you just want a value that doesn't recreate itself, use useMemo or useRef
 
     const getCheckSquare = () => {
         if(!game.isInCheck) return {row: null, col: null};
         return game.chessPos.getKingPosition(game.turn)
     }
 
-    const [checkSquare, setCheckSquare] = useState(getCheckSquare())
+    const [checkSquare, setCheckSquare] = useState(getCheckSquare()) // this would be a great place to use useMemo
 
     const controlTile = (coords) => {
+        // This is a really dense function and it would be good to break it up into smaller functions
+        // If you're not in the habit of writing smaller functions, find a cognitive complexity plugin for your IDE and set it to 10 or 15, and then try to get all of your functions below that threshold where possible
         const newStates = [...tileStates]
         const hasHighlight = highlightedCoord !== null;
         const row = hasHighlight ? highlightedCoord.row : null

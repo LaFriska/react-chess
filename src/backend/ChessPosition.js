@@ -116,11 +116,13 @@ class ChessPosition {
         return isThreatenedByQueenBishopOrRook(this, color);
     }
 
+    // what is this for?
     construct(matrix, whiteKingRow, whiteKingCol, blackKingRow, blackKingCol){
         return new ChessPosition(matrix, whiteKingRow, whiteKingCol, blackKingRow, blackKingCol)
     }
 }
 
+// what are these for?
 const t1 = new ChessPosition([
         ['k', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
         ['x', 'x', 'x', 'P', 'x', 'x', 'x', 'x'],
@@ -155,4 +157,4 @@ const t3 = new ChessPosition([
     ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
 ])
 
-module.exports = {ChessPosition}
+module.exports = {ChessPosition} // Why are you using multiple different module systems between files?
