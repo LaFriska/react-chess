@@ -6,7 +6,7 @@ import HorizontalCoords from "./components/HorizontalCoords";
 import ControlPanel from "./components/ControlPanel";
 import Game from "./backend/Game";
 
-function App() {
+function App() { //Hello world
 
   const game = new Game();
 
