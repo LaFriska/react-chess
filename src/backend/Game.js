@@ -14,6 +14,7 @@ class Game{
     turn = true;
     futureEnPassent = [];
     isInCheck;
+    hasStarted = false;
 
     hasMoved = {
         K: false,
@@ -39,6 +40,7 @@ class Game{
         const move = this.getMove(row, col, newRow, newCol)
         if(move === null) return null;
         //Make moves
+        if(!this.hasStarted) this.hasStarted = true;
         this.futureEnPassent = []; //Reset en passent possibility
         if(move.futureEnPassent !== undefined) this.futureEnPassent = move.futureEnPassent
         if(promotion !== undefined && promotion !== null) move.promote(promotion)

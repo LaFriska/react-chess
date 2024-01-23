@@ -8,6 +8,8 @@ import {isInConditionToPromote} from "../backend/piecelogic/Pawn";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {def} from "./ToastOptions";
+import EngineCzechka from "../backend/engine/EngineCzechka";
+import tile from "./Tile";
 
 const Board = (props) => {
     const ranks = Array(8).fill().map((x,i) => 8-i)
@@ -29,10 +31,12 @@ const Board = (props) => {
     const [chessPos, setChessPos] = useState(props.chesspos)
     const [game, setGame] = useState(props.game)
     const [highlightedPossibleMoves, setHighlightedPossibleMoves] = useState([])
+    const [engineBlack, setEngineBlack] = useState(new EngineCzechka(game, false))
+    const [engineWhite, setEngineWhite] = useState(new EngineCzechka(game, true))
 
     const getCheckSquare = () => {
         if(!game.isInCheck) return {row: null, col: null};
-        return chessPos.getKingPosition(game.turn)
+        return game.chessPos.getKingPosition(game.turn)
     }
 
     const [checkSquare, setCheckSquare] = useState(getCheckSquare())
@@ -82,9 +86,9 @@ const Board = (props) => {
         }
     }
 
-    const tryPlay = (newStates, row, col, newRow, newCol) => {
+    const tryPlay = (newStates, row, col, newRow, newCol, useEngine) => {
         newStates[row][col] = {...newStates[row][col], highlight: false}
-        const promotion = askPawnPromotion(row, col, newRow, newCol)
+        const promotion = askPawnPromotion(row, col, newRow, newCol, undefined, useEngine)
         setHighlightedCoord(null)
         if(promotion === null) return
         let newPos = game.play(row, col, newRow, newCol, promotion)
@@ -93,6 +97,18 @@ const Board = (props) => {
         setChessPos(newPos)
         scanForCheckmateAndStalemate()
         scanForDraw()
+        if(getEngine(game.turn) !== null){
+            const engine = getEngine(game.turn);
+            const playdata = engine.nextMove();
+            if(playdata === null) return;
+            setTimeout(() => {
+                tryPlay([...newStates], playdata.row, playdata.col, playdata.move.row, playdata.move.col, engine)
+            }, 200)
+        }
+    }
+
+    const getEngine = (side) => {
+        return side ? engineWhite : engineBlack;
     }
 
     const scanForDraw = () => {
@@ -119,8 +135,9 @@ const Board = (props) => {
         if(r === 'stalemate') toast.info("Stalemate! " + (game.turn ? 'white' : 'black') + " has no moves left. The game ends in a draw!", def);
     }
 
-    const askPawnPromotion = (row, col, newRow, newCol, msg) => {
-        if(!isInConditionToPromote(row, col, newRow, newCol, chessPos)) return
+    const askPawnPromotion = (row, col, newRow, newCol, msg, useEngine) => {
+        if(!isInConditionToPromote(row, col, newRow, newCol, game.chessPos)) return
+        if(useEngine !== undefined) return useEngine.getPawnPromotion();
         if(msg === undefined) msg = ''
         const color = chessPos.getColor(row, col)
         const checkChoice = (choice) => {
@@ -142,6 +159,11 @@ const Board = (props) => {
     const isInCheck = (row, col) => {
         if (checkSquare.row === null || checkSquare.col === null) return false;
         else return checkSquare.row === row && checkSquare.col === col
+    }
+
+    if(!game.hasStarted && engineWhite !== null){
+        const playdata = engineWhite.nextMove();
+        tryPlay([...tileStates], playdata.row, playdata.col, playdata.move.row, playdata.move.col, engineWhite)
     }
 
     return(
