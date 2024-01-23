@@ -1,4 +1,4 @@
-@import 'Consts.css';
+@import 'Consts.css'; /* You don't need to import css files in css files, just make sure that Consts.css is imported in the root js/jsx file and it'll be fine */
 
 html, body{
     margin: 0;

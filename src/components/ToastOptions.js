@@ -1,1 +1,1 @@
-export const def = {position: "top-right"}
+export const def = {position: "top-right"} // Why is this here? Just put it in the files that actually use it, or define a css class for it

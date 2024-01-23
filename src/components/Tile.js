@@ -3,19 +3,22 @@ import '../css/Consts.css'
 import '../css/Tile.css'
 import BackendUtils from "../backend/BackendUtils";
 const Tile = (props) => {
-    const [backgroundColor, setBackgroundColor] = useState(props.color === 'white' ? '#be7e3b' : '#593b19')
+    const [backgroundColor, setBackgroundColor] = useState(props.color === 'white' ? '#be7e3b' : '#593b19') // You aren't setting this state variable, just create a variable directly
+    // const backgroundColor = props.color === 'white' ? '#be7e3b' : '#593b19'; <-- like this
     const styles={
-        backgroundColor: backgroundColor
+        backgroundColor: backgroundColor // or even just put it in here
     }
+    // You should call this something more descriptive, like onTileClick
     const clicked = () => {
         props.highlightTile(props.coords)
     }
 
+    // Why is this a function and not just a variable?
     const isPieceDefined = () =>{
         return props.piece !== undefined && props.piece !== 'x'
     }
 
-    let classname = 'tile';
+    let classname = 'tile'; // unused variable
 
     const getClassName = () => {
         let classname = 'tile';

@@ -8,6 +8,7 @@ import Game from "./backend/Game";
 
 function App() {
 
+    /* This should really be in a hook to make sure it doesn't get re-created on re-renders */
   const game = new Game();
 
   return (

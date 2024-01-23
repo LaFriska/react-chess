@@ -1,0 +1,10 @@
+Use typescript! It's very useful when you're working with lots of complex data structures and classes like this
+Don't split up your css files when they only have a few bits of code in them, easier to just have one big css file for now
+Some nice separation of concerns between the backend and components, though I'd name backend something different as backend generally refers to the server side of things whereas this is more frontend app logic
+Please add more comments to your code, it's very hard to understand what's going on in a lot of places, this isn't just for me, but also for yourself in future when you come back to this code
+Unit tests would be nice for the chess logic, but I understand that this is a small project so it's not necessary
+I'd recommend using a linter like eslint to help you write better code, and catch things like unused variables, or dodgy react hooks usage
+I'd also recommend using prettier to format your code, it's a bit messy and inconsistent in places
+You might find styled-components or tailwind useful compared to css files, but that's a preference thing
+Your js files should be named .jsx if they contain jsx (which they do), and .js if they don't (or .ts/.tsx if you're using typescript)
+There's a few magic numbers and values around the place, making a file with constants for these would be nice

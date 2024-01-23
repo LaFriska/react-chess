@@ -45,8 +45,8 @@ const ControlButton = (props) => {
     return(
         <div className='control-button' style={style()}
              onClick={props.onClick}
-             onMouseEnter={handleHover}
-             onMouseLeave={unhover}
+             onMouseEnter={handleHover} // Why not use inline functions here? Just add ()=>{setHover(true)} rather than handleHover
+             onMouseLeave={unhover} // Same as above
         >
             <h2>{props.text}</h2>
         </div>
