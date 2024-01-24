@@ -31,8 +31,8 @@ const Board = (props) => {
     const [chessPos, setChessPos] = useState(props.chesspos)
     const [game, setGame] = useState(props.game)
     const [highlightedPossibleMoves, setHighlightedPossibleMoves] = useState([])
-    const [engineBlack, setEngineBlack] = useState(new EngineCzechka(game, false))
-    const [engineWhite, setEngineWhite] = useState(new EngineCzechka(game, true))
+    const [engineBlack, setEngineBlack] = useState(null)
+    const [engineWhite, setEngineWhite] = useState(null)
 
     const getCheckSquare = () => {
         if(!game.isInCheck) return {row: null, col: null};

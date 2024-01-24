@@ -12,15 +12,15 @@
 .highlight{
     width: var(--highlighted-tile-size);
     height: var(--highlighted-tile-size);
-    border: var(--highlighted-tile-border-width) solid var(--highlight-possible-moves);
+    border: var(--highlighted-tile-border-width) solid var(--highlight);
 }
 
 .highlight-possible-moves-black{
-    background-color: var(--highlight-possible-moves) !important;
+    background-color: var(--highlight) !important;
 }
 
 .highlight-possible-moves-white{
-    background-color: var(--highlight-possible-moves) !important;
+    background-color: var(--highlight) !important;
 }
 
 .check{
