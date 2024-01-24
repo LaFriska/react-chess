@@ -7,7 +7,7 @@ import {getPossibleBishopMoves} from "./piecelogic/Bishop";
 import {getPossibleQueenMoves} from "./piecelogic/Queen";
 import {getPossibleKingMoves} from "./piecelogic/King";
 import TFRPositionLog from "./TFRPositionLog";
-import CastleMoveLog from "./CastleMoveLog";
+import CastleMoveLog from "./CastleMoveLog.ts";
 
 class Game{
 
