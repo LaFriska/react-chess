@@ -2,10 +2,10 @@ import React, {useMemo, useRef, useState} from "react";
 import '../css/Board.css'
 import {getCharacter, isEven} from "../Util";
 import Tile from "./Tile";
-import {isInConditionToPromote} from "../backend/piecelogic/Pawn";
+import {isInConditionToPromote} from "../backend/piecelogic/Pawn.ts";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {def} from "./util/ToastOptions";
+import {def} from "../backend/util/ToastOptions";
 import EngineCzechka from "../backend/engine/EngineCzechka";
 
 const Board = (props) => {

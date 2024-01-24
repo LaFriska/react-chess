@@ -1,16 +1,17 @@
 import {isInBound} from "../BackendUtils";
+import { ChessPosition } from "../ChessPosition";
 import Move from "../Move";
 
-export const iteratePiecePath = (row, col, color, chessPos, dRow, dCol, res) => {
+export const iteratePiecePath = (row: number, col: number, color: boolean, chessPos: ChessPosition, dRow: number, dCol: number, res: Move[]) => {
     let newRow = row + dRow;
     let newCol = col + dCol;
     while (isInBound(newRow, newCol)) {
         if (chessPos.getColor(newRow, newCol) === null) {
-            processDefaultMove(res, chessPos, row, col, newRow, newCol)
+            processDefaultMove(res, chessPos, row, col, newRow, newCol, undefined) //TODO should maybe be null?
             newRow += dRow;
             newCol += dCol;
         } else {
-            if (chessPos.getColor(newRow, newCol) !== color) processDefaultMove(res, chessPos, row, col, newRow, newCol)
+            if (chessPos.getColor(newRow, newCol) !== color) processDefaultMove(res, chessPos, row, col, newRow, newCol, undefined)
             return;
         }
     }
@@ -47,11 +48,11 @@ export const directionalVector = [
     [0, -1],
 ]
 
-export const processCustomMove = (res, chessPos, newRow, newCol, color, futureEnPassent) => {
+export const processCustomMove = (res: Move[], chessPos: ChessPosition, newRow: number, newCol: number, color: boolean, futureEnPassent: any[]) => {
     if(chessPos.isKingInDanger(color)) return
     res.push(new Move(newRow, newCol, chessPos, futureEnPassent))
 }
 
-export const processDefaultMove = (res, chessPos, row, col, newRow, newCol, futureEnPassent) => {
+export const processDefaultMove = (res: Move[], chessPos: ChessPosition, row: number, col: number, newRow: number, newCol: number, futureEnPassent: any[]) => {
     processCustomMove(res, chessPos.clone().move(row, col, newRow, newCol), newRow, newCol, chessPos.getColor(row, col), futureEnPassent)
 }

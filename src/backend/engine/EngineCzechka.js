@@ -1,4 +1,4 @@
-import {getRandom, PlayData} from "./EngineUtil";
+import {getRandom, PlayData} from "../util/EngineUtil";
 
 class EngineCzechka{
     side

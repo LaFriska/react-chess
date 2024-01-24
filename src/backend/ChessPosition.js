@@ -1,8 +1,8 @@
 const {convertToPieceName, checkPieceColor} = require("./BackendUtils");
-const {isThreatenedByKnight} = require("./piecelogic/Knight");
-const {isThreatenedByPawn} = require("./piecelogic/Pawn");
-const {isThreatenedByKing} = require("./piecelogic/King");
-const {isThreatenedByQueenBishopOrRook} = require("./piecelogic/PieceUtils");
+const {isThreatenedByKnight} = require("./piecelogic/Knight.ts");
+const {isThreatenedByPawn} = require("./piecelogic/Pawn.ts");
+const {isThreatenedByKing} = require("./piecelogic/King.ts");
+const {isThreatenedByQueenBishopOrRook} = require("./util/PieceLogicUtils.ts");
 const {isEven} = require("../Util");
 
 class ChessPosition {
@@ -44,7 +44,7 @@ class ChessPosition {
         else return this.kingTracker.black;
     }
 
-    updateKingPosition(color, newRow, newCol){
+    updateKingPosition(color, newRow, newCol) {
         if(color) this.kingTracker.white = {row: newRow, col: newCol}
         if(!color) this.kingTracker.black = {row: newRow, col: newCol}
         return this;

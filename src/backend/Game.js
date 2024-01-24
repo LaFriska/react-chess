@@ -1,11 +1,11 @@
 import {ChessPosition} from "./ChessPosition";
-import {getPossibleKnightMoves} from "./piecelogic/Knight";
+import {getPossibleKnightMoves} from "./piecelogic/Knight.ts";
 import {checkPieceColor} from "./BackendUtils";
-import {getPossiblePawnMoves} from "./piecelogic/Pawn";
-import {getPossibleRookMoves} from "./piecelogic/Rook";
-import {getPossibleBishopMoves} from "./piecelogic/Bishop";
-import {getPossibleQueenMoves} from "./piecelogic/Queen";
-import {getPossibleKingMoves} from "./piecelogic/King";
+import {getPossiblePawnMoves} from "./piecelogic/Pawn.ts";
+import {getPossibleRookMoves} from "./piecelogic/Rook.ts";
+import {getPossibleBishopMoves} from "./piecelogic/Bishop.ts";
+import {getPossibleQueenMoves} from "./piecelogic/Queen.ts";
+import {getPossibleKingMoves} from "./piecelogic/King.ts";
 import TFRPositionLog from "./TFRPositionLog.ts";
 import CastleMoveLog from "./CastleMoveLog.ts";
 
