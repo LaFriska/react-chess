@@ -7,7 +7,7 @@ import {isInConditionToPromote} from "../backend/piecelogic/Pawn";
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {def} from "./ToastOptions";
+import {def} from "./util/ToastOptions";
 import EngineCzechka from "../backend/engine/EngineCzechka";
 import tile from "./Tile";
 
