@@ -24,7 +24,7 @@ const Board = (props) => {
         )
     )
 
-    const engineBlack = useMemo(() => new EngineCzechka(game, false), [])
+    const engineBlack = useMemo(() => null, [])
     const engineWhite = useMemo(() => null, [])
 
     const [tileStates, setTileStates] = useState(initialTiles)

@@ -3,6 +3,7 @@ const {isThreatenedByKnight} = require("./piecelogic/Knight");
 const {isThreatenedByPawn} = require("./piecelogic/Pawn");
 const {isThreatenedByKing} = require("./piecelogic/King");
 const {isThreatenedByQueenBishopOrRook} = require("./piecelogic/PieceUtils");
+const {isEven} = require("../Util");
 
 class ChessPosition {
 
@@ -91,8 +92,7 @@ class ChessPosition {
     }
 
     getSquareColor(row, col){
-        if(Math.pow(-1, row + col) === 1) return true;
-        else return false;
+        return isEven(row + col);
     }
 
     static getDefaultPosition(){
@@ -121,6 +121,8 @@ class ChessPosition {
     }
 }
 
+//Different positions for testing purposes
+
 const t1 = new ChessPosition([
         ['k', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
         ['x', 'x', 'x', 'P', 'x', 'x', 'x', 'x'],
@@ -128,7 +130,7 @@ const t1 = new ChessPosition([
         ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
         ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
         ['x', 'x', 'x', 'x', 'x', 'x', 'K', 'x'],
-        ['x', 'x', 'x', 'p', 'x', 'x', 'x', 'x'],
+        ['B', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
         ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
     ]
 )
