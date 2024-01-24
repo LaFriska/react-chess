@@ -1,3 +1,7 @@
+import CastleMoveLog from "./CastleMoveLog";
+import { ChessPosition } from "./ChessPosition";
+import Game from "./Game"
+
 /**
  * TFR stands for threefold repetition.
  *
@@ -10,32 +14,30 @@
  * that is, no previous positions could possibly repeat henceforth.
  * */
 class TFRPositionLog {
-    claimThreefoldRepetition
-    castleMoveLog
-    castlingRights
-    positions = []
-    game
-    constructor(game){
-        this.castlingRights = new CastlingRight(game.castleMoveLog);
+    claimThreefoldRepetition: boolean
+    castleMoveLog: CastleMoveLog
+    castlingRights: CastlingRights
+    positions: Pos[] = []
+    game: Game
+
+    constructor(game: Game) {
+        this.castlingRights = new CastlingRights(game.castleMoveLog);
         this.game = game;
-        this.log()
+        this.positions.push(new Pos(game.chessPos.clone(), this.cloneFutureEnPassent(game.futureEnPassent), game.turn))
     }
 
-    log(row, col, newRow, newCol, hasTakenPiece){
-        const castlingRight = new CastlingRight(this.game.castleMoveLog);
-        if(!this.castlingRights.compare(castlingRight)){
+    log(row: number, col: number, newRow: number, newCol: number, hasTakenPiece: boolean) {
+        const castlingRight = new CastlingRights(this.game.castleMoveLog);
+        if (!this.castlingRights.compare(castlingRight)) {
             this.castlingRights = castlingRight;
             this.reset();
         }
-        if(row !== undefined){ //Assumes if row is undefined, every other param is also undefined, having a defined row and any other undefined params will likely result in an exception
-            //Checks if AFTER the move new coordinates has a pawn, which implies that it's a pawn move
-            if(this.game.chessPos.get(newRow, newCol).toLowerCase() === 'p') this.reset();
-            if(hasTakenPiece) this.reset();
-        }
+        if (this.game.chessPos.get(newRow, newCol).toLowerCase() === 'p') this.reset();
+        if (hasTakenPiece) this.reset();
         this.iterativelyCompare(this.game.chessPos, this.game.futureEnPassent, this.game.turn);
     }
 
-    iterativelyCompare(chessPos, futureEnPassent, turn){
+    iterativelyCompare(chessPos: ChessPosition, futureEnPassent: any[], turn: boolean){ //TODO create interface for row col for future en passent
         for(let i = 0; i < this.positions.length; i++){
             if(this.positions[i].compare(new Pos(chessPos, futureEnPassent, turn))){
                 this.positions[i].increment();
@@ -46,7 +48,7 @@ class TFRPositionLog {
         this.positions.push(new Pos(chessPos.clone(), this.cloneFutureEnPassent(futureEnPassent), turn))
     }
 
-    cloneFutureEnPassent(futureEnPassent){
+    cloneFutureEnPassent(futureEnPassent: any[]){
         return futureEnPassent.map(coords => ({...coords}));
     }
     reset(){
@@ -55,12 +57,12 @@ class TFRPositionLog {
 }
 
 class Pos {
-    chessPos
-    futureEnPassent
-    turn
-    count
+    chessPos: ChessPosition
+    futureEnPassent: any[]
+    turn: boolean
+    count: number
 
-    constructor(chessPos, futureEnPassent, turn){
+    constructor(chessPos: ChessPosition, futureEnPassent: any[], turn: boolean){
         this.chessPos = chessPos;
         this.futureEnPassent = futureEnPassent;
         this.turn = turn;
@@ -71,7 +73,7 @@ class Pos {
         this.count++;
     }
 
-    compare(pos){ //Does NOT check for castling rights, as when castling rights change, position array will be cleared in PositionLog
+    compare(pos: Pos){ //Does NOT check for castling rights, as when castling rights change, position array will be cleared in PositionLog
         if(pos.turn !== this.turn) return false;
         if(this.futureEnPassent.length !== pos.futureEnPassent.length) return false;
         for(let i = 0; i < this.futureEnPassent.length; i++){ //Scans for if en passent moves are the same
@@ -87,14 +89,14 @@ class Pos {
     }
 }
 
-class CastlingRight{
+class CastlingRights{
 
     whiteRight = true;
     whiteLeft = true;
     blackRight = true;
     blackLeft = true;
 
-    constructor(castleMoveLog){
+    constructor(castleMoveLog: CastleMoveLog){
         if(castleMoveLog.K === true) {
             this.whiteRight = false
             this.whiteLeft = false;
@@ -111,7 +113,7 @@ class CastlingRight{
         }
     }
 
-    compare(castlingRight){
+    compare(castlingRight: CastlingRights){
         if(this.whiteRight !== castlingRight.whiteRight) return false;
         if(this.whiteLeft !== castlingRight.whiteLeft) return false;
         if(this.blackLeft !== castlingRight.blackLeft) return false;
