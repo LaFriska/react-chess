@@ -7,6 +7,7 @@ import {getPossibleBishopMoves} from "./piecelogic/Bishop";
 import {getPossibleQueenMoves} from "./piecelogic/Queen";
 import {getPossibleKingMoves} from "./piecelogic/King";
 import TFRPositionLog from "./TFRPositionLog";
+import CastleMoveLog from "./CastleMoveLog";
 
 class Game{
 
@@ -15,16 +16,7 @@ class Game{
     futureEnPassent = [];
     isInCheck;
     hasStarted = false;
-
-    castleMoveLog = {
-        K: false,
-        k: false,
-        Rl: false,
-        rl: false,
-        rr: false,
-        Rr: false
-    }
-
+    castleMoveLog = new CastleMoveLog()
     gameResult = null;
     hasGameEnded = false;
     movesWithoutProgress = 0;

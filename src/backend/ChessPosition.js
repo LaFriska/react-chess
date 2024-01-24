@@ -96,7 +96,7 @@ class ChessPosition {
     }
 
     static getDefaultPosition(){
-        // return t1;
+        return t1;
         return new ChessPosition([
             ['r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'],
             ['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'],
@@ -124,37 +124,15 @@ class ChessPosition {
 //Different positions for testing purposes
 
 const t1 = new ChessPosition([
-        ['k', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-        ['x', 'x', 'x', 'P', 'x', 'x', 'x', 'x'],
+        ['r', 'x', 'x', 'x', 'k', 'x', 'x', 'r'],
         ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
         ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
         ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-        ['x', 'x', 'x', 'x', 'x', 'x', 'K', 'x'],
-        ['B', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
         ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+        ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+        ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+        ['R', 'x', 'x', 'x', 'K', 'x', 'x', 'R'],
     ]
 )
-
-const t2 = new ChessPosition([ //TODO cover proof of custom chess game with no kings
-    ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-    ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-    ['x', 'x', 'x', 'K', 'x', 'x', 'x', 'x'],
-    ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-    ['x', 'x', 'x', 'r', 'x', 'k', 'x', 'x'],
-    ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-    ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-    ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-])
-
-const t3 = new ChessPosition([
-    ['x', 'x', 'K', 'x', 'x', 'x', 'x', 'x'],
-    ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-    ['k', 'x', 'x', 'x', 'q', 'x', 'x', 'x'],
-    ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-    ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-    ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-    ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-    ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-])
 
 module.exports = {ChessPosition}
