@@ -11,24 +11,24 @@
  * */
 class TFRPositionLog {
     claimThreefoldRepetition
-    hasMoved
+    castleMoveLog
     castlingRights
     positions = []
     game
     constructor(game){
-        this.castlingRights = new CastlingRight(game.hasMoved);
+        this.castlingRights = new CastlingRight(game.castleMoveLog);
         this.game = game;
         this.log()
     }
 
     log(row, col, newRow, newCol, hasTakenPiece){
-        const castlingRight = new CastlingRight(this.game.hasMoved);
+        const castlingRight = new CastlingRight(this.game.castleMoveLog);
         if(!this.castlingRights.compare(castlingRight)){
             this.castlingRights = castlingRight;
             this.reset();
         }
         if(row !== undefined){ //Assumes if row is undefined, every other param is also undefined, having a defined row and any other undefined params will likely result in an exception
-            //Checks if AFTER the move new coordinates has a pawn, which implies that its a pawn move
+            //Checks if AFTER the move new coordinates has a pawn, which implies that it's a pawn move
             if(this.game.chessPos.get(newRow, newCol).toLowerCase() === 'p') this.reset();
             if(hasTakenPiece) this.reset();
         }
@@ -94,20 +94,20 @@ class CastlingRight{
     blackRight = true;
     blackLeft = true;
 
-    constructor(hasMoved){
-        if(hasMoved.K === true) {
+    constructor(castleMoveLog){
+        if(castleMoveLog.K === true) {
             this.whiteRight = false
             this.whiteLeft = false;
         }else {
-            if(hasMoved.Rr) this.whiteRight = false;
-            if(hasMoved.Rl) this.whiteLeft = false;
+            if(castleMoveLog.Rr) this.whiteRight = false;
+            if(castleMoveLog.Rl) this.whiteLeft = false;
         }
-        if(hasMoved.k === true) {
+        if(castleMoveLog.k === true) {
             this.blackRight = false
             this.blackRight = false;
         }else {
-            if(hasMoved.rr) this.blackRight = false;
-            if(hasMoved.rl) this.blackLeft = false;
+            if(castleMoveLog.rr) this.blackRight = false;
+            if(castleMoveLog.rl) this.blackLeft = false;
         }
     }
 

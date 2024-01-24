@@ -16,7 +16,7 @@ class Game{
     isInCheck;
     hasStarted = false;
 
-    hasMoved = {
+    castleMoveLog = {
         K: false,
         k: false,
         Rl: false,
@@ -47,7 +47,7 @@ class Game{
         this.currentMoveHasProgress = this.getCurrentMoveProgress(row, col, newRow, newCol)
         const hasTakenPiece = this.chessPos.get(newRow, newCol) !== 'x'
         this.chessPos = move.chessPos;
-        this.updateHasMoved(move)
+        this.updateCastleMoveLog(move)
         this.switchTurn()
         this.updateIsInCheck()
         this.scanCheckmateAndStalemate();
@@ -144,14 +144,13 @@ class Game{
         this.isInCheck = this.chessPos.isKingInDanger(this.turn);
     }
 
-    updateHasMoved(){
-        // if(move.hasMoved !== null) this.hasMoved[move.hasMoved] = true;
-        if(this.chessPos.get(0, 0) !== 'r') this.hasMoved.rl = true;
-        if(this.chessPos.get(0, 7) !== 'r') this.hasMoved.rr = true;
-        if(this.chessPos.get(7, 0) !== 'R') this.hasMoved.Rl = true;
-        if(this.chessPos.get(7, 7) !== 'R') this.hasMoved.RR = true;
-        if(this.chessPos.get(0, 4) !== 'k') this.hasMoved.k = true;
-        if(this.chessPos.get(7, 4) !== 'K') this.hasMoved.K = true;
+    updateCastleMoveLog(){
+        if(this.chessPos.get(0, 0) !== 'r') this.castleMoveLog.rl = true;
+        if(this.chessPos.get(0, 7) !== 'r') this.castleMoveLog.rr = true;
+        if(this.chessPos.get(7, 0) !== 'R') this.castleMoveLog.Rl = true;
+        if(this.chessPos.get(7, 7) !== 'R') this.castleMoveLog.RR = true;
+        if(this.chessPos.get(0, 4) !== 'k') this.castleMoveLog.k = true;
+        if(this.chessPos.get(7, 4) !== 'K') this.castleMoveLog.K = true;
     }
 
     switchTurn(){

@@ -29,9 +29,9 @@ export const isThreatenedByKing = (chessPos) => {
 }
 
 function checkCastling(res, color, chessPos, game, kingSide){
-    if(game.hasMoved[color ? 'K' : 'k']) return;
+    if(game.castleMoveLog[color ? 'K' : 'k']) return;
     const rook = (kingSide ? (color ? 'Rr' : 'rr') : (color ? 'Rl' : 'rl'));
-    if(game.hasMoved[rook]) return;
+    if(game.castleMoveLog[rook]) return;
     const d = kingSide ? 1 : -1;
     const row = color ? 7 : 0;
     if(chessPos.get(row, (kingSide ? 7 : 0)) !== (color ? 'R' : 'r')) return;
