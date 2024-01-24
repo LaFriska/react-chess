@@ -1,23 +1,21 @@
-import React, {useState} from "react";
+import React, {useMemo, useRef, useState} from "react";
 import '../css/Board.css'
 import {getCharacter, isEven} from "../Util";
 import Tile from "./Tile";
-import Game from '../backend/Game'
 import {isInConditionToPromote} from "../backend/piecelogic/Pawn";
-
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {def} from "./util/ToastOptions";
 import EngineCzechka from "../backend/engine/EngineCzechka";
-import tile from "./Tile";
 
 const Board = (props) => {
+    const game = props.game
     const ranks = Array(8).fill().map((x,i) => 8-i)
     const files = Array(8).fill().map((x,i) => getCharacter(i))
 
-    const initialTiles = ranks.map((rank, i) =>
-        files.map((file, j) => ({
-                    id: `${rank}${file}`,
+    const initialTiles = ranks.map((row, i) =>
+        files.map((col, j) => ({
+                    id: `${row}${col}`,
                     color: isEven(i + j) ? 'white' : 'color',
                     highlight: false,
                     highlightPossibleMoves: null,
@@ -26,13 +24,13 @@ const Board = (props) => {
         )
     )
 
+    const engineBlack = useMemo(() => new EngineCzechka(game, false), [])
+    const engineWhite = useMemo(() => null, [])
+
     const [tileStates, setTileStates] = useState(initialTiles)
     const [highlightedCoord, setHighlightedCoord] = useState(null)
     const [chessPos, setChessPos] = useState(props.chesspos)
-    const [game, setGame] = useState(props.game)
     const [highlightedPossibleMoves, setHighlightedPossibleMoves] = useState([])
-    const [engineBlack, setEngineBlack] = useState(null)
-    const [engineWhite, setEngineWhite] = useState(null)
 
     const getCheckSquare = () => {
         if(!game.isInCheck) return {row: null, col: null};

@@ -4,6 +4,7 @@ class EngineCzechka{
     side
     game
     possibleMoves
+
     constructor(game, side){
         this.game = game;
         this.side = side
@@ -29,6 +30,5 @@ class EngineCzechka{
     getPawnPromotion(){
         return this.side ? 'Q' : 'q'
     }
-
 }
 export default EngineCzechka
