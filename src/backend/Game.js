@@ -140,7 +140,7 @@ class Game{
         if(this.chessPos.get(0, 0) !== 'r') this.castleMoveLog.rl = true;
         if(this.chessPos.get(0, 7) !== 'r') this.castleMoveLog.rr = true;
         if(this.chessPos.get(7, 0) !== 'R') this.castleMoveLog.Rl = true;
-        if(this.chessPos.get(7, 7) !== 'R') this.castleMoveLog.RR = true;
+        if(this.chessPos.get(7, 7) !== 'R') this.castleMoveLog.Rr = true;
         if(this.chessPos.get(0, 4) !== 'k') this.castleMoveLog.k = true;
         if(this.chessPos.get(7, 4) !== 'K') this.castleMoveLog.K = true;
     }
