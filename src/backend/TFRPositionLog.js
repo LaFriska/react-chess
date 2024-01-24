@@ -1,3 +1,14 @@
+/**
+ * TFR stands for threefold repetition.
+ *
+ * This is a log to count the number of unique positions where the turn, castling rights and
+ * rights to en passent are the same. After every position change, the position log takes the current position and
+ * compare it with an array of previous unique positions. If a position match, the "count" attribute
+ * will be increased, and if no positions match with the current position, the current position will be added to the
+ * array. Due to its computational intensive nature, any pawn moves, piece takes, castling, or any moves
+ * that changes castling rights will wipe the position log entirely, since any of said moves are not irreversible,
+ * that is, no previous positions could possibly repeat henceforth.
+ * */
 class TFRPositionLog {
     claimThreefoldRepetition
     hasMoved
