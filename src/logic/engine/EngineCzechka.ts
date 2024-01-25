@@ -1,4 +1,3 @@
-// @ts-ignore
 import {getRandom, PlayData} from "../util/EngineUtil.ts";
 import Game from "../Game"
 

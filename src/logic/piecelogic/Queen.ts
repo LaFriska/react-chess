@@ -1,4 +1,3 @@
-// @ts-ignore
 import {directionalVector, iteratePiecePath} from "../util/PieceLogicUtils.ts";
 import Move from "../Move"
 import {ChessPosition} from "../ChessPosition"
