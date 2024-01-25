@@ -4,7 +4,7 @@ import {processCustomMove, processDefaultMove} from "../util/PieceLogicUtils.ts"
 import Move from "../Move";
 import { ChessPosition } from "../ChessPosition";
 
-export const getPossiblePawnMoves = (row: number, col: number, chessPos: ChessPosition, color: boolean, futureEnPassent: any[]): Move[] => {
+export const getPossiblePawnMoves = (row: number, col: number, chessPos: ChessPosition, color: boolean, futureEnPassent: Vector[]): Move[] => {
     const res: Move[] = [];
     const dRow: 1 | -1 = color ? -1 : 1 //Directional vector row
     if (!isInBound(row + dRow, col)) return res;
@@ -13,7 +13,7 @@ export const getPossiblePawnMoves = (row: number, col: number, chessPos: ChessPo
     if (chessPos.get(row + dRow, col) === 'x') { //Avails square directly in front of pawn
         processDefaultMove(res, chessPos, row, col, row + dRow, col, undefined)
         if (row === initialRank && chessPos.get(row + 2 * dRow, col) === 'x') {//Avails 2nd square directly in front of pawn
-            let temp: any[] = createFutureEnPassent(row, col, chessPos, color)
+            let temp: Vector[] = createFutureEnPassent(row, col, chessPos, color)
             const newRow: number = row + 2 * dRow;
             processDefaultMove(res, chessPos, row, col, newRow, col, (temp.length !== 0 ? temp : undefined)) //Adding future en passent when needed
         }
@@ -49,9 +49,9 @@ export const getPossiblePawnMoves = (row: number, col: number, chessPos: ChessPo
 }
 
 //Searches for any enemy pieces that should have the option to play en passent
-function createFutureEnPassent(row: number, col: number, chessPos: ChessPosition, color: boolean): any[] {
+function createFutureEnPassent(row: number, col: number, chessPos: ChessPosition, color: boolean): Vector[] {
     const dRow: 1 | -1 = color ? -1 : 1
-    const futureEnPassent: any[] = []
+    const futureEnPassent: Vector[] = []
     const newRow: number = row + 2 * dRow
     if (isInBound(newRow, col + 1)) if (chessPos.getColor(newRow, col + 1) === !color) futureEnPassent.push({row: newRow, col: col});
     if (isInBound(newRow, col - 1)) if (chessPos.getColor(newRow, col - 1) === !color) futureEnPassent.push({row: newRow, col: col});
