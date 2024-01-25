@@ -1,5 +1,5 @@
-function convertToPieceName(char){
-    switch(char){
+function convertToPieceName(piece: string): string{
+    switch(piece){
         case 'r': return 'black_rook'
         case 'n': return 'black_knight'
         case 'b': return 'black_bishop'
@@ -16,13 +16,13 @@ function convertToPieceName(char){
     }
 }
 
-function checkPieceColor(piece){
+function checkPieceColor(piece: string): boolean{
     if(piece === 'x') return null;
     if(piece === piece.toUpperCase()) return true;
     if(piece === piece.toLowerCase()) return false;
 }
 
-function isInBound(row, col){
+function isInBound(row: number, col: number){
     if(Math.max(row, col) > 7 || Math.min(row, col) < 0) return false;
     return true
 }

@@ -1,4 +1,4 @@
-const {convertToPieceName, checkPieceColor} = require("./BackendUtils");
+const {convertToPieceName, checkPieceColor} = require("./util/BackendUtils.ts");
 const {isThreatenedByKnight} = require("./piecelogic/Knight.ts");
 const {isThreatenedByPawn} = require("./piecelogic/Pawn.ts");
 const {isThreatenedByKing} = require("./piecelogic/King.ts");

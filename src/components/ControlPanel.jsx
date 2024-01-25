@@ -1,7 +1,7 @@
 import '../css/ControlPanel.css'
 import ControlButton from "./ControlButton";
 import {toast} from "react-toastify";
-import {def} from "../backend/util/ToastOptions";
+import {def} from "../backend/util/ToastOptions.ts";
 import {useState} from "react";
 
 const ControlPanel = (props) => {

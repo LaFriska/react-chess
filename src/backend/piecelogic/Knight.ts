@@ -1,4 +1,5 @@
-import {isInBound} from "../BackendUtils";
+// @ts-ignore
+import {isInBound} from "../util/BackendUtils.ts";
 import { ChessPosition } from "../ChessPosition";
 // @ts-ignore
 import {processDefaultMove} from "../util/PieceLogicUtils.ts";

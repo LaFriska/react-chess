@@ -1,4 +1,4 @@
-import {isInBound} from "../BackendUtils";
+import {isInBound} from "./BackendUtils.ts";
 import { ChessPosition } from "../ChessPosition";
 import Move from "../Move";
 

@@ -1,4 +1,5 @@
-import {isInBound} from "../BackendUtils";
+// @ts-ignore
+import {isInBound} from "../util/BackendUtils.ts";
 // @ts-ignore
 import {processCustomMove, processDefaultMove} from "../util/PieceLogicUtils.ts";
 import Move from "../Move";
