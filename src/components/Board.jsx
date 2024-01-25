@@ -6,7 +6,7 @@ import {isInConditionToPromote} from "../backend/piecelogic/Pawn.ts";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {def} from "../backend/util/ToastOptions";
-import EngineCzechka from "../backend/engine/EngineCzechka";
+import EngineCzechka from "../backend/engine/EngineCzechka.ts";
 
 const Board = (props) => {
     const game = props.game

@@ -4,10 +4,10 @@ import { ChessPosition } from "../ChessPosition";
 import {processDefaultMove} from "../util/PieceLogicUtils.ts";
 import Move from "../Move"
 
-const p = [1, -1, 1, -1]
-const q = [1, 1, -1, -1]
+const rowVectors: number[] = [1, -1, 1, -1]
+const colVectors: number[] = [1, 1, -1, -1]
 
-export const getPossibleKnightMoves = (row: number, col: number, chessPos: ChessPosition, color: boolean) => {
+export const getPossibleKnightMoves = (row: number, col: number, chessPos: ChessPosition, color: boolean): Move[] => {
     const res: Move[] = [];
     const add = (rowAdd: number, colAdd: number) => {
         const newRow: number = row + rowAdd
@@ -17,13 +17,13 @@ export const getPossibleKnightMoves = (row: number, col: number, chessPos: Chess
         processDefaultMove(res, chessPos, row, col, newRow, newCol, undefined)
     }
     for(let i = 0; i < 4; i++){
-        add(p[i], 2 * q[i])
-        add(2* p[i], q[i])
+        add(rowVectors[i], 2 * colVectors[i])
+        add(2* rowVectors[i], colVectors[i])
     }
     return res;
 }
 
-export const isThreatenedByKnight = (chessPos: ChessPosition, color: boolean) => {
+export const isThreatenedByKnight = (chessPos: ChessPosition, color: boolean): boolean => {
 
     const row = chessPos.getKingPosition(color).row;
     const col = chessPos.getKingPosition(color).col;
@@ -34,8 +34,8 @@ export const isThreatenedByKnight = (chessPos: ChessPosition, color: boolean) =>
         return isInBound(newRow, newCol) && chessPos.get(newRow, newCol) === (color ? 'n' : 'N');
     }
     for(let i = 0; i < 4; i++){
-        if(check(p[i], 2 * q[i])) return true;
-        if(check(2* p[i], q[i])) return true;
+        if(check(rowVectors[i], 2 * colVectors[i])) return true;
+        if(check(2* rowVectors[i], colVectors[i])) return true;
     }
     return false;
 }
