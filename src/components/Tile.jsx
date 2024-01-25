@@ -1,7 +1,7 @@
 import {useState} from 'react'
 import '../css/Consts.css'
 import '../css/Tile.css'
-import BackendUtils from "../backend/util/BackendUtils.ts";
+import BackendUtils from "../logic/util/BackendUtils.ts";
 const Tile = (props) => {
     const [backgroundColor, setBackgroundColor] = useState(props.color === 'white' ? '#be7e3b' : '#593b19')
     const styles={

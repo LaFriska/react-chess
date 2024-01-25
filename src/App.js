@@ -1,10 +1,10 @@
 import './css/App.css';
 import Board from "./components/Board";
-import {ChessPosition} from "./backend/ChessPosition";
+import {ChessPosition} from "./logic/ChessPosition";
 import VerticalCoords from "./components/VerticalCoords";
 import HorizontalCoords from "./components/HorizontalCoords";
 import ControlPanel from "./components/ControlPanel";
-import Game from "./backend/Game";
+import Game from "./logic/Game";
 
 function App() { //Hello world
 
