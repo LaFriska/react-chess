@@ -16,7 +16,7 @@ function App() { //Hello world
             <ControlPanel game={game}/>
             <VerticalCoords/>
             <div className="horizontal-board-container">
-                <Board chesspos={ChessPosition.getDefaultPosition()} game={game}/>
+                <Board chesspos={ChessPosition.getInitialPosition()} game={game}/>
                 <HorizontalCoords/>
             </div>
         </div>

@@ -55,7 +55,7 @@ export class ChessPosition {
         return isEven(row + col);
     }
 
-    static getDefaultPosition(): ChessPosition{
+    static getInitialPosition(): ChessPosition{
         // return t1;
         return new ChessPosition([
             ['r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'],
@@ -86,7 +86,7 @@ export class ChessPosition {
     }
 }
 
-//Different positions for testing purposes
+//-----------------Different positions for testing purposes------------------------------
 
 const t1 = new ChessPosition([
         ['r', 'x', 'x', 'x', 'k', 'x', 'x', 'r'],

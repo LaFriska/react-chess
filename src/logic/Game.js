@@ -11,7 +11,7 @@ import CastleMoveLog from "./CastleMoveLog.ts";
 
 class Game{
 
-    chessPos = ChessPosition.getDefaultPosition()
+    chessPos = ChessPosition.getInitialPosition()
     turn = true;
     futureEnPassent = [];
     isInCheck;
