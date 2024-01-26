@@ -5,7 +5,7 @@ import Tile from "./Tile";
 import {isInConditionToPromote} from "../logic/piecelogic/Pawn.ts";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {def} from "../logic/util/ToastOptions.ts";
+import {toastDefault} from "../logic/util/ToastOptions.ts";
 
 import EngineCzechka from "../logic/engine/EngineCzechka.ts";
 
@@ -112,7 +112,7 @@ const Board = (props) => {
 
     const scanForDraw = () => {
         if(game.movesWithoutProgress === 50 && game.turn === true) {
-            toast.info("50 moves have been made without progress. Any player may now click \"draw\" to instantly claim a draw.", def)
+            toast.info("50 moves have been made without progress. Any player may now click \"draw\" to instantly claim a draw.", toastDefault)
         }
         if(game.movesWithoutProgress >= 75){
             toast.info("75 moves have been made without progress. The game automatically ends in a draw!")
@@ -130,8 +130,8 @@ const Board = (props) => {
 
     const scanForCheckmateAndStalemate = () => {
         const r = game.getGameResultScenario();
-        if(r === 'checkmate') toast.info("Checkmate! " + (game.turn ? 'black' : 'white') + " has won the game.", def);
-        if(r === 'stalemate') toast.info("Stalemate! " + (game.turn ? 'white' : 'black') + " has no moves left. The game ends in a draw!", def);
+        if(r === 'checkmate') toast.info("Checkmate! " + (game.turn ? 'black' : 'white') + " has won the game.", toastDefault);
+        if(r === 'stalemate') toast.info("Stalemate! " + (game.turn ? 'white' : 'black') + " has no moves left. The game ends in a draw!", toastDefault);
     }
 
     const askPawnPromotion = (row, col, newRow, newCol, msg, useEngine) => {

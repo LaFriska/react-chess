@@ -1,1 +1,1 @@
-export const def = {position: "top-right"}
+export const toastDefault = {position: "top-right"}
