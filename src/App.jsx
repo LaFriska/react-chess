@@ -1,6 +1,6 @@
 import './css/App.css';
 import Board from "./components/Board";
-import {ChessPosition} from "./logic/ChessPosition";
+import {ChessPosition} from "./logic/ChessPosition.ts";
 import VerticalCoords from "./components/VerticalCoords";
 import HorizontalCoords from "./components/HorizontalCoords";
 import ControlPanel from "./components/ControlPanel";

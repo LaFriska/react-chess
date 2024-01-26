@@ -3,7 +3,7 @@
  * and column index of the matrix used to represent the chess board. Functionalities such representing
  * possible squares for en passant moves use the Vector interface.
  */
-interface Vector{
+export interface Vector{ //TODO change to class
     row: number
     col: number
 }

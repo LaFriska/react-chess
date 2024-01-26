@@ -1,4 +1,3 @@
-// @ts-ignore
 import {directionalVector, processCustomMove} from "../util/PieceLogicUtils.ts";
 // @ts-ignore
 import {isInBound} from "../util/BackendUtils.ts";

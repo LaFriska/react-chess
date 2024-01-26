@@ -1,4 +1,4 @@
-import {ChessPosition} from "./ChessPosition";
+import {ChessPosition} from "./ChessPosition.ts";
 import {getPossibleKnightMoves} from "./piecelogic/Knight.ts";
 import {checkPieceColor} from "./util/BackendUtils.ts";
 import {getPossiblePawnMoves} from "./piecelogic/Pawn.ts";

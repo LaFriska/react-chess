@@ -1,6 +1,6 @@
 import React, {useMemo, useRef, useState} from "react";
 import '../css/Board.css'
-import {getCharacter, isEven} from "../Util";
+import {getCharacter, isEven} from "../logic/util/Util";
 import Tile from "./Tile";
 import {isInConditionToPromote} from "../logic/piecelogic/Pawn.ts";
 import { ToastContainer, toast } from 'react-toastify';

@@ -1,21 +1,23 @@
-const {convertToPieceName, checkPieceColor} = require("./util/BackendUtils.ts");
-const {isThreatenedByKnight} = require("./piecelogic/Knight.ts");
-const {isThreatenedByPawn} = require("./piecelogic/Pawn.ts");
-const {isThreatenedByKing} = require("./piecelogic/King.ts");
-const {isThreatenedByQueenBishopOrRook} = require("./util/PieceLogicUtils.ts");
-const {isEven} = require("../Util");
+// @ts-ignore
+import {checkPieceColor} from "./util/BackendUtils.ts";
+import {isThreatenedByKnight} from "./piecelogic/Knight.ts";
+import {isThreatenedByPawn} from "./piecelogic/Pawn.ts";
+import {isThreatenedByKing} from "./piecelogic/King.ts";
+import {isThreatenedByQueenBishopOrRook} from "./util/PieceLogicUtils.ts";
+import {isEven} from "./util/Util";
 
-class ChessPosition {
+export class ChessPosition {
 
-    kingTracker
+    kingTracker : any //TODO make own class
+    matrix: string[][]
 
-    constructor(matrix, whiteKingRow, whiteKingCol, blackKingRow, blackKingCol){
+    constructor(matrix: string[][], whiteKingRow: number|undefined, whiteKingCol: number|undefined, blackKingRow: number|undefined, blackKingCol: number|undefined){ //TODO change constr param to just a single king tracker object
         this.matrix = matrix
         this.checkMatrix()
         this.initiateKingTracker(whiteKingRow, whiteKingCol, blackKingRow, blackKingCol);
     }
 
-    initiateKingTracker(whiteKingRow, whiteKingCol, blackKingRow, blackKingCol){
+    initiateKingTracker(whiteKingRow: number, whiteKingCol: number, blackKingRow: number, blackKingCol: number): void{
 
         if(whiteKingRow !== undefined && whiteKingCol !== undefined && blackKingRow !== undefined && blackKingCol !== undefined){
             this.kingTracker = {
@@ -25,10 +27,10 @@ class ChessPosition {
             return;
         }
 
-        const search = (char) => {
+        const search = (char: string) => {
             for(let r = 0; r < 8; r++){
                 for(let c = 0; c < 8; c++){
-                    if(this.get(r, c) === char) return {row: r, col: c}
+                    if(this.get(r, c) === char) return {row: r, col: c} //TODO change to vector
                 }
             }
         }
@@ -38,64 +40,60 @@ class ChessPosition {
         }
     }
 
-    getKingPosition(color){
-        if(color === null || color === undefined) return null;
+    getKingPosition(color: boolean){
+        // if(color === null || color === undefined) return null;
         if(color) return this.kingTracker.white;
         else return this.kingTracker.black;
     }
 
-    updateKingPosition(color, newRow, newCol) {
-        if(color) this.kingTracker.white = {row: newRow, col: newCol}
-        if(!color) this.kingTracker.black = {row: newRow, col: newCol}
+    updateKingPosition(color: boolean, newRow: number, newCol: number) {
+        if(color) this.kingTracker.white = {row: newRow, col: newCol} //TODO vector
+        if(!color) this.kingTracker.black = {row: newRow, col: newCol}//TODO vector
         return this;
     }
 
-    move(i, j, i2, j2){
-        this.set(i2, j2, this.get(i, j))
-        this.set(i, j, 'x')
+    move(row: number, col: number, newRow: number, newCol: number){
+        this.set(newRow, newCol, this.get(row, col))
+        this.set(row, col, 'x')
         return this;
     }
 
-    set(i, j, val){
-        this.matrix[i][j] = val
+    set(row: number, col: number, piece: string){
+        this.matrix[row][col] = piece
         return this;
     }
 
-    getMatrix(){
+    getMatrix(): string[][]{
         return this.matrix;
     }
 
-    get(row, col){
+    get(row: number, col: number): string{
         return this.matrix[row][col];
     }
 
-    getColor(row, col){
-        const get = this.get(row, col)
-        return checkPieceColor(get)
+    getColor(row: number, col: number): boolean{
+        return checkPieceColor(this.get(row, col))
     }
-    clone(){
-        const matrix = Array.from({ length: 8 }, (_, row) =>
-            Array.from({ length: 8 }, (_, col) => this.get(row, col))
+    clone(): ChessPosition{
+        const matrix: string[][] = Array.from({ length: 8 }, (_, row: number) =>
+            Array.from({ length: 8 }, (_, col: number) => this.get(row, col))
         );
         return new ChessPosition(matrix, this.getKingPosition(true).row, this.getKingPosition(true).col, this.getKingPosition(false).row, this.getKingPosition(false).col);
     }
 
-    checkMatrix(){
-        if(this.matrix.length !== 8) throw new Error('Chess board matrix must be 8 by 8.')
+    checkMatrix(): void{ //TODO add param to constructor to skip checking
+        const err = () => {throw new Error('Chess board matrix must be 8 by 8.')}
+        if(this.matrix.length !== 8) err()
         for(let i = 0; i < 8; i++){
-            if(this.matrix[i].length !== 8) throw new Error('Chess board matrix must be 8 by 8.')
+            if(this.matrix[i].length !== 8) err()
         }
     }
 
-    getConverted(row, col){
-        return convertToPieceName(this.get(row, col))
-    }
-
-    getSquareColor(row, col){
+    getSquareColor(row: number, col: number){
         return isEven(row + col);
     }
 
-    static getDefaultPosition(){
+    static getDefaultPosition(): ChessPosition{
         // return t1;
         return new ChessPosition([
             ['r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'],
@@ -106,18 +104,14 @@ class ChessPosition {
             ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
             ['P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'],
             ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'],
-        ])
+        ], undefined, undefined, undefined, undefined)
     }
 
-    isKingInDanger(color){
+    isKingInDanger(color: boolean): boolean{
         if(isThreatenedByKnight(this, color)) return true;
         if(isThreatenedByPawn(this, color)) return true;
         if(isThreatenedByKing(this)) return true;
         return isThreatenedByQueenBishopOrRook(this, color);
-    }
-
-    construct(matrix, whiteKingRow, whiteKingCol, blackKingRow, blackKingCol){
-        return new ChessPosition(matrix, whiteKingRow, whiteKingCol, blackKingRow, blackKingCol)
     }
 }
 
@@ -132,7 +126,5 @@ const t1 = new ChessPosition([
         ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
         ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
         ['R', 'x', 'x', 'x', 'K', 'x', 'x', 'R'],
-    ]
+    ], undefined, undefined, undefined, undefined
 )
-
-module.exports = {ChessPosition}
