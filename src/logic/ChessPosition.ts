@@ -7,7 +7,6 @@ import {isThreatenedByQueenBishopOrRook} from "./util/PieceLogicUtils.ts";
 import {isEven} from "./util/Util";
 import KingTracker from "./KingTracker.ts";
 import Vector from "./util/Vector.ts";
-import kingTracker from "./KingTracker.ts";
 
 export class ChessPosition {
 
@@ -16,7 +15,6 @@ export class ChessPosition {
 
     constructor(matrix: string[][], whiteKingPosition: Vector|undefined, blackKingPosition: Vector|undefined){
         this.matrix = matrix
-        this.checkMatrix()
         this.kingTracker = new KingTracker(this, whiteKingPosition, blackKingPosition)
     }
 
@@ -45,13 +43,13 @@ export class ChessPosition {
         return new ChessPosition(matrix, this.getKingPosition(true), this.getKingPosition(false));
     }
 
-    checkMatrix(): void{ //TODO add param to constructor to skip checking
-        const err = () => {throw new Error('Chess board matrix must be 8 by 8.')}
-        if(this.matrix.length !== 8) err()
-        for(let i = 0; i < 8; i++){
-            if(this.matrix[i].length !== 8) err()
-        }
-    }
+    // checkMatrix(): void{
+    //     const err = () => {throw new Error('Chess board matrix must be 8 by 8.')}
+    //     if(this.matrix.length !== 8) err()
+    //     for(let i = 0; i < 8; i++){
+    //         if(this.matrix[i].length !== 8) err()
+    //     }
+    // }
 
     getSquareColor(row: number, col: number){
         return isEven(row + col);
