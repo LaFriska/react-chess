@@ -20,42 +20,15 @@ export class ChessPosition {
         this.kingTracker = new KingTracker(this, whiteKingPosition, blackKingPosition)
     }
 
-    // initiateKingTracker(whiteKingRow: number, whiteKingCol: number, blackKingRow: number, blackKingCol: number): void{
-    //
-    //     if(whiteKingRow !== undefined && whiteKingCol !== undefined && blackKingRow !== undefined && blackKingCol !== undefined){
-    //         this.kingTracker = {
-    //             black: {row: blackKingRow, col: blackKingCol},
-    //             white: {row: whiteKingRow, col: whiteKingCol}
-    //         }
-    //         return;
-    //     }
-    //
-    //     const search = (char: string) => {
-    //         for(let r = 0; r < 8; r++){
-    //             for(let c = 0; c < 8; c++){
-    //                 if(this.get(r, c) === char) return {row: r, col: c} //TODO change to vector
-    //             }
-    //         }
-    //     }
-    //     this.kingTracker = { //TODO optimise king tracker init when cloning chessPosition
-    //         black: this.get(0, 4) !== 'k' ? search('k') : {row: 0, col: 4},
-    //         white: this.get(7, 4) !== 'K' ? search('K') : {row: 7, col: 4}
-    //     }
-    // }
-
-    move(row: number, col: number, newRow: number, newCol: number){
+    forceMove(row: number, col: number, newRow: number, newCol: number): ChessPosition{
         this.set(newRow, newCol, this.get(row, col))
         this.set(row, col, 'x')
         return this;
     }
 
-    set(row: number, col: number, piece: string){
+    set(row: number, col: number, piece: string): ChessPosition{
         this.matrix[row][col] = piece
         return this;
-    }
-
-    getMatrix(): string[][]{
-        return this.matrix;
     }
 
     get(row: number, col: number): string{

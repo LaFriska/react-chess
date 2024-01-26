@@ -58,5 +58,5 @@ export const processCustomMove = (res: Move[], chessPos: ChessPosition, newRow: 
 }
 
 export const processDefaultMove = (res: Move[], chessPos: ChessPosition, row: number, col: number, newRow: number, newCol: number, futureEnPassent: Vector[]): void => {
-    processCustomMove(res, chessPos.clone().move(row, col, newRow, newCol), newRow, newCol, chessPos.getColor(row, col), futureEnPassent)
+    processCustomMove(res, chessPos.clone().forceMove(row, col, newRow, newCol), newRow, newCol, chessPos.getColor(row, col), futureEnPassent)
 }

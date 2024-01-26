@@ -1,6 +1,5 @@
 import Vector from "./util/Vector.ts";
 import {ChessPosition} from "./ChessPosition.ts";
-
 class KingTracker{
 
     blackKingPosition: Vector

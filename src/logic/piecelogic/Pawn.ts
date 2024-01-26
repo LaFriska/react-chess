@@ -39,7 +39,7 @@ export const getPossiblePawnMoves = (row: number, col: number, chessPos: ChessPo
             if (canEnPassent) {
                 const newRow: number = row + dRow;
                 const newCol: number = col + dCol;
-                processCustomMove(res, chessPos.clone().move(row, col, newRow, newCol).set(row, newCol, 'x'), row + dRow, col + dCol, color, undefined)
+                processCustomMove(res, chessPos.clone().forceMove(row, col, newRow, newCol).set(row, newCol, 'x'), row + dRow, col + dCol, color, undefined)
             }
         }
 
@@ -86,5 +86,5 @@ export const isInConditionToPromote = (row: number, col: number, newRow: number,
     if(dCol > 1) return false;
     else if(dCol === 1 && chessPos.getColor(newRow, newCol) !== !color) return false;
     else if(dCol === 0 && chessPos.get(newRow, newCol) !== 'x') return false;
-    return !chessPos.clone().move(row, col, newRow, newCol).isKingInDanger(color);
+    return !chessPos.clone().forceMove(row, col, newRow, newCol).isKingInDanger(color);
 }

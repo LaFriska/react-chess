@@ -14,10 +14,10 @@ export const getPossibleKingMoves = (row: number, col: number, chessPos: ChessPo
         newCol = col + directionalVector[i][1]
         if(isInBound(newRow, newCol)) {
             if (chessPos.getColor(newRow, newCol) === null) {
-                processCustomMove(res, chessPos.clone().move(row, col, newRow, newCol).updateKingPosition(color, newRow, newCol), newRow, newCol, color, undefined)
+                processCustomMove(res, chessPos.clone().forceMove(row, col, newRow, newCol).updateKingPosition(color, newRow, newCol), newRow, newCol, color, undefined)
             } else {
                 if (chessPos.getColor(newRow, newCol) !== color) {
-                    processCustomMove(res, chessPos.clone().move(row, col, newRow, newCol).updateKingPosition(color, newRow, newCol), newRow, newCol, color, undefined)
+                    processCustomMove(res, chessPos.clone().forceMove(row, col, newRow, newCol).updateKingPosition(color, newRow, newCol), newRow, newCol, color, undefined)
                 }
             }
         }
@@ -43,9 +43,9 @@ function checkCastling(res: Move[], color: boolean, chessPos: ChessPosition, gam
 
     for(let col = 4; col > 0 && col < 7; col = col + d){
         if(col !== 4 && chessPos.get(row, col) !== 'x') return;
-        if(col !== 1 && chessPos.clone().move(row, 4, row, col).updateKingPosition(color, row, col).isKingInDanger(color)) return;
+        if(col !== 1 && chessPos.clone().forceMove(row, 4, row, col).updateKingPosition(color, row, col).isKingInDanger(color)) return;
     }
 
-    const castledChessPos: ChessPosition = chessPos.clone().move(row, 4, row, kingSide ? 6 : 2).move(row, kingSide ? 7 : 0, row, kingSide ? 5 : 3)
+    const castledChessPos: ChessPosition = chessPos.clone().forceMove(row, 4, row, kingSide ? 6 : 2).forceMove(row, kingSide ? 7 : 0, row, kingSide ? 5 : 3)
     return processCustomMove(res, castledChessPos, row, kingSide ? 6 : 2, color, undefined)
 }
