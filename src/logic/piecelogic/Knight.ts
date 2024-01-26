@@ -24,9 +24,8 @@ export const getPossibleKnightMoves = (row: number, col: number, chessPos: Chess
 }
 
 export const isThreatenedByKnight = (chessPos: ChessPosition, color: boolean): boolean => {
-
-    const row = chessPos.getKingPosition(color).row;
-    const col = chessPos.getKingPosition(color).col;
+    const row: number = chessPos.getKingPosition(color).row;
+    const col: number = chessPos.getKingPosition(color).col;
 
     const check = (rowAdd: number, colAdd: number) => {
         const newRow: number = row + rowAdd

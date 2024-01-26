@@ -1,16 +1,16 @@
 import Vector from "./util/Vector.ts";
 import {ChessPosition} from "./ChessPosition.ts";
 
-class KingTrack{
+class KingTracker{
 
     blackKingPosition: Vector
     whiteKingPosition: Vector
     chessPos: ChessPosition
 
-    constructor(chessPos: ChessPosition, blackKingPosition: Vector | undefined, whiteKingPosition: Vector | undefined){
+    constructor(chessPos: ChessPosition, whiteKingPosition: Vector | undefined, blackKingPosition: Vector | undefined){
+        this.chessPos = chessPos
         this.blackKingPosition = blackKingPosition === undefined ? this.search('k') : blackKingPosition
         this.whiteKingPosition = whiteKingPosition === undefined ? this.search('K') : whiteKingPosition
-        this.chessPos = chessPos
     }
 
     search(kingChar: string): Vector{
@@ -32,4 +32,4 @@ class KingTrack{
     }
 }
 
-export default KingTrack
+export default KingTracker
