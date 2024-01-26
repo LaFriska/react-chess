@@ -1,4 +1,4 @@
-function convertToPieceName(piece: string): string{
+export function convertToPieceName(piece: string): string{
     switch(piece){
         case 'r': return 'black_rook'
         case 'n': return 'black_knight'
@@ -16,15 +16,22 @@ function convertToPieceName(piece: string): string{
     }
 }
 
-function checkPieceColor(piece: string): boolean{
+export function checkPieceColor(piece: string): boolean{
     if(piece === 'x') return null;
     if(piece === piece.toUpperCase()) return true;
     if(piece === piece.toLowerCase()) return false;
 }
 
-function isInBound(row: number, col: number){
+export function isInBound(row: number, col: number){
     if(Math.max(row, col) > 7 || Math.min(row, col) < 0) return false;
     return true
 }
 
-module.exports = {convertToPieceName, checkPieceColor, isInBound}
+export function getCharacter (i: number): string {
+    return String.fromCharCode(i + 97)
+}//TODO deprecate
+export function isEven (i: number): boolean {
+    return i % 2 === 0;
+}
+
+// module.exports = {convertToPieceName, checkPieceColor, isInBound, getCharacter, isEven}

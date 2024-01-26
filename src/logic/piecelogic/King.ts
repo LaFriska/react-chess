@@ -1,6 +1,6 @@
 import {directionalVector, processCustomMove} from "../util/PieceLogicUtils.ts";
 // @ts-ignore
-import {isInBound} from "../util/BackendUtils.ts";
+import {isInBound} from "../util/Util.ts";
 import {ChessPosition} from "../ChessPosition"
 import Game from "../Game"
 import Move from "../Move"

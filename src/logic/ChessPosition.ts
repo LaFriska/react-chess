@@ -1,10 +1,9 @@
 // @ts-ignore
-import {checkPieceColor} from "./util/BackendUtils.ts";
+import {checkPieceColor} from "./util/Util.ts";
 import {isThreatenedByKnight} from "./piecelogic/Knight.ts";
 import {isThreatenedByPawn} from "./piecelogic/Pawn.ts";
 import {isThreatenedByKing} from "./piecelogic/King.ts";
 import {isThreatenedByQueenBishopOrRook} from "./util/PieceLogicUtils.ts";
-import {isEven} from "./util/Util";
 import KingTracker from "./KingTracker.ts";
 import Vector from "./util/Vector.ts";
 

@@ -1,4 +1,4 @@
-import {getCharacter} from "../logic/util/Util";
+import {getCharacter} from "../logic/util/Util.ts";
 
 const HorizontalCoords = () => {
 

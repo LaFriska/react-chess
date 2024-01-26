@@ -1,5 +1,5 @@
 // @ts-ignore
-import {isInBound} from "../util/BackendUtils.ts";
+import {isInBound} from "../util/Util.ts";
 import {processCustomMove, processDefaultMove} from "../util/PieceLogicUtils.ts";
 import Move from "../Move";
 import { ChessPosition } from "../ChessPosition";

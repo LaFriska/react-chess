@@ -1,11 +1,12 @@
 import React, {useMemo, useRef, useState} from "react";
 import '../css/Board.css'
-import {getCharacter, isEven} from "../logic/util/Util";
+import {getCharacter, isEven} from "../logic/util/Util.ts";
 import Tile from "./Tile";
 import {isInConditionToPromote} from "../logic/piecelogic/Pawn.ts";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {def} from "../logic/util/ToastOptions.ts";
+
 import EngineCzechka from "../logic/engine/EngineCzechka.ts";
 
 const Board = (props) => {

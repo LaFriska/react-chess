@@ -1,5 +1,5 @@
 // @ts-ignore
-import {isInBound} from "./BackendUtils.ts";
+import {isInBound} from "./Util.ts";
 import { ChessPosition } from "../ChessPosition";
 import Move from "../Move";
 import Vector from "./Vector.ts";
