@@ -1,5 +1,5 @@
 // @ts-ignore
-import {checkPieceColor} from "./util/Util.ts";
+import {checkPieceColor, isEven} from "./util/Util.ts";
 import {isThreatenedByKnight} from "./piecelogic/Knight.ts";
 import {isThreatenedByPawn} from "./piecelogic/Pawn.ts";
 import {isThreatenedByKing} from "./piecelogic/King.ts";
