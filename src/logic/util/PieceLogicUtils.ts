@@ -2,6 +2,7 @@
 import {isInBound} from "./BackendUtils.ts";
 import { ChessPosition } from "../ChessPosition";
 import Move from "../Move";
+import Vector from "./Vector.ts";
 
 export const iteratePiecePath = (row: number, col: number, color: boolean, chessPos: ChessPosition, dRow: number, dCol: number, res: Move[]): void => {
     let newRow: number = row + dRow;

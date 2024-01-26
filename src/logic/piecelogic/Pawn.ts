@@ -3,8 +3,9 @@ import {isInBound} from "../util/BackendUtils.ts";
 import {processCustomMove, processDefaultMove} from "../util/PieceLogicUtils.ts";
 import Move from "../Move";
 import { ChessPosition } from "../ChessPosition";
+import Vector from "../util/Vector.ts";
 
-export const getPossiblePawnMoves = (row: number, col: number, chessPos: ChessPosition, color: boolean, futureEnPassent: Vector[]): Move[] => {
+export const getPossiblePawnMoves = (row: number, col: number, chessPos: ChessPosition, color: boolean, futureEnPassent: Vector[] | undefined): Move[] => {
     const res: Move[] = [];
     const dRow: 1 | -1 = color ? -1 : 1 //Directional vector row
     if (!isInBound(row + dRow, col)) return res;
@@ -53,8 +54,8 @@ function createFutureEnPassent(row: number, col: number, chessPos: ChessPosition
     const dRow: 1 | -1 = color ? -1 : 1
     const futureEnPassent: Vector[] = []
     const newRow: number = row + 2 * dRow
-    if (isInBound(newRow, col + 1)) if (chessPos.getColor(newRow, col + 1) === !color) futureEnPassent.push({row: newRow, col: col});
-    if (isInBound(newRow, col - 1)) if (chessPos.getColor(newRow, col - 1) === !color) futureEnPassent.push({row: newRow, col: col});
+    if (isInBound(newRow, col + 1)) if (chessPos.getColor(newRow, col + 1) === !color) futureEnPassent.push(new Vector(newRow, col));
+    if (isInBound(newRow, col - 1)) if (chessPos.getColor(newRow, col - 1) === !color) futureEnPassent.push(new Vector(newRow, col));
     return futureEnPassent;
 }
 

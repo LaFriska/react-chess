@@ -1,6 +1,7 @@
 import CastleMoveLog from "./CastleMoveLog";
 import { ChessPosition } from "./ChessPosition";
 import Game from "./Game"
+import Vector from "./util/Vector.ts";
 
 /**
  * TFR stands for threefold repetition.
@@ -72,7 +73,7 @@ class Pos {
         this.count++;
     }
 
-    compare(pos: Pos){ //Does NOT check for castling rights, as when castling rights change, position array will be cleared in PositionLog
+    compare(pos: Pos): boolean{ //Does NOT check for castling rights, as when castling rights change, position array will be cleared in PositionLog
         if(pos.turn !== this.turn) return false;
         if(this.futureEnPassent.length !== pos.futureEnPassent.length) return false;
         for(let i = 0; i < this.futureEnPassent.length; i++){ //Scans for if en passent moves are the same
