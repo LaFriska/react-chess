@@ -23,7 +23,7 @@ class TFRPositionLog {
     constructor(game: Game) {
         this.castlingRights = new CastlingRights(game.castleMoveLog);
         this.game = game;
-        this.positions.push(new Pos(game.chessPos.clone(), this.cloneFutureEnPassent(game.futureEnPassent), game.turn))
+        this.positions.push(new Pos(game.chessPos.clone(), this.cloneFutureEnPassant(game.futureEnPassant), game.turn))
     }
 
     log(row: number, col: number, newRow: number, newCol: number, hasTakenPiece: boolean): void{
@@ -34,22 +34,22 @@ class TFRPositionLog {
         }
         if (this.game.chessPos.get(newRow, newCol).toLowerCase() === 'p') this.reset();
         if (hasTakenPiece) this.reset();
-        this.iterativelyCompare(this.game.chessPos, this.game.futureEnPassent, this.game.turn);
+        this.iterativelyCompare(this.game.chessPos, this.game.futureEnPassant, this.game.turn);
     }
 
-    iterativelyCompare(chessPos: ChessPosition, futureEnPassent: Vector[], turn: boolean): void{ //TODO create interface for row col for future en passent
+    iterativelyCompare(chessPos: ChessPosition, futureEnPassant: Vector[], turn: boolean): void{ //TODO create interface for row col for future en passant
         for(let i = 0; i < this.positions.length; i++){
-            if(this.positions[i].compare(new Pos(chessPos, futureEnPassent, turn))){
+            if(this.positions[i].compare(new Pos(chessPos, futureEnPassant, turn))){
                 this.positions[i].increment();
                 if(this.positions[i].count >= 3) this.claimThreefoldRepetition = true;
                 return;
             }
         }
-        this.positions.push(new Pos(chessPos.clone(), this.cloneFutureEnPassent(futureEnPassent), turn))
+        this.positions.push(new Pos(chessPos.clone(), this.cloneFutureEnPassant(futureEnPassant), turn))
     }
 
-    cloneFutureEnPassent(futureEnPassent: Vector[]): Vector[]{
-        return futureEnPassent.map(coords => ({...coords}));
+    cloneFutureEnPassant(futureEnPassant: Vector[]): Vector[]{
+        return futureEnPassant.map(coords => ({...coords}));
     }
     reset(): void{
         this.positions = [];
@@ -58,13 +58,13 @@ class TFRPositionLog {
 
 class Pos {
     chessPos: ChessPosition
-    futureEnPassent: Vector[]
+    futureEnPassant: Vector[]
     turn: boolean
     count: number
 
-    constructor(chessPos: ChessPosition, futureEnPassent: Vector[], turn: boolean){
+    constructor(chessPos: ChessPosition, futureEnPassant: Vector[], turn: boolean){
         this.chessPos = chessPos;
-        this.futureEnPassent = futureEnPassent;
+        this.futureEnPassant = futureEnPassant;
         this.turn = turn;
         this.count = 1;
     }
@@ -75,10 +75,10 @@ class Pos {
 
     compare(pos: Pos): boolean{ //Does NOT check for castling rights, as when castling rights change, position array will be cleared in PositionLog
         if(pos.turn !== this.turn) return false;
-        if(this.futureEnPassent.length !== pos.futureEnPassent.length) return false;
-        for(let i = 0; i < this.futureEnPassent.length; i++){ //Scans for if en passent moves are the same
-            if(this.futureEnPassent[i].row !== pos.futureEnPassent[i].row) return false;
-            if(this.futureEnPassent[i].col !== pos.futureEnPassent[i].col) return false;
+        if(this.futureEnPassant.length !== pos.futureEnPassant.length) return false;
+        for(let i = 0; i < this.futureEnPassant.length; i++){ //Scans for if en passant moves are the same
+            if(this.futureEnPassant[i].row !== pos.futureEnPassant[i].row) return false;
+            if(this.futureEnPassant[i].col !== pos.futureEnPassant[i].col) return false;
         }
         for(let row = 0; row < 8; row++){ //Checks if chess position is the same.
             for(let col = 0; col < 8; col++){

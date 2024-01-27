@@ -13,7 +13,7 @@ class Game{
 
     chessPos = ChessPosition.getInitialPosition()
     turn = true;
-    futureEnPassent = [];
+    futureEnPassant = [];
     isInCheck;
     hasStarted = false;
     castleMoveLog = new CastleMoveLog()
@@ -33,8 +33,8 @@ class Game{
         if(move === null) return null;
         //Make moves
         if(!this.hasStarted) this.hasStarted = true;
-        this.futureEnPassent = []; //Reset en passent possibility
-        if(move.futureEnPassent !== undefined) this.futureEnPassent = move.futureEnPassent
+        this.futureEnPassant = []; //Reset en passant possibility
+        if(move.futureEnPassant !== undefined) this.futureEnPassant = move.futureEnPassant
         if(promotion !== undefined && promotion !== null) move.promote(promotion)
         this.currentMoveHasProgress = this.getCurrentMoveProgress(row, col, newRow, newCol)
         const hasTakenPiece = this.chessPos.get(newRow, newCol) !== 'x'
@@ -168,7 +168,7 @@ class Game{
         const piece = this.chessPos.get(row, col);
         switch(piece.toLowerCase()){
             case 'n': return getPossibleKnightMoves(row, col, this.chessPos, checkPieceColor(piece))
-            case 'p': return getPossiblePawnMoves(row, col, this.chessPos, checkPieceColor(piece), this.futureEnPassent)
+            case 'p': return getPossiblePawnMoves(row, col, this.chessPos, checkPieceColor(piece), this.futureEnPassant)
             case 'r': return getPossibleRookMoves(row, col, this.chessPos, checkPieceColor(piece))
             case 'b': return getPossibleBishopMoves(row, col, this.chessPos, checkPieceColor(piece))
             case 'q': return getPossibleQueenMoves(row, col, this.chessPos, checkPieceColor(piece))

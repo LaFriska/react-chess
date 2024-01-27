@@ -5,7 +5,7 @@ import Move from "../Move";
 import { ChessPosition } from "../ChessPosition";
 import Vector from "../util/Vector.ts";
 
-export const getPossiblePawnMoves = (row: number, col: number, chessPos: ChessPosition, color: boolean, futureEnPassent: Vector[] | undefined): Move[] => {
+export const getPossiblePawnMoves = (row: number, col: number, chessPos: ChessPosition, color: boolean, futureEnPassant: Vector[] | undefined): Move[] => {
     const res: Move[] = [];
     const dRow: 1 | -1 = color ? -1 : 1 //Directional vector row
     if (!isInBound(row + dRow, col)) return res;
@@ -14,9 +14,9 @@ export const getPossiblePawnMoves = (row: number, col: number, chessPos: ChessPo
     if (chessPos.get(row + dRow, col) === 'x') { //Avails square directly in front of pawn
         processDefaultMove(res, chessPos, row, col, row + dRow, col, undefined)
         if (row === initialRank && chessPos.get(row + 2 * dRow, col) === 'x') {//Avails 2nd square directly in front of pawn
-            let temp: Vector[] = createFutureEnPassent(row, col, chessPos, color)
+            let temp: Vector[] = createFutureEnPassant(row, col, chessPos, color)
             const newRow: number = row + 2 * dRow;
-            processDefaultMove(res, chessPos, row, col, newRow, col, (temp.length !== 0 ? temp : undefined)) //Adding future en passent when needed
+            processDefaultMove(res, chessPos, row, col, newRow, col, (temp.length !== 0 ? temp : undefined)) //Adding future en passant when needed
         }
     }
 
@@ -27,36 +27,36 @@ export const getPossiblePawnMoves = (row: number, col: number, chessPos: ChessPo
     checkDiagnalTakes(row + dRow, col + 1)
     checkDiagnalTakes(row + dRow, col - 1)
 
-    if (futureEnPassent.length !== 0) { //Add potential en passent move
-        const checkEnPassent = (dCol: number): void => {
-            let canEnPassent: boolean = false;
-            for (let i = 0; i < futureEnPassent.length; i++) {
-                if (futureEnPassent[i].col === col + dCol && futureEnPassent[i].row === row) {
-                    canEnPassent = true;
+    if (futureEnPassant.length !== 0) { //Add potential en passant move
+        const checkEnPassant = (dCol: number): void => {
+            let canEnPassant: boolean = false;
+            for (let i = 0; i < futureEnPassant.length; i++) {
+                if (futureEnPassant[i].col === col + dCol && futureEnPassant[i].row === row) {
+                    canEnPassant = true;
                     break;
                 }
             }
-            if (canEnPassent) {
+            if (canEnPassant) {
                 const newRow: number = row + dRow;
                 const newCol: number = col + dCol;
                 processCustomMove(res, chessPos.clone().forceMove(row, col, newRow, newCol).set(row, newCol, 'x'), row + dRow, col + dCol, color, undefined)
             }
         }
 
-        checkEnPassent(-1)
-        checkEnPassent(1)
+        checkEnPassant(-1)
+        checkEnPassant(1)
     }
     return res;
 }
 
-//Searches for any enemy pieces that should have the option to play en passent
-function createFutureEnPassent(row: number, col: number, chessPos: ChessPosition, color: boolean): Vector[] {
+//Searches for any enemy pieces that should have the option to play en passant
+function createFutureEnPassant(row: number, col: number, chessPos: ChessPosition, color: boolean): Vector[] {
     const dRow: 1 | -1 = color ? -1 : 1
-    const futureEnPassent: Vector[] = []
+    const futureEnPassant: Vector[] = []
     const newRow: number = row + 2 * dRow
-    if (isInBound(newRow, col + 1)) if (chessPos.getColor(newRow, col + 1) === !color) futureEnPassent.push(new Vector(newRow, col));
-    if (isInBound(newRow, col - 1)) if (chessPos.getColor(newRow, col - 1) === !color) futureEnPassent.push(new Vector(newRow, col));
-    return futureEnPassent;
+    if (isInBound(newRow, col + 1)) if (chessPos.getColor(newRow, col + 1) === !color) futureEnPassant.push(new Vector(newRow, col));
+    if (isInBound(newRow, col - 1)) if (chessPos.getColor(newRow, col - 1) === !color) futureEnPassant.push(new Vector(newRow, col));
+    return futureEnPassant;
 }
 
 export const isThreatenedByPawn = (chessPos: ChessPosition, color: boolean): boolean => {

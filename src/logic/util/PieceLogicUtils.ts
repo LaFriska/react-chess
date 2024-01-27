@@ -52,11 +52,11 @@ export const directionalVector: number[][] = [
     [0, -1],
 ]
 
-export const processCustomMove = (res: Move[], chessPos: ChessPosition, newRow: number, newCol: number, color: boolean, futureEnPassent: Vector[]): void => {
+export const processCustomMove = (res: Move[], chessPos: ChessPosition, newRow: number, newCol: number, color: boolean, futureEnPassant: Vector[]): void => {
     if(chessPos.isKingInDanger(color)) return
-    res.push(new Move(newRow, newCol, chessPos, futureEnPassent))
+    res.push(new Move(newRow, newCol, chessPos, futureEnPassant))
 }
 
-export const processDefaultMove = (res: Move[], chessPos: ChessPosition, row: number, col: number, newRow: number, newCol: number, futureEnPassent: Vector[]): void => {
-    processCustomMove(res, chessPos.clone().forceMove(row, col, newRow, newCol), newRow, newCol, chessPos.getColor(row, col), futureEnPassent)
+export const processDefaultMove = (res: Move[], chessPos: ChessPosition, row: number, col: number, newRow: number, newCol: number, futureEnPassant: Vector[]): void => {
+    processCustomMove(res, chessPos.clone().forceMove(row, col, newRow, newCol), newRow, newCol, chessPos.getColor(row, col), futureEnPassant)
 }
