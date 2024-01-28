@@ -1,7 +1,7 @@
 import '../css/ControlPanel.css'
 import ControlButton from "./ControlButton";
 import {toast} from "react-toastify";
-import {def} from "./ToastOptions";
+import {toastDefault} from "../logic/util/ToastOptions.ts";
 import {useState} from "react";
 
 const ControlPanel = (props) => {
@@ -10,7 +10,7 @@ const ControlPanel = (props) => {
 
     const checkResign = (side) => {
         if(props.game.hasGameEnded) return;
-        toast.warn("As " + (side ? 'white' : 'black') + ', are you sure you want to resign?', def)
+        toast.warn("As " + (side ? 'white' : 'black') + ', are you sure you want to resign?', toastDefault)
         setDecision("resign-" + (side ? 'white' : 'black'))
     }
 
@@ -22,7 +22,7 @@ const ControlPanel = (props) => {
             setDecision(null)
             return;
         }
-        toast.warn("A draw has been offered. Would you like to accept?", def)
+        toast.warn("A draw has been offered. Would you like to accept?", toastDefault)
         setDecision("draw")
     }
 
@@ -32,7 +32,7 @@ const ControlPanel = (props) => {
     }
 
     const draw = () => {
-        toast.success("The offer for a draw has been accepted. The game ends in a draw.", def)
+        toast.success("The offer for a draw has been accepted. The game ends in a draw.", toastDefault)
         props.game.draw("offeredDraw");
     }
     const makeDecision = () => {
@@ -45,8 +45,8 @@ const ControlPanel = (props) => {
     }
 
     const clearDecision = () => {
-        if(decision === "resign-white" || decision === "resign-black") toast.success("The game will continue!", def)
-        if(decision === "draw") toast.success("Draw offer declined! The game will continue.", def)
+        if(decision === "resign-white" || decision === "resign-black") toast.success("The game will continue!", toastDefault)
+        if(decision === "draw") toast.success("Draw offer declined! The game will continue.", toastDefault)
         setDecision(null)
     }
 

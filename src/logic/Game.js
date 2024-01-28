@@ -1,30 +1,22 @@
-import {ChessPosition} from "./ChessPosition";
-import {getPossibleKnightMoves} from "./piecelogic/Knight";
-import {checkPieceColor} from "./BackendUtils";
-import {getPossiblePawnMoves} from "./piecelogic/Pawn";
-import {getPossibleRookMoves} from "./piecelogic/Rook";
-import {getPossibleBishopMoves} from "./piecelogic/Bishop";
-import {getPossibleQueenMoves} from "./piecelogic/Queen";
-import {getPossibleKingMoves} from "./piecelogic/King";
-import TFRPositionLog from "./TFRPositionLog";
+import {ChessPosition} from "./ChessPosition.ts";
+import {getPossibleKnightMoves} from "./piecelogic/Knight.ts";
+import {checkPieceColor} from "./util/Util.ts";
+import {getPossiblePawnMoves} from "./piecelogic/Pawn.ts";
+import {getPossibleRookMoves} from "./piecelogic/Rook.ts";
+import {getPossibleBishopMoves} from "./piecelogic/Bishop.ts";
+import {getPossibleQueenMoves} from "./piecelogic/Queen.ts";
+import {getPossibleKingMoves} from "./piecelogic/King.ts";
+import TFRPositionLog from "./TFRPositionLog.ts";
+import CastleMoveLog from "./CastleMoveLog.ts";
 
 class Game{
 
-    chessPos = ChessPosition.getDefaultPosition()
+    chessPos = ChessPosition.getInitialPosition()
     turn = true;
-    futureEnPassent = [];
+    futureEnPassant = [];
     isInCheck;
     hasStarted = false;
-
-    hasMoved = {
-        K: false,
-        k: false,
-        Rl: false,
-        rl: false,
-        rr: false,
-        Rr: false
-    }
-
+    castleMoveLog = new CastleMoveLog()
     gameResult = null;
     hasGameEnded = false;
     movesWithoutProgress = 0;
@@ -41,13 +33,13 @@ class Game{
         if(move === null) return null;
         //Make moves
         if(!this.hasStarted) this.hasStarted = true;
-        this.futureEnPassent = []; //Reset en passent possibility
-        if(move.futureEnPassent !== undefined) this.futureEnPassent = move.futureEnPassent
+        this.futureEnPassant = []; //Reset en passant possibility
+        if(move.futureEnPassant !== undefined) this.futureEnPassant = move.futureEnPassant
         if(promotion !== undefined && promotion !== null) move.promote(promotion)
         this.currentMoveHasProgress = this.getCurrentMoveProgress(row, col, newRow, newCol)
         const hasTakenPiece = this.chessPos.get(newRow, newCol) !== 'x'
         this.chessPos = move.chessPos;
-        this.updateHasMoved(move)
+        this.updateCastleMoveLog(move)
         this.switchTurn()
         this.updateIsInCheck()
         this.scanCheckmateAndStalemate();
@@ -144,14 +136,13 @@ class Game{
         this.isInCheck = this.chessPos.isKingInDanger(this.turn);
     }
 
-    updateHasMoved(){
-        // if(move.hasMoved !== null) this.hasMoved[move.hasMoved] = true;
-        if(this.chessPos.get(0, 0) !== 'r') this.hasMoved.rl = true;
-        if(this.chessPos.get(0, 7) !== 'r') this.hasMoved.rr = true;
-        if(this.chessPos.get(7, 0) !== 'R') this.hasMoved.Rl = true;
-        if(this.chessPos.get(7, 7) !== 'R') this.hasMoved.RR = true;
-        if(this.chessPos.get(0, 4) !== 'k') this.hasMoved.k = true;
-        if(this.chessPos.get(7, 4) !== 'K') this.hasMoved.K = true;
+    updateCastleMoveLog(){
+        if(this.chessPos.get(0, 0) !== 'r') this.castleMoveLog.rl = true;
+        if(this.chessPos.get(0, 7) !== 'r') this.castleMoveLog.rr = true;
+        if(this.chessPos.get(7, 0) !== 'R') this.castleMoveLog.Rl = true;
+        if(this.chessPos.get(7, 7) !== 'R') this.castleMoveLog.Rr = true;
+        if(this.chessPos.get(0, 4) !== 'k') this.castleMoveLog.k = true;
+        if(this.chessPos.get(7, 4) !== 'K') this.castleMoveLog.K = true;
     }
 
     switchTurn(){
@@ -177,7 +168,7 @@ class Game{
         const piece = this.chessPos.get(row, col);
         switch(piece.toLowerCase()){
             case 'n': return getPossibleKnightMoves(row, col, this.chessPos, checkPieceColor(piece))
-            case 'p': return getPossiblePawnMoves(row, col, this.chessPos, checkPieceColor(piece), this.futureEnPassent)
+            case 'p': return getPossiblePawnMoves(row, col, this.chessPos, checkPieceColor(piece), this.futureEnPassant)
             case 'r': return getPossibleRookMoves(row, col, this.chessPos, checkPieceColor(piece))
             case 'b': return getPossibleBishopMoves(row, col, this.chessPos, checkPieceColor(piece))
             case 'q': return getPossibleQueenMoves(row, col, this.chessPos, checkPieceColor(piece))

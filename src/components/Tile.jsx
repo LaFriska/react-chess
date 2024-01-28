@@ -1,7 +1,7 @@
 import {useState} from 'react'
 import '../css/Consts.css'
 import '../css/Tile.css'
-import BackendUtils from "../backend/BackendUtils";
+import {convertToPieceName} from "../logic/util/Util.ts";
 const Tile = (props) => {
     const [backgroundColor, setBackgroundColor] = useState(props.color === 'white' ? '#be7e3b' : '#593b19')
     const styles={
@@ -31,7 +31,7 @@ const Tile = (props) => {
         isPieceDefined()
             ?
             <div onClick={clicked} className={getClassName()} style={styles}>
-                <img className='piece' src={'./imgs/' + BackendUtils.convertToPieceName(props.piece) + '.svg'} draggable='false'/>
+                <img className='piece' src={'./imgs/' + convertToPieceName(props.piece) + '.svg'} draggable='false'/>
             </div>
             :
             <div onClick={clicked} className={getClassName()} style={styles}>

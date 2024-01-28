@@ -1,23 +1,22 @@
-import React, {useState} from "react";
+import React, {useMemo, useRef, useState} from "react";
 import '../css/Board.css'
-import {getCharacter, isEven} from "../Util";
+import {getCharacter, isEven} from "../logic/util/Util.ts";
 import Tile from "./Tile";
-import Game from '../backend/Game'
-import {isInConditionToPromote} from "../backend/piecelogic/Pawn";
-
+import {isInConditionToPromote} from "../logic/piecelogic/Pawn.ts";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {def} from "./ToastOptions";
-import EngineCzechka from "../backend/engine/EngineCzechka";
-import tile from "./Tile";
+import {toastDefault} from "../logic/util/ToastOptions.ts";
+
+import EngineCzechka from "../logic/engine/EngineCzechka.ts";
 
 const Board = (props) => {
+    const game = props.game
     const ranks = Array(8).fill().map((x,i) => 8-i)
     const files = Array(8).fill().map((x,i) => getCharacter(i))
 
-    const initialTiles = ranks.map((rank, i) =>
-        files.map((file, j) => ({
-                    id: `${rank}${file}`,
+    const initialTiles = ranks.map((row, i) =>
+        files.map((col, j) => ({
+                    id: `${row}${col}`,
                     color: isEven(i + j) ? 'white' : 'color',
                     highlight: false,
                     highlightPossibleMoves: null,
@@ -26,13 +25,13 @@ const Board = (props) => {
         )
     )
 
+    const engineBlack = useMemo(() => null, [])
+    const engineWhite = useMemo(() => null, [])
+
     const [tileStates, setTileStates] = useState(initialTiles)
     const [highlightedCoord, setHighlightedCoord] = useState(null)
     const [chessPos, setChessPos] = useState(props.chesspos)
-    const [game, setGame] = useState(props.game)
     const [highlightedPossibleMoves, setHighlightedPossibleMoves] = useState([])
-    const [engineBlack, setEngineBlack] = useState(new EngineCzechka(game, false))
-    const [engineWhite, setEngineWhite] = useState(new EngineCzechka(game, true))
 
     const getCheckSquare = () => {
         if(!game.isInCheck) return {row: null, col: null};
@@ -113,7 +112,7 @@ const Board = (props) => {
 
     const scanForDraw = () => {
         if(game.movesWithoutProgress === 50 && game.turn === true) {
-            toast.info("50 moves have been made without progress. Any player may now click \"draw\" to instantly claim a draw.", def)
+            toast.info("50 moves have been made without progress. Any player may now click \"draw\" to instantly claim a draw.", toastDefault)
         }
         if(game.movesWithoutProgress >= 75){
             toast.info("75 moves have been made without progress. The game automatically ends in a draw!")
@@ -131,8 +130,8 @@ const Board = (props) => {
 
     const scanForCheckmateAndStalemate = () => {
         const r = game.getGameResultScenario();
-        if(r === 'checkmate') toast.info("Checkmate! " + (game.turn ? 'black' : 'white') + " has won the game.", def);
-        if(r === 'stalemate') toast.info("Stalemate! " + (game.turn ? 'white' : 'black') + " has no moves left. The game ends in a draw!", def);
+        if(r === 'checkmate') toast.info("Checkmate! " + (game.turn ? 'black' : 'white') + " has won the game.", toastDefault);
+        if(r === 'stalemate') toast.info("Stalemate! " + (game.turn ? 'white' : 'black') + " has no moves left. The game ends in a draw!", toastDefault);
     }
 
     const askPawnPromotion = (row, col, newRow, newCol, msg, useEngine) => {

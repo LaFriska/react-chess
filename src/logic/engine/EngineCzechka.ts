@@ -1,15 +1,17 @@
-import {getRandom, PlayData} from "./EngineUtil";
+import {getRandom, PlayData} from "../util/EngineUtil.ts";
+import Game from "../Game"
 
 class EngineCzechka{
-    side
-    game
-    possibleMoves
-    constructor(game, side){
+    side: boolean
+    game: Game
+    possibleMoves: PlayData[] //TODO deprecate playdata and make everything into Move object
+
+    constructor(game: Game, side: boolean){
         this.game = game;
         this.side = side
     }
 
-    nextMove(){
+    nextMove(): PlayData{
         if(this.game.turn !== this.side) return null;
         this.searchPossibleMoves();
         if(this.possibleMoves.length === 0) return null;
@@ -26,9 +28,8 @@ class EngineCzechka{
         }
     }
 
-    getPawnPromotion(){
+    getPawnPromotion(): string {
         return this.side ? 'Q' : 'q'
     }
-
 }
 export default EngineCzechka

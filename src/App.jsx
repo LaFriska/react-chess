@@ -1,12 +1,12 @@
 import './css/App.css';
 import Board from "./components/Board";
-import {ChessPosition} from "./backend/ChessPosition";
+import {ChessPosition} from "./logic/ChessPosition.ts";
 import VerticalCoords from "./components/VerticalCoords";
 import HorizontalCoords from "./components/HorizontalCoords";
 import ControlPanel from "./components/ControlPanel";
-import Game from "./backend/Game";
+import Game from "./logic/Game";
 
-function App() {
+function App() { //Hello world
 
   const game = new Game();
 
@@ -16,7 +16,7 @@ function App() {
             <ControlPanel game={game}/>
             <VerticalCoords/>
             <div className="horizontal-board-container">
-                <Board chesspos={ChessPosition.getDefaultPosition()} game={game}/>
+                <Board chesspos={ChessPosition.getInitialPosition()} game={game}/>
                 <HorizontalCoords/>
             </div>
         </div>

@@ -1,22 +1,11 @@
 :root {
     --tile-size : 80px;
-    /*--light-tile : #F0D8B6;*/
-    /*--dark-tile : #B48764;*/
     --bg-color : #ffe9c2;
     --control-panel-bg-color: #ffd793;
-    --highlight : rgba(0,0,0,.1);
-    --check : #FEEC48;
     --highlighted-tile-border-width: 3px;
     --highlighted-tile-size: calc(var(--tile-size) - 2 * var(--highlighted-tile-border-width));
-    --highlighted-tile-color : #07b4b4;
-    --highlight-possible-moves: #e3cba8;
+    --highlight: #e3cba8;
     --check-color: red;
     --piece-size: 70px;
     --coords-color: #654109
 }
-
-/*@media all and (max-width: 450px) {*/
-/*    :root {*/
-/*        --tile-size : 50px;*/
-/*    }*/
-/*}*/
